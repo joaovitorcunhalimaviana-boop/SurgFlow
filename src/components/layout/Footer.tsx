@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { Logo } from '../ui/logo';
-import { Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (

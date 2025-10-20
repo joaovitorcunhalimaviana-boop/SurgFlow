@@ -2,7 +2,7 @@ import Layout from '@/components/layout/Layout'
 import FeaturesSection from '@/components/features/FeaturesSection'
 import GuidelinesGrid from '@/components/guidelines/GuidelinesGrid'
 import { Button } from '@/components/ui/button'
-import { Stethoscope, ArrowRight, CheckCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
 
 export default function Home() {
   return (
