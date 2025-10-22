@@ -171,7 +171,7 @@ export default function FAQPage() {
             {/* Category Filter */}
             <div className="flex flex-wrap justify-center gap-3">
               <Button
-                variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                variant={selectedCategory === 'all' ? 'secondary' : 'outline'}
                 onClick={() => setSelectedCategory('all')}
                 className={selectedCategory === 'all' ? 'bg-purple-600 hover:bg-purple-700' : ''}
               >
@@ -182,7 +182,7 @@ export default function FAQPage() {
                 return (
                   <Button
                     key={key}
-                    variant={selectedCategory === key ? 'default' : 'outline'}
+                    variant={selectedCategory === key ? 'secondary' : 'outline'}
                     onClick={() => setSelectedCategory(key)}
                     className={`${selectedCategory === key ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
                   >
