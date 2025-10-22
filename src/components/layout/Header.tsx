@@ -39,9 +39,9 @@ const Header: React.FC = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo - Diminuída */}
           <Link href="/" className="flex items-center" onClick={closeMenus}>
-            <Logo size="lg" className="hover:scale-105 transition-transform duration-200" />
+            <Logo size="lg" complete={false} className="hover:scale-105 transition-transform duration-200" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -108,14 +108,6 @@ const Header: React.FC = () => {
             </div>
 
             <Link 
-              href="/casos-clinicos" 
-              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
-            >
-              Casos Clínicos
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
-            </Link>
-            
-            <Link 
               href="/calculadoras" 
               className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
             >
@@ -130,13 +122,34 @@ const Header: React.FC = () => {
               Biblioteca
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
             </Link>
+            
+            <Link 
+              href="/sobre" 
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
+            >
+              Sobre
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
+            </Link>
+            
+            <Link 
+              href="/contato" 
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
+            >
+              Contato
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
+            </Link>
           </nav>
 
-          {/* CTA Button Desktop */}
-          <div className="hidden md:flex">
-            <Button variant="primary" size="default">
-              Explorar Guidelines
-            </Button>
+          {/* Auth & CTA Buttons Desktop */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Button 
+                variant="primary" 
+                size="sm"
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+                onClick={() => window.location.href = '/cadastro'}
+              >
+                Entre na sua conta
+              </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -200,14 +213,6 @@ const Header: React.FC = () => {
               </div>
               
               <Link 
-                href="/casos-clinicos" 
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
-                onClick={closeMenus}
-              >
-                Casos Clínicos
-              </Link>
-              
-              <Link 
                 href="/calculadoras" 
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
                 onClick={closeMenus}
@@ -223,9 +228,29 @@ const Header: React.FC = () => {
                 Biblioteca
               </Link>
               
-              <div className="pt-4">
-                <Button variant="primary" size="default" className="w-full" onClick={closeMenus}>
-                  Explorar Guidelines
+              <Link 
+                href="/sobre" 
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMenus}
+              >
+                Sobre
+              </Link>
+              
+              <Link 
+                href="/contato" 
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMenus}
+              >
+                Contato
+              </Link>
+              
+              <div className="pt-4 space-y-2">
+                <Button 
+                  variant="primary" 
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  onClick={() => window.location.href = '/cadastro'}
+                >
+                  Entre na sua conta
                 </Button>
               </div>
             </nav>

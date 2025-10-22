@@ -268,9 +268,13 @@
   }
 
   .logo-flow {
-    font-family: 'Caveat', cursive;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600; /* font-semibold */
     color: #7C3AED; /* purple-600 - Strategic Purple */
+    font-style: italic;
+    letter-spacing: -0.02em;
+    transform: skew(-5deg);
+    display: inline-block;
   }
 
   /* Strategic Purple Usage Classes - Only 5% of content */
