@@ -28,7 +28,7 @@ const FeaturesSection: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const handleRegistrationSubmit = (data: any) => {
+  const handleRegistrationSubmit = (data: { fullName: string; birthDate: string; email: string; whatsapp: string }) => {
     // Here you would typically send the data to your backend
     console.log('Registration data:', data);
     

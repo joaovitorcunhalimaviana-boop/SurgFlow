@@ -160,9 +160,9 @@ const SubscriptionCTA: React.FC = () => {
             </div>
             
             <blockquote className="text-xl text-gray-700 mb-6 leading-relaxed italic">
-              "O grupo do WhatsApp revolucionou minha forma de aprender. Ter acesso direto 
+              &ldquo;O grupo do WhatsApp revolucionou minha forma de aprender. Ter acesso direto 
               a cirurgiões experientes e poder discutir casos reais tem sido fundamental 
-              para meu crescimento profissional."
+              para meu crescimento profissional.&rdquo;
             </blockquote>
             
             <div className="flex items-center justify-center">
