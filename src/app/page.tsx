@@ -2,6 +2,7 @@ import Layout from '@/components/layout/Layout'
 import FeaturesSection from '@/components/features/FeaturesSection'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -27,21 +28,25 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="xl" 
-                variant="primary"
-                className="group shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30"
-              >
-                Quero Fazer Parte
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="xl" 
-                className="border-2 border-purple-200 hover:border-purple-300"
-              >
-                Descobrir Recursos
-              </Button>
+              <Link href="/planos">
+                <Button 
+                  size="xl" 
+                  variant="primary"
+                  className="group shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30"
+                >
+                  Quero Fazer Parte
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/planos">
+                <Button 
+                  variant="outline" 
+                  size="xl" 
+                  className="border-2 border-purple-200 hover:border-purple-300"
+                >
+                  Ver Planos
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

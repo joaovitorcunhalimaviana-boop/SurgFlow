@@ -99,7 +99,7 @@ const SubscriptionCTA: React.FC = () => {
                 Plano Premium
               </CardTitle>
               <div className="flex items-center justify-center mb-4">
-                <span className="text-5xl font-bold text-purple-600">R$ 97</span>
+                <span className="text-5xl font-bold text-purple-600">R$ 149</span>
                 <span className="text-gray-600 ml-2">/mês</span>
               </div>
               <p className="text-gray-600">

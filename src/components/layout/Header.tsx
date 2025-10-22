@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, Stethoscope } from 'lucide-react';
+import { Menu, X, ChevronDown, Stethoscope, User, LogOut } from 'lucide-react';
 import { Logo } from '../ui/logo';
 import { Button } from '../ui/button';
+import { useAuth } from '@/contexts/AuthContext';
+import ProtectedLink from '../auth/ProtectedLink';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,56 +72,75 @@ const Header: React.FC = () => {
                   <div className="px-4 py-2 text-xs font-semibold text-purple-600 uppercase tracking-wide border-b border-gray-100">
                     Guidelines Médicos
                   </div>
-                  <Link 
+                  <ProtectedLink 
                     href="/guideline/cholecystitis-tokyo-2018" 
                     className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="teste"
                   >
                     <Stethoscope className="h-4 w-4 mr-3 text-purple-500" />
                     <div>
                       <div className="font-medium">Colecistite</div>
                       <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
                     </div>
-                  </Link>
-                  <Link 
+                  </ProtectedLink>
+                  <ProtectedLink 
                     href="/guideline/cholangitis-tokyo-2018" 
                     className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="guideflow"
                   >
                     <Stethoscope className="h-4 w-4 mr-3 text-purple-500" />
                     <div>
                       <div className="font-medium">Colangite</div>
                       <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
                     </div>
-                  </Link>
-                  <Link 
+                  </ProtectedLink>
+                  <ProtectedLink 
                     href="/guideline/pancreatitis-atlanta-2012" 
                     className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="guideflow"
                   >
                     <Stethoscope className="h-4 w-4 mr-3 text-purple-500" />
                     <div>
                       <div className="font-medium">Pancreatite</div>
                       <div className="text-xs text-gray-500">Atlanta 2012</div>
                     </div>
-                  </Link>
+                  </ProtectedLink>
                 </div>
               )}
             </div>
 
-            <Link 
+            <ProtectedLink 
               href="/calculadoras" 
               className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
             >
               Calculadoras
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
-            </Link>
+            </ProtectedLink>
+            
+            <ProtectedLink 
+              href="/casos-clinicos" 
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
+            >
+              Casos Clínicos
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
+            </ProtectedLink>
             
             <Link 
               href="/biblioteca" 
               className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
             >
               Biblioteca
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
+            </Link>
+            
+            <Link 
+              href="/planos" 
+              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
+            >
+              Planos
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
             </Link>
             
@@ -142,14 +163,7 @@ const Header: React.FC = () => {
 
           {/* Auth & CTA Buttons Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button 
-                variant="primary" 
-                size="sm"
-                className="bg-purple-600 hover:bg-purple-700 text-white"
-                onClick={() => window.location.href = '/cadastro'}
-              >
-                Entre na sua conta
-              </Button>
+            <AuthButtons />
           </div>
 
           {/* Mobile Menu Button */}
@@ -176,49 +190,60 @@ const Header: React.FC = () => {
               <div className="space-y-2">
                 <div className="text-gray-700 font-medium py-2">Guidelines</div>
                 <div className="pl-4 space-y-3 border-l-2 border-purple-100">
-                  <Link 
+                  <ProtectedLink 
                     href="/guideline/cholecystitis-tokyo-2018" 
                     className="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="teste"
                   >
                     <Stethoscope className="h-4 w-4 mr-2 text-purple-500" />
                     <div>
                       <div className="font-medium">Colecistite</div>
                       <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
                     </div>
-                  </Link>
-                  <Link 
+                  </ProtectedLink>
+                  <ProtectedLink 
                     href="/guideline/cholangitis-tokyo-2018" 
                     className="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="guideflow"
                   >
                     <Stethoscope className="h-4 w-4 mr-2 text-purple-500" />
                     <div>
                       <div className="font-medium">Colangite</div>
                       <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
                     </div>
-                  </Link>
-                  <Link 
+                  </ProtectedLink>
+                  <ProtectedLink 
                     href="/guideline/pancreatitis-atlanta-2012" 
                     className="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
+                    requiredPlan="guideflow"
                   >
                     <Stethoscope className="h-4 w-4 mr-2 text-purple-500" />
                     <div>
                       <div className="font-medium">Pancreatite</div>
                       <div className="text-xs text-gray-500">Atlanta 2012</div>
                     </div>
-                  </Link>
+                  </ProtectedLink>
                 </div>
               </div>
               
-              <Link 
+              <ProtectedLink 
                 href="/calculadoras" 
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
                 onClick={closeMenus}
               >
                 Calculadoras
-              </Link>
+              </ProtectedLink>
+              
+              <ProtectedLink 
+                href="/casos-clinicos" 
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMenus}
+              >
+                Casos Clínicos
+              </ProtectedLink>
               
               <Link 
                 href="/biblioteca" 
@@ -226,6 +251,14 @@ const Header: React.FC = () => {
                 onClick={closeMenus}
               >
                 Biblioteca
+              </Link>
+              
+              <Link 
+                href="/planos" 
+                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMenus}
+              >
+                Planos
               </Link>
               
               <Link 
@@ -260,5 +293,96 @@ const Header: React.FC = () => {
     </header>
   );
 };
+
+// Auth Buttons Component
+const AuthButtons: React.FC = () => {
+  const { user, logout, isAuthenticated } = useAuth()
+  const [showUserMenu, setShowUserMenu] = useState(false)
+
+  if (isAuthenticated && user) {
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setShowUserMenu(!showUserMenu)}
+          className="flex items-center space-x-2 p-2 rounded-lg text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
+        >
+          <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+            <User className="h-4 w-4 text-purple-600" />
+          </div>
+          <span className="font-medium">{user.fullName.split(' ')[0]}</span>
+          <ChevronDown className="h-4 w-4" />
+        </button>
+
+        {showUserMenu && (
+          <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+            <div className="px-4 py-2 border-b border-gray-100">
+              <p className="font-medium text-gray-900">{user.fullName}</p>
+              <p className="text-sm text-gray-500">{user.email}</p>
+              <div className="mt-1">
+                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                  user.plan === 'mindflow' ? 'bg-gradient-to-r from-purple-100 to-amber-100 text-purple-700' :
+                  user.plan === 'guideflow' ? 'bg-purple-100 text-purple-700' :
+                  'bg-gray-100 text-gray-700'
+                }`}>
+                  {user.plan === 'mindflow' ? 'MindFlow' : 
+                   user.plan === 'guideflow' ? 'GuideFlow' : 
+                   'Plano Teste'}
+                </span>
+              </div>
+            </div>
+            
+            <Link 
+              href="/perfil" 
+              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              onClick={() => setShowUserMenu(false)}
+            >
+              <User className="h-4 w-4 mr-2" />
+              Meu Perfil
+            </Link>
+            
+            <Link 
+              href="/planos" 
+              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              onClick={() => setShowUserMenu(false)}
+            >
+              Meus Planos
+            </Link>
+            
+            <button
+              onClick={() => {
+                logout()
+                setShowUserMenu(false)
+              }}
+              className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sair
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex items-center space-x-3">
+      <Button 
+        variant="ghost" 
+        size="sm"
+        onClick={() => window.location.href = '/login'}
+      >
+        Entrar
+      </Button>
+      <Button 
+        variant="primary" 
+        size="sm"
+        className="bg-purple-600 hover:bg-purple-700 text-white"
+        onClick={() => window.location.href = '/cadastro'}
+      >
+        Cadastrar
+      </Button>
+    </div>
+  )
+}
 
 export default Header;

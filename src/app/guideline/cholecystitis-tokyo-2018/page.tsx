@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import Breadcrumb from '@/components/ui/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -16,7 +17,8 @@ import {
 
 export default function CholecystitisTokyoPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <ProtectedRoute requiredPlan="teste">
+      <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}
         <Breadcrumb 
@@ -282,6 +284,6 @@ export default function CholecystitisTokyoPage() {
           </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   )
 }

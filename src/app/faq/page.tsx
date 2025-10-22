@@ -18,6 +18,7 @@ import {
   ArrowRight,
   CheckCircle
 } from 'lucide-react'
+import Link from 'next/link'
 
 interface FAQItem {
   id: string
@@ -288,8 +289,10 @@ export default function FAQPage() {
                   Envie sua dúvida diretamente para nossa equipe
                 </p>
                 <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50">
-                  Falar Conosco
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                  <Link href="/contato">
+                    Falar Conosco
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -304,8 +307,10 @@ export default function FAQPage() {
                   Acesse guias detalhados sobre como usar a plataforma
                 </p>
                 <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-50">
-                  Ver Guias
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                  <Link href="/">
+                    Ver Guias
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -320,8 +325,10 @@ export default function FAQPage() {
                   Participe de discussões com outros profissionais
                 </p>
                 <Button variant="outline" className="border-green-300 text-green-700 hover:bg-green-50">
-                  Participar
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                  <Link href="/contato">
+                    Participar
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

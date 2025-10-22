@@ -1,0 +1,267 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Eye, EyeOff, Lock, Mail, ArrowRight, User, Check } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Logo } from '@/components/ui/logo'
+import Layout from '@/components/layout/Layout'
+import { useAuth } from '@/contexts/AuthContext'
+import Link from 'next/link'
+
+const LoginPage: React.FC = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  })
+  
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  
+  const { login } = useAuth()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    // Capturar parâmetros da URL
+    const redirect = searchParams.get('redirect')
+    const plano = searchParams.get('plano')
+    
+    if (redirect) {
+      setRedirectUrl(redirect)
+    }
+    
+    if (plano) {
+      setSelectedPlan(plano)
+    }
+  }, [searchParams])
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+    
+    // Clear error when user starts typing
+    if (error) {
+      setError('')
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!formData.email || !formData.password) {
+      setError('Por favor, preencha todos os campos')
+      return
+    }
+
+    setIsLoading(true)
+    setError('')
+    
+    try {
+      const success = await login(formData.email, formData.password)
+      
+      if (success) {
+        // Lógica de redirecionamento baseada nos parâmetros
+        if (selectedPlan) {
+          router.push(`/checkout?plano=${selectedPlan}`)
+        } else if (redirectUrl) {
+          router.push(redirectUrl)
+        } else {
+          router.push('/')
+        }
+      } else {
+        setError('Email ou senha incorretos')
+      }
+    } catch (error) {
+      setError('Erro ao fazer login. Tente novamente.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-25 flex items-center justify-center p-4">
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/15 rounded-full blur-3xl"></div>
+        
+        <div className="relative w-full max-w-md">
+          {/* Logo and Header */}
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-6">
+              <Logo size="lg" />
+            </div>
+            
+            <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+              <User className="h-4 w-4 mr-2" />
+              Área do Usuário
+            </div>
+            
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              Bem-vindo de volta!
+            </h1>
+            <p className="text-gray-600">
+              Entre na sua conta para continuar
+            </p>
+          </div>
+
+          {/* Login Card */}
+          <Card className="border-purple-200 shadow-xl">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-xl text-gray-900">Fazer Login</CardTitle>
+            </CardHeader>
+            
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Message */}
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
+
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                      placeholder="seu@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Password Field */}
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                    Senha
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Lock className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.password}
+                      onChange={(e) => handleInputChange('password', e.target.value)}
+                      className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                      placeholder="Digite sua senha"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Forgot Password Link */}
+                <div className="flex items-center justify-between">
+                  {/* Remember Me Checkbox */}
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="rememberMe"
+                      checked={formData.rememberMe}
+                      onCheckedChange={(checked) => handleInputChange('rememberMe', checked)}
+                    />
+                    <label 
+                      htmlFor="rememberMe" 
+                      className="text-sm text-gray-600 cursor-pointer"
+                    >
+                      Lembrar-me neste dispositivo
+                    </label>
+                  </div>
+
+                  <Link 
+                    href="/forgot-password" 
+                    className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    Esqueci minha senha
+                  </Link>
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      Entrando...
+                    </div>
+                  ) : (
+                    <>
+                      Entrar
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </form>
+
+              {/* Sign Up Link */}
+              <div className="mt-6 space-y-3 text-center">
+                <p className="text-sm text-gray-600">
+                  <Link href="/recuperar-senha" className="text-purple-600 hover:text-purple-700 font-medium">
+                    Esqueceu sua senha?
+                  </Link>
+                </p>
+                <p className="text-sm text-gray-600">
+                  Não tem uma conta?{' '}
+                  <Link href="/cadastro" className="text-purple-600 hover:text-purple-700 font-medium">
+                    Criar conta
+                  </Link>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Benefits */}
+          <div className="mt-6 text-center space-y-2">
+            <p className="text-sm text-gray-500">
+              ✅ Acesso aos guidelines cirúrgicos
+            </p>
+            <p className="text-sm text-gray-500">
+              ✅ Calculadoras médicas especializadas
+            </p>
+            <p className="text-sm text-gray-500">
+              ✅ Conteúdo sempre atualizado
+            </p>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
+}
+
+export default LoginPage

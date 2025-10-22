@@ -16,6 +16,7 @@ import {
   Twitter,
   Github
 } from 'lucide-react'
+import Link from 'next/link'
 
 export default function ContatoPage() {
   return (
@@ -263,8 +264,10 @@ export default function ContatoPage() {
                       Confira nossa seção de perguntas frequentes antes de entrar em contato
                     </p>
                     <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-100">
-                      Ver FAQ
-                      <ArrowRight className="h-4 w-4 ml-2" />
+                      <Link href="/faq">
+                        Ver FAQ
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>

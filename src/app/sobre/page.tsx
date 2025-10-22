@@ -312,12 +312,12 @@ export default function SobrePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/">
+              <Link href="/planos">
                 <Button 
                   size="xl" 
                   className="bg-white text-purple-700 hover:bg-gray-50 shadow-xl hover:shadow-2xl group"
                 >
-                  Explorar Guidelines
+                  Ver Planos
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
