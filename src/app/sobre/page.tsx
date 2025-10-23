@@ -37,157 +37,40 @@ export default function SobrePage() {
               o SurgFlow representa a união entre experiência clínica e inovação tecnológica.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Origin Story Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center mb-6">
-                <Clock className="h-8 w-8 text-purple-600 mr-3" />
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Sábado, Plantão Noturno
-                </h2>
-              </div>
-              
-              <div className="prose prose-lg text-gray-600 space-y-6">
-                <p>
-                  Era um sábado à noite no hospital. Como cirurgião geral e coloproctologista, 
-                  eu estava de plantão quando chegou uma estudante de medicina para acompanhar 
-                  os casos. Discutíamos um paciente com colecistite aguda - diagnóstico, 
-                  classificação, condutas.
-                </p>
-                
-                <p>
-                  Tentei explicar o passo a passo: desde o diagnóstico inicial, passando pelos 
-                  critérios de Tokyo, classificação em graus, até as condutas específicas para 
-                  cada situação. Mas havia um problema...
-                </p>
-                
-                <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
-                  <p className="text-purple-800 font-medium italic">
-                    "Eu não tinha algo palpável para mostrar a ela. O guideline de Tóquio 
-                    é extenso, complexo, não dá para resumir rapidamente durante um plantão."
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative">
-              <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-8 shadow-xl">
-                <div className="flex items-center justify-center mb-6">
-                  <Lightbulb className="h-16 w-16 text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  O Momento Eureka
-                </h3>
-                <p className="text-gray-700 text-center leading-relaxed">
-                  "E aí eu tive a ideia de criar esse site. Fluxogramas simples, 
-                  interativos, que pudessem ser usados rapidamente nos plantões 
-                  e ajudassem os estudantes a aprender."
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vision Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Nossa Visão e Missão
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Transformar guidelines complexos em ferramentas práticas e acessíveis 
-              para toda a comunidade médica.
-            </p>
-          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="text-center">
-                <Users className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle className="text-xl">Para Quem Criamos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Estudantes de medicina
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Residentes de cirurgia
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Cirurgiões experientes
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Profissionais de emergência
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="text-center">
-                <Target className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle className="text-xl">Nosso Objetivo</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Fluxogramas interativos
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Acesso rápido nos plantões
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Decisões baseadas em evidência
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Aprendizado simplificado
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="text-center">
-                <BookOpen className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle className="text-xl">Nosso Foco</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Abdômen agudo
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Pré e pós-operatório
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Guidelines internacionais
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Protocolos simplificados
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          {/* História Detalhada */}
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100 drop-shadow-xl">
+              <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed" style={{textAlign: 'justify'}}>
+                <p className="mb-6">
+                  Tudo começou em um plantão de sábado à noite. Um caso de colecistite aguda chegou à emergência, e ao meu redor, estavam estudantes e residentes buscando aprender. Era o momento ideal para ensinar: critérios diagnósticos, classificação de gravidade, estratificação de risco, conduta cirúrgica.
+                </p>
+                
+                <p className="mb-6">
+                  Abri o Tokyo Guidelines 2018 no computador — a referência internacional para colecistite. Inúmeras páginas. Informações espalhadas, texto denso, impossível de navegar rapidamente. Como ensinar isso em um plantão? Como tomar decisões ágeis quando o conhecimento está enterrado em PDFs gigantes?
+                </p>
+                
+                <p className="mb-6 font-semibold text-purple-800">
+                  Foi naquele momento que nasceu o SurgFlow.
+                </p>
+                
+                <p className="mb-6">
+                  A ideia era simples mas poderosa: transformar guidelines complexos em fluxogramas interativos e práticos. Manter o rigor científico, mas entregar respostas em segundos. Permitir que você marque os critérios do paciente e seja guiado até a conduta correta, sem precisar ler as inúmeras páginas dos guidelines.
+                </p>
+                
+                <p className="mb-6">
+                  Mas logo percebemos que o problema era maior. Não era apenas sobre acessar informação rapidamente. Estudantes e residentes observam casos complexos sem ter a quem perguntar. Talentos não encontram oportunidades de crescimento.
+                </p>
+                
+                <p className="mb-6">
+                  O SurgFlow evoluiu então para um ecossistema cirúrgico completo. Além dos fluxogramas inteligentes, criamos o MindFlow: uma comunidade onde subespecialistas discutem casos clínicos reais, analisam artigos, oferecem estágios e apoiam pesquisas.
+                </p>
+                
+                <p className="mb-0">
+                  O SurgFlow nasceu de uma necessidade real, vivida na linha de frente, e hoje visa transformar a forma como cirurgiões, residentes e estudantes aprendem, decidem e crescem profissionalmente.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -197,39 +80,13 @@ export default function SobrePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 text-white shadow-xl">
-                <div className="flex items-center mb-6">
-                  <Stethoscope className="h-12 w-12 text-purple-200 mr-4" />
-                  <div>
-                    <h3 className="text-2xl font-bold">Dr. João Vitor</h3>
-                    <p className="text-purple-200">Criador do SurgFlow</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <Heart className="h-5 w-5 text-purple-300 mr-3" />
-                    <span>Cirurgião Geral</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Heart className="h-5 w-5 text-purple-300 mr-3" />
-                    <span>Coloproctologista</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Heart className="h-5 w-5 text-purple-300 mr-3" />
-                    <span>Educador Médico</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Heart className="h-5 w-5 text-purple-300 mr-3" />
-                    <span>Mentor de Residentes</span>
-                  </div>
-                </div>
-                
-                <div className="mt-6 pt-6 border-t border-purple-500">
-                  <p className="text-purple-100 text-sm">
-                    "Transformando a complexidade dos guidelines em simplicidade prática"
-                  </p>
-                </div>
+              {/* Foto do Dr. João Vitor */}
+              <div className="bg-white rounded-2xl p-4 shadow-xl border border-gray-200 flex items-center justify-center">
+                <img 
+                  src="/congress photo.jpeg" 
+                  alt="Dr. João Vitor" 
+                  className="w-full h-auto max-w-md rounded-xl object-cover"
+                />
               </div>
             </div>
             
@@ -238,54 +95,41 @@ export default function SobrePage() {
                 Sobre o Criador
               </h2>
               
-              <div className="prose prose-lg text-gray-600 space-y-6">
+              <div className="prose prose-lg text-gray-600 space-y-6" style={{textAlign: 'justify'}}>
                 <p>
-                  Como cirurgião geral e coloproctologista, tenho a paixão de ensinar 
-                  e compartilhar conhecimento com a próxima geração de médicos. 
-                  Recebo regularmente estudantes e residentes, sempre buscando 
-                  maneiras de tornar o aprendizado mais eficiente e prático.
+                  Formei-me em Medicina em 2019 e, logo em seguida, realizei três anos de residência em Cirurgia Geral no Hospital Universitário Onofre Lopes (HUOL), da Universidade Federal do Rio Grande do Norte (UFRN). Nesse período, aprimorei minha técnica cirúrgica e o raciocínio clínico para o diagnóstico e o tratamento das principais patologias cirúrgicas, sempre atento à segurança e à recuperação rápida do paciente.
                 </p>
                 
                 <p>
-                  A experiência daquele plantão noturno me mostrou uma lacuna real: 
-                  a dificuldade de acessar rapidamente informações estruturadas dos 
-                  guidelines durante a prática clínica. O SurgFlow nasceu para 
-                  preencher essa lacuna.
+                  Após concluir a residência de Cirurgia Geral, retornei a João Pessoa e ingressei na residência de Coloproctologia do Hospital Santa Isabel. Foi quando aprofundei minha atuação no cuidado das doenças do trato digestivo baixo — cólon, reto e ânus — incluindo desde condições benignas comuns até casos mais complexos que exigem abordagem multidisciplinar.
                 </p>
                 
                 <p>
-                  Minha experiência em plantões noturnos, emergências e no ensino 
-                  médico me deu a perspectiva única necessária para criar uma 
-                  ferramenta que realmente atende às necessidades dos profissionais 
-                  de saúde no dia a dia.
+                  A atualização constante é parte do meu compromisso com a qualidade assistencial. Atualmente, curso o Mestrado em Ciência Cirúrgica Interdisciplinar na Universidade Federal de São Paulo (UNIFESP) — Escola Paulista de Medicina, o que me mantém em contato direto com pesquisa, inovação e análise crítica de evidências.
                 </p>
                 
-                <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-500">
-                  <p className="text-gray-800 font-medium">
-                    "Meu objetivo é democratizar o acesso aos principais guidelines 
-                    cirúrgicos, tornando-os ferramentas práticas para o dia a dia 
-                    médico, desde o estudante até o cirurgião experiente. Cada 
-                    fluxograma criado representa horas de plantão e anos de experiência 
-                    condensados em uma ferramenta simples e eficaz."
+                <p>
+                  Paralelamente, realizo pós-graduação em Ciências Políticas e Atuação Pública (FICV), porque entendo que a boa medicina também depende de políticas de saúde eficientes, acesso e equidade — fatores que impactam de forma concreta a vida dos pacientes.
+                </p>
+                
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <p className="text-lg font-semibold text-gray-800 mb-4">
+                    Dr. João Vítor Viana - Coloproctologista e Cirurgião Geral
                   </p>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 mt-6">
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-900 mb-2">Formação</h4>
-                    <ul className="text-sm text-purple-800 space-y-1">
-                      <li>• Medicina - UFMG</li>
-                      <li>• Residência em Cirurgia Geral</li>
-                      <li>• Especialização em Coloproctologia</li>
-                    </ul>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-900 mb-2">Experiência</h4>
-                    <ul className="text-sm text-purple-800 space-y-1">
-                      <li>• +10 anos em cirurgia</li>
-                      <li>• +5 anos ensinando</li>
-                      <li>• +1000 plantões noturnos</li>
-                    </ul>
+                  
+                  <div className="flex items-center justify-start">
+                    <p className="text-gray-600 mr-4">Me acompanhe no Instagram:</p>
+                    <a 
+                      href="https://instagram.com/drjoaovitorviana" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                      </svg>
+                      @drjoaovitorviana
+                    </a>
                   </div>
                 </div>
               </div>
@@ -307,8 +151,7 @@ export default function SobrePage() {
             </h2>
             
             <p className="text-xl text-purple-100 mb-8 leading-relaxed">
-              Junte-se a milhares de profissionais que já utilizam o SurgFlow 
-              para tomar decisões clínicas mais rápidas e precisas.
+              Utilize o SurgFlow e ajude a transformar a forma como tomamos decisões clínicas.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
