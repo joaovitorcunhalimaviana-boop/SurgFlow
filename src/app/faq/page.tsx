@@ -13,10 +13,8 @@ import {
   Users,
   Shield,
   Smartphone,
-  Clock,
   Mail,
-  ArrowRight,
-  CheckCircle
+  ArrowRight
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -174,7 +172,7 @@ export default function FAQPage() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Perguntas
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
@@ -182,7 +180,7 @@ export default function FAQPage() {
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed text-center">
               Encontre respostas para as dúvidas mais comuns sobre o SurgFlow
             </p>
           </div>
@@ -190,7 +188,7 @@ export default function FAQPage() {
       </section>
 
       {/* Search and Filter Section */}
-      <section className="py-12 bg-white border-b">
+      <section className="py-4 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             {/* Search Bar */}
@@ -210,7 +208,7 @@ export default function FAQPage() {
               <Button
                 variant={selectedCategory === 'all' ? 'secondary' : 'outline'}
                 onClick={() => setSelectedCategory('all')}
-                className={selectedCategory === 'all' ? 'bg-purple-600 hover:bg-purple-700' : ''}
+                className={selectedCategory === 'all' ? 'bg-purple-600 hover:bg-purple-700 text-white' : ''}
               >
                 Todas
               </Button>
@@ -221,7 +219,7 @@ export default function FAQPage() {
                     key={key}
                     variant={selectedCategory === key ? 'secondary' : 'outline'}
                     onClick={() => setSelectedCategory(key)}
-                    className={`${selectedCategory === key ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
+                    className={`${selectedCategory === key ? 'bg-purple-600 hover:bg-purple-700 text-white' : ''}`}
                   >
                     <Icon className="h-4 w-4 mr-2" />
                     {category.name}
@@ -309,12 +307,12 @@ export default function FAQPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Ainda tem dúvidas?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
               Estamos aqui para ajudar! Confira essas opções adicionais
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300 text-center">
               <CardContent className="pt-8">
                 <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -327,24 +325,6 @@ export default function FAQPage() {
                 <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50">
                   <Link href="/contato">
                     Falar Conosco
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300 text-center">
-              <CardContent className="pt-8">
-                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Documentação</h3>
-                <p className="text-gray-600 mb-4">
-                  Acesse guias detalhados sobre como usar a plataforma
-                </p>
-                <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-50">
-                  <Link href="/">
-                    Ver Guias
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>
@@ -368,42 +348,6 @@ export default function FAQPage() {
                 </Button>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Response Time Info */}
-      <section className="py-12 bg-purple-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl p-8 shadow-sm border border-purple-200">
-            <div className="flex items-center justify-center mb-6">
-              <div className="bg-purple-100 p-3 rounded-full mr-4">
-                <Clock className="h-8 w-8 text-purple-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900">Tempo de Resposta</h3>
-                <p className="text-gray-600">Nosso compromisso com você</p>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                <span className="text-gray-700">E-mail: até 24 horas</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                <span className="text-gray-700">Dúvidas técnicas: até 48 horas</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                <span className="text-gray-700">Sugestões: até 1 semana</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                <span className="text-gray-700">Correções: até 72 horas</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>

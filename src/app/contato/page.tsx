@@ -3,18 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { 
   Mail, 
-  Phone, 
   MapPin, 
-  Clock,
   Send,
   MessageCircle,
   User,
   FileText,
-  CheckCircle,
-  ArrowRight,
-  Linkedin,
-  Twitter,
-  Github
+  ArrowRight
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -22,13 +16,13 @@ export default function ContatoPage() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-20 lg:py-28 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-12 lg:py-16 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Entre em 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
@@ -45,7 +39,7 @@ export default function ContatoPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-white">
+      <section className="py-6 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -172,18 +166,6 @@ export default function ContatoPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">E-mail</h4>
                       <p className="text-gray-600">contato@surgflow.com</p>
-                      <p className="text-sm text-gray-500">Resposta em até 24 horas</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-purple-100 p-3 rounded-lg mr-4">
-                      <Phone className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Telefone</h4>
-                      <p className="text-gray-600">+55 (11) 99999-9999</p>
-                      <p className="text-sm text-gray-500">Segunda a sexta, 9h às 18h</p>
                     </div>
                   </div>
                   
@@ -193,20 +175,7 @@ export default function ContatoPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">Localização</h4>
-                      <p className="text-gray-600">São Paulo, SP - Brasil</p>
-                      <p className="text-sm text-gray-500">Atendimento remoto</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-purple-100 p-3 rounded-lg mr-4">
-                      <Clock className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Horário de Atendimento</h4>
-                      <p className="text-gray-600">Segunda a sexta: 9h às 18h</p>
-                      <p className="text-gray-600">Sábado: 9h às 12h</p>
-                      <p className="text-sm text-gray-500">Fuso horário: GMT-3</p>
+                      <p className="text-gray-600">João Pessoa, PB, Brasil</p>
                     </div>
                   </div>
                 </CardContent>
@@ -218,38 +187,22 @@ export default function ContatoPage() {
                   <CardTitle className="text-xl">Redes Sociais</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex space-x-4">
+                  <div className="flex items-center space-x-4">
                     <a
-                      href="https://linkedin.com/in/surgflow"
+                      href="https://instagram.com/surgflow"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-blue-100 hover:bg-blue-200 p-3 rounded-lg transition-colors duration-200"
-                      aria-label="LinkedIn"
+                      className="bg-purple-100 hover:bg-purple-200 p-3 rounded-lg transition-colors duration-200 flex-shrink-0"
+                      aria-label="Instagram"
                     >
-                      <Linkedin className="h-6 w-6 text-blue-600" />
+                      <svg className="h-6 w-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                      </svg>
                     </a>
-                    <a
-                      href="https://twitter.com/surgflow"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-sky-100 hover:bg-sky-200 p-3 rounded-lg transition-colors duration-200"
-                      aria-label="Twitter"
-                    >
-                      <Twitter className="h-6 w-6 text-sky-600" />
-                    </a>
-                    <a
-                      href="https://github.com/surgflow"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-100 hover:bg-gray-200 p-3 rounded-lg transition-colors duration-200"
-                      aria-label="GitHub"
-                    >
-                      <Github className="h-6 w-6 text-gray-600" />
-                    </a>
+                    <p className="text-sm text-gray-600">
+                      Siga-nos para atualizações sobre novos guidelines e funcionalidades
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600 mt-4">
-                    Siga-nos para atualizações sobre novos guidelines e funcionalidades
-                  </p>
                 </CardContent>
               </Card>
 
@@ -260,7 +213,7 @@ export default function ContatoPage() {
                     <h3 className="text-lg font-semibold text-purple-900 mb-2">
                       Dúvidas Frequentes?
                     </h3>
-                    <p className="text-purple-700 mb-4">
+                    <p className="text-purple-700 mb-4 text-center">
                       Confira nossa seção de perguntas frequentes antes de entrar em contato
                     </p>
                     <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-100">
@@ -272,52 +225,6 @@ export default function ContatoPage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Response Time Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Nosso Compromisso com Você
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Valorizamos cada mensagem e feedback recebido
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Resposta Rápida</h3>
-              <p className="text-gray-600">
-                Respondemos todas as mensagens em até 24 horas durante dias úteis
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <User className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Atendimento Personalizado</h3>
-              <p className="text-gray-600">
-                Cada mensagem é lida e respondida pessoalmente pelo criador do projeto
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Feedback Valorizado</h3>
-              <p className="text-gray-600">
-                Suas sugestões e críticas nos ajudam a melhorar continuamente a plataforma
-              </p>
             </div>
           </div>
         </div>
