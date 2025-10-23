@@ -80,7 +80,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({
   const planDetails = {
     guideflow: {
       name: 'GuideFlow',
-      price: 'R$ 57,00',
+      price: 'R$ 49/mês',
       originalPrice: 'R$ 97,00',
       color: 'blue',
       icon: BookOpen,
@@ -97,7 +97,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({
     },
     mindflow: {
       name: 'MindFlow',
-      price: 'R$ 149,00',
+      price: 'R$ 179/mês',
       originalPrice: 'R$ 249,00',
       color: 'purple',
       icon: Crown,

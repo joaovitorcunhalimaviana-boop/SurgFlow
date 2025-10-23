@@ -20,7 +20,7 @@ const plans: Record<string, Plan> = {
   guideflow: {
     id: 'guideflow',
     name: 'GuideFlow',
-    price: 57,
+    price: 49,
     originalPrice: 97,
     features: [
         'Acesso completo a todos os guideflows',
@@ -33,7 +33,7 @@ const plans: Record<string, Plan> = {
   mindflow: {
     id: 'mindflow',
     name: 'MindFlow',
-    price: 149,
+    price: 179,
     originalPrice: 297,
     features: [
       'Tudo do GuideFlow',

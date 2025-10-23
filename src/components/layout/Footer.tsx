@@ -1,20 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import { Logo } from '../ui/logo';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Instagram } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-50 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="col-span-1 md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Logo and Description - Expandido */}
+          <div className="col-span-1 md:col-span-1">
             <Logo size="lg" className="mb-4" />
-            <p className="text-gray-600 mb-6 max-w-md">
-              Plataforma médica especializada em guidelines cirúrgicos, oferecendo 
-              acesso rápido e organizado aos principais protocolos internacionais 
-              para tomada de decisão clínica baseada em evidências.
+            <p className="text-gray-600 mb-6 max-w-lg">
+              Plataforma médica especializada em fluxogramas práticos baseados em 
+              guidelines cirúrgicos, oferecendo acesso rápido e organizado aos 
+              principais protocolos internacionais para tomada de decisão clínica. 
+              Conectamos profissionais através de um ecossistema cirúrgico completo 
+              com grupo de WhatsApp para discussões de casos clínicos com 
+              subespecialistas, network profissional e promoção de pesquisa científica.
             </p>
             
             {/* Social Media Links */}
@@ -22,72 +25,19 @@ const Footer: React.FC = () => {
               <a 
                 href="#" 
                 className="text-gray-400 hover:text-purple-600 transition-colors duration-200"
-                aria-label="LinkedIn"
+                aria-label="Instagram"
               >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-purple-600 transition-colors duration-200"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-purple-600 transition-colors duration-200"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Contact */}
           <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Links Rápidos</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Início
-                </Link>
-              </li>
-              <li>
-                <Link href="/calculadoras" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Calculadoras
-                </Link>
-              </li>
-              <li>
-                <Link href="/biblioteca" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Biblioteca
-                </Link>
-              </li>
-              <li>
-                <Link href="/sobre" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Sobre
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Guidelines & Contact */}
-          <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Guidelines & Contato</h3>
+            <h3 className="text-gray-800 font-semibold mb-4">Contato</h3>
             <ul className="space-y-2 mb-6">
               <li>
-                <Link href="/guideline/cholecystitis-tokyo-2018" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Tokyo Guidelines 2018
-                </Link>
-              </li>
-              <li>
-                <Link href="/guideline/pancreatitis-atlanta-2012" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Atlanta Classification
-                </Link>
-              </li>
-              <li>
-                <Link href="/contato" className="text-gray-600 hover:text-purple-600 transition-colors duration-200">
-                  Entre em Contato
-                </Link>
+                <span className="text-gray-600">Entre em Contato</span>
               </li>
             </ul>
             
@@ -98,8 +48,8 @@ const Footer: React.FC = () => {
                 <span>contato@surgflow.com</span>
               </div>
               <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-2 text-purple-500" />
-                <span>+55 (11) 99999-9999</span>
+                <Instagram className="h-4 w-4 mr-2 text-purple-500" />
+                <span>Acesse nosso Instagram</span>
               </div>
             </div>
           </div>

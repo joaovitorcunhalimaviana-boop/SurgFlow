@@ -622,8 +622,8 @@ export default function PerfilPage() {
                       <div className="text-right">
                         <p className="text-2xl font-bold text-gray-900">
                           {user?.plan === 'teste' && 'Gratuito'}
-                          {user?.plan === 'guideflow' && 'R$ 57/mês'}
-                          {user?.plan === 'mindflow' && 'R$ 149/mês'}
+                          {user?.plan === 'guideflow' && 'R$ 49/mês'}
+                          {user?.plan === 'mindflow' && 'R$ 179/mês'}
                         </p>
                       </div>
                     </div>

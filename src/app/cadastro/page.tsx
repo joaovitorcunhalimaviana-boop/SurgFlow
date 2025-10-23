@@ -386,7 +386,7 @@ const SignUpPageContent: React.FC = () => {
                   </div>
                   <blockquote className="text-gray-700 mb-4 italic">
                     "O SurgFlow revolucionou minha forma de estudar e praticar cirurgia. 
-                    O acesso rápido às evidências e o networking com outros profissionais 
+                    O acesso rápido às evidências e o network com outros profissionais 
                     tem sido fundamental para meu crescimento."
                   </blockquote>
                   <div>

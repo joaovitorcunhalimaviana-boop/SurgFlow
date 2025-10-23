@@ -8,6 +8,7 @@ export interface User {
   fullName: string
   email: string
   whatsapp: string
+  birthDate?: string
   plan: 'teste' | 'guideflow' | 'mindflow' | 'admin'
   role?: 'user' | 'admin' | 'super_admin'
   isActive: boolean
@@ -16,10 +17,12 @@ export interface User {
 interface AuthContextType {
   user: User | null
   loading: boolean
+  isAuthenticated: boolean
   login: (email: string, password: string) => Promise<boolean>
-  register: (userData: RegisterData) => Promise<void>
+  register: (userData: RegisterData) => Promise<boolean>
   logout: () => void
   updateUser: (userData: Partial<User>) => void
+  updateUserPlan: (plan: 'teste' | 'guideflow' | 'mindflow' | 'admin') => void
 }
 
 interface RegisterData {
@@ -28,6 +31,7 @@ interface RegisterData {
   whatsapp: string
   birthDate: string
   password: string
+  plan?: 'teste' | 'guideflow' | 'mindflow'
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -130,7 +134,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const register = async (userData: RegisterData) => {
+  const register = async (userData: RegisterData): Promise<boolean> => {
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -147,6 +151,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(data.user)
+      return true
     } catch (error) {
       throw error
     }
@@ -165,14 +170,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const updateUserPlan = (plan: 'teste' | 'guideflow' | 'mindflow' | 'admin') => {
+    if (user) {
+      const updatedUser = { ...user, plan }
+      setUser(updatedUser)
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
       loading,
+      isAuthenticated: !!user,
       login,
       register,
       logout,
-      updateUser
+      updateUser,
+      updateUserPlan
     }}>
       {children}
     </AuthContext.Provider>

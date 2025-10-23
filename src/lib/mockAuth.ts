@@ -36,8 +36,8 @@ const mockUsers = [
     whatsapp: '+5511999999999',
     birth_date: '1990-01-01',
     password_hash: '$2b$10$VcOggEOOTpf1pwH.aStqeOND3uHkSLg52KxKXPznokPDXQSiOOGSO', // admin123
-    plan: 'admin',
-    role: 'super_admin',
+    plan: 'admin' as const,
+    role: 'super_admin' as const,
     is_active: true,
     email_verified: true
   },
@@ -49,8 +49,8 @@ const mockUsers = [
     whatsapp: '+5511777777777',
     birth_date: '1985-03-10',
     password_hash: '$2b$10$8ghYA3L2E/tmXsw.1JiqNOVfeupC3LKy36BOV23qFtAMtW8fLnEvG', // Logos1.1
-    plan: 'admin',
-    role: 'super_admin',
+    plan: 'admin' as const,
+    role: 'super_admin' as const,
     is_active: true,
     email_verified: true
   },
@@ -61,8 +61,8 @@ const mockUsers = [
     whatsapp: '+5511888888888',
     birth_date: '1995-05-15',
     password_hash: '$2b$10$VcOggEOOTpf1pwH.aStqeOND3uHkSLg52KxKXPznokPDXQSiOOGSO', // admin123
-    plan: 'teste',
-    role: 'user',
+    plan: 'teste' as const,
+    role: 'user' as const,
     is_active: true,
     email_verified: true
   }
@@ -197,7 +197,7 @@ export const updateUserPlan = async (userId: string, newPlan: 'teste' | 'guidefl
       throw new Error('Usuário não encontrado')
     }
 
-    user.plan = newPlan
+    (user as any).plan = newPlan
 
     return {
       id: user.id,

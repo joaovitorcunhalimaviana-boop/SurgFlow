@@ -190,11 +190,11 @@ export default function TermosPage() {
                     <p className="text-gray-700 text-sm">Acesso limitado a conteúdos básicos e algumas funcionalidades.</p>
                   </div>
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-gray-900 mb-2">Plano GuideFlow (R$ 57/mês)</h3>
+                    <h3 className="font-semibold text-gray-900 mb-2">Plano GuideFlow (R$ 49/mês)</h3>
                     <p className="text-gray-700 text-sm">Acesso completo a todos os guidelines e calculadoras médicas.</p>
                   </div>
                   <div className="bg-yellow-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-gray-900 mb-2">Plano MindFlow (R$ 149/mês)</h3>
+                    <h3 className="font-semibold text-gray-900 mb-2">Plano MindFlow (R$ 179/mês)</h3>
                     <p className="text-gray-700 text-sm">Tudo do GuideFlow + grupo VIP.</p>
                   </div>
                 </div>

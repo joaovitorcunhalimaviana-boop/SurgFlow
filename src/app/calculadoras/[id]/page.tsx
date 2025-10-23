@@ -67,7 +67,10 @@ export default function CalculatorPage() {
   const renderCalculator = () => {
     if (info.requiredPlan) {
       return (
-        <PremiumFeatureWrapper requiredPlan={info.requiredPlan}>
+        <PremiumFeatureWrapper 
+          requiredPlan={info.requiredPlan}
+          featureName={`a calculadora ${info.name}`}
+        >
           <CalculatorComponent />
         </PremiumFeatureWrapper>
       )

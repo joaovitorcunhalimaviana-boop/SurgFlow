@@ -17,36 +17,7 @@ import {
   Calendar,
   Play
 } from 'lucide-react'
-
-interface GuideFlowState {
-  murphyPositivo: boolean;
-  dorQSD: boolean;
-  febre: boolean;
-  pcrElevada: boolean;
-  leucocitose: boolean;
-  usg: boolean;
-  tc: boolean;
-  rm: boolean;
-  diagnostico: string;
-  etapaAtual: number;
-  disfuncaoCardiovascular: boolean;
-  disfuncaoNeurologica: boolean;
-  disfuncaoRespiratoria: boolean;
-  disfuncaoRenal: boolean;
-  disfuncaoHepatica: boolean;
-  disfuncaoHematologica: boolean;
-  leucocitoseMaior18000: boolean;
-  massaPalpavel: boolean;
-  sintomas72h: boolean;
-  inflamacaoLocalGrave: boolean;
-  cciMaiorIgual6_ASA3: boolean;
-  cciMaiorIgual4_ASA3_GrauIII: boolean;
-  idadeMais75Comorbidades: boolean;
-  comorbidadesDescompensadas: boolean;
-  gravidade: string;
-  riscoCircurgico: string;
-  ictericia: boolean;
-}
+import { GuideFlowState } from '@/types/guideflow';
 
 export default function CholecystitisTokyoPage() {
   const [guideFlowState, setGuideFlowState] = useState<GuideFlowState>({
@@ -90,6 +61,8 @@ export default function CholecystitisTokyoPage() {
     inflamacaoLocalGrave: false,
     inflamacaoAchados: [],
     idade: 0,
+    sexoMasculino: false,
+    sexoFeminino: false,
     cci: 0,
     asaScore: 0,
     comorbidades: [],
@@ -117,6 +90,10 @@ export default function CholecystitisTokyoPage() {
     // Comorbidades do Charlson Comorbidity Index - 3 pontos
     hepatopatiaGrave: false,
     
+    // Comorbidades específicas adicionais
+    cirroseBiliar: false,
+    colangiteEsclerosante: false,
+    
     // Comorbidades do Charlson Comorbidity Index - 6 pontos
     neoplasiaMetastatica: false,
     aids: false,
@@ -133,7 +110,16 @@ export default function CholecystitisTokyoPage() {
     bilirrubinaDireta: 0,
     colangite: false,
     sepse: false,
-    choqueSetico: false
+    choqueSetico: false,
+    
+    // Campos de compatibilidade (mantidos para não quebrar)
+    usg: false,
+    tc: false,
+    rm: false,
+    cciMaiorIgual6_ASA3: false,
+    cciMaiorIgual4_ASA3_GrauIII: false,
+    idadeMais75Comorbidades: false,
+    comorbidadesDescompensadas: false
   });
   return (
     <div className="min-h-screen bg-gray-50">

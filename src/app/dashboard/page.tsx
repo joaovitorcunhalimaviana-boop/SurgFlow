@@ -28,18 +28,18 @@ import {
 import Link from 'next/link';
 
 export default function DashboardPage() {
-  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { user, isAuthenticated, loading, logout } = useAuth();
   const router = useRouter();
 
   // TEMPORARIAMENTE DESABILITADO - Permitir acesso sem autenticação
   /*
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!loading && !isAuthenticated) {
       router.push('/login?redirect=/dashboard');
     }
-  }, [isAuthenticated, isLoading, router]);
+  }, [isAuthenticated, loading, router]);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <Layout>
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">

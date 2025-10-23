@@ -29,35 +29,34 @@ export default function PlanosPage() {
     {
       id: 'guideflow',
       name: 'GuideFlow',
-      description: 'Para residentes e especialistas em formação',
-      price: { monthly: 57, annual: 570 },
+      description: 'Acesso aos guideflows, calculadoras e scores',
+      price: { monthly: 49, annual: 490 },
       color: 'purple',
       features: [
         'Acesso completo a todos os guideflows',
         'Todas as calculadoras médicas',
-        'Conteúdo baseado em evidências',
         'Atualizações constantes',
         'Acesso via mobile e desktop'
       ],
       cta: 'Assinar GuideFlow',
-      badge: null
+      badge: 'Mais Barato'
     },
     {
       id: 'mindflow',
       name: 'MindFlow',
-      description: 'A experiência completa para cirurgiões',
-      price: { monthly: 149, annual: 1490 },
+      description: 'Experiência completa - combo completo',
+      price: { monthly: 179, annual: 1790 },
       color: 'yellow',
       features: [
         'Tudo do GuideFlow +',
         'Acesso ao grupo VIP WhatsApp "SurgFlow"',
         'Discussões de casos clínicos',
-        'Networking com subespecialistas',
+        'Network com subespecialistas',
         'Oportunidades de pesquisa',
         'Acesso antecipado a novos recursos'
       ],
       cta: 'Assinar MindFlow',
-      badge: 'Mais Popular'
+      badge: 'Mais Completo'
     }
   ]
 
@@ -65,10 +64,6 @@ export default function PlanosPage() {
     {
       question: 'Posso cancelar minha assinatura a qualquer momento?',
       answer: 'Sim! Você pode cancelar sua assinatura a qualquer momento sem taxas ou multas. Seu acesso continuará ativo até o final do período pago.'
-    },
-    {
-      question: 'Como funciona a garantia de 7 dias?',
-      answer: 'Oferecemos 7 dias de garantia incondicional. Se não ficar satisfeito, devolvemos 100% do valor pago, sem perguntas.'
     },
     {
       question: 'O conteúdo é atualizado regularmente?',
@@ -80,7 +75,7 @@ export default function PlanosPage() {
     },
     {
       question: 'Como funciona o grupo VIP do MindFlow?',
-      answer: 'É um grupo exclusivo no WhatsApp com cirurgiões especialistas, onde você pode tirar dúvidas, discutir casos e fazer networking profissional.'
+      answer: 'É um grupo exclusivo no WhatsApp com cirurgiões especialistas, onde você pode tirar dúvidas, discutir casos e fazer network profissional.'
     }
   ]
 
@@ -112,11 +107,6 @@ export default function PlanosPage() {
         {/* Hero Section */}
         <section className="pt-20 pb-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-6">
-              <Star className="w-4 h-4 mr-2" />
-              Escolha seu plano
-            </div>
-            
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Acelere sua
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
@@ -154,7 +144,7 @@ export default function PlanosPage() {
                     Economize 17%
                   </span>
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Pagando anualmente, você economiza R$ {((57 * 12) - 570).toFixed(0)} por ano no GuideFlow e R$ {((149 * 12) - 1490).toFixed(0)} por ano no MindFlow
+                    Pagando anualmente, você economiza R$ {((49 * 12) - 490).toFixed(0)} por ano no GuideFlow e R$ {((179 * 12) - 1790).toFixed(0)} por ano no MindFlow
                   </div>
                 </div>
               )}
@@ -169,8 +159,9 @@ export default function PlanosPage() {
               {plans.map((plan, index) => (
                 <div
                   key={plan.id}
-                  className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
-                    plan.badge ? 'border-yellow-300 scale-105' : 'border-gray-200'
+                  className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl flex flex-col ${
+                    plan.badge === 'Mais Completo' ? 'border-yellow-300 scale-105' : 
+                    plan.badge === 'Mais Barato' ? 'border-purple-300 scale-105' : 'border-gray-200'
                   }`}
                 >
                   {plan.badge && (
@@ -181,7 +172,7 @@ export default function PlanosPage() {
                     </div>
                   )}
 
-                  <div className="p-8">
+                  <div className="p-8 flex flex-col flex-grow">
                     {/* Plan Header */}
                     <div className="text-center mb-8">
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
@@ -200,16 +191,11 @@ export default function PlanosPage() {
                             ou R$ {(plan.price.annual / 12).toFixed(2).replace('.', ',')}/mês
                           </div>
                         )}
-                        {plan.id === 'mindflow' && (
-                          <div className="text-sm text-gray-500 mt-2">
-                            💡 Menos que o valor de uma consulta particular
-                          </div>
-                        )}
                       </div>
                     </div>
 
                     {/* Features */}
-                    <div className="mb-8">
+                    <div className="mb-8 flex-grow">
                       <ul className="space-y-3">
                         {plan.features.map((feature, index) => (
                           <li key={index} className="flex items-start">
@@ -220,21 +206,23 @@ export default function PlanosPage() {
                       </ul>
                     </div>
 
-                    {/* CTA Button */}
-                    <Button 
-                      className={`w-full py-3 font-semibold ${getButtonStyle(plan)}`}
-                      size="lg"
-                      onClick={() => {
-                        if (plan.id === 'teste') {
-                          router.push('/cadastro')
-                        } else {
-                          // Redirect to login with plan parameter for checkout
-                          router.push(`/login?plano=${plan.id}`)
-                        }
-                      }}
-                    >
-                      {plan.cta}
-                    </Button>
+                    {/* CTA Button - Always at bottom */}
+                    <div className="mt-auto">
+                      <Button 
+                        className={`w-full py-3 font-semibold ${getButtonStyle(plan)}`}
+                        size="lg"
+                        onClick={() => {
+                          if (plan.id === 'teste') {
+                            router.push('/cadastro')
+                          } else {
+                            // Redirect to login with plan parameter for checkout
+                            router.push(`/login?plano=${plan.id}`)
+                          }
+                        }}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -261,27 +249,21 @@ export default function PlanosPage() {
             
             <div className="bg-white p-6 rounded-xl shadow-md">
               <Users className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Networking que impulsiona sua carreira</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">Network que impulsiona sua carreira</h3>
               <p className="text-gray-600 text-sm">Conecte-se com profissionais de referência</p>
             </div>
             
             <div className="bg-white p-6 rounded-xl shadow-md">
               <BookOpen className="w-8 h-8 text-yellow-600 mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Discussões de casos clínicos</h3>
-              <p className="text-gray-600 text-sm">Discussões semanais de casos clínicos</p>
+              <p className="text-gray-600 text-sm">Discuta casos clínicos e tenha discussões aprofundadas com especialistas e subespecialistas</p>
             </div>
             
             <div className="bg-white p-6 rounded-xl shadow-md">
               <TrendingUp className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Oportunidades de estágio e pesquisa</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">Oportunidades de pesquisa</h3>
               <p className="text-gray-600 text-sm">Acesso a projetos e orientação científica</p>
             </div>
-          </div>
-          
-          <div className="text-center mt-8">
-            <p className="text-lg font-semibold text-gray-900">
-              Valor equivalente a menos de 1 consulta particular por mês
-            </p>
           </div>
         </div>
       </section>
@@ -317,23 +299,6 @@ export default function PlanosPage() {
           </div>
         </div>
       </section>
-
-      {/* Guarantee Section */}
-       <section className="py-16 bg-green-50">
-         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-           <Shield className="w-16 h-16 text-green-600 mx-auto mb-6" />
-           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-             Garantia de 7 dias
-           </h2>
-           <p className="text-xl text-gray-600">
-             Satisfação total ou seu dinheiro de volta
-           </p>
-           <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-             Experimente qualquer plano por 7 dias. Se não ficar completamente satisfeito, 
-             devolvemos 100% do seu investimento, sem perguntas.
-           </p>
-         </div>
-       </section>
        </div>
      </Layout>
    )

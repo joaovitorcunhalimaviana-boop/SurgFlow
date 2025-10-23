@@ -13,7 +13,7 @@ const SubscriptionCTA: React.FC = () => {
     {
       icon: MessageCircle,
       title: 'Grupo VIP WhatsApp',
-      description: 'Acesso exclusivo ao nosso grupo "SurgFlow" para networking e discussões de casos'
+      description: 'Acesso exclusivo ao nosso grupo "SurgFlow" para network e discussões de casos'
     },
     {
       icon: Zap,
@@ -97,7 +97,7 @@ const SubscriptionCTA: React.FC = () => {
                 Plano Premium
               </CardTitle>
               <div className="flex items-center justify-center mb-4">
-                <span className="text-5xl font-bold text-purple-600">R$ 149</span>
+                <span className="text-5xl font-bold text-purple-600">R$ 179</span>
                 <span className="text-gray-600 ml-2">/mês</span>
               </div>
               <p className="text-gray-600">

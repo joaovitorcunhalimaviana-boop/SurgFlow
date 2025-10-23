@@ -19,17 +19,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requiredPlan,
   fallbackPath = '/cadastro'
 }) => {
-  const { user, isLoading, isAuthenticated } = useAuth()
+  const { user, loading, isAuthenticated } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!loading && !isAuthenticated) {
       router.push(fallbackPath)
     }
-  }, [isLoading, isAuthenticated, router, fallbackPath])
+  }, [loading, isAuthenticated, router, fallbackPath])
 
-  // Show loading state
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-25 flex items-center justify-center p-4">
         <div className="text-center">

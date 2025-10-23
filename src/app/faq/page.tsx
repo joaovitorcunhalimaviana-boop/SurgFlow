@@ -104,7 +104,7 @@ const faqData: FAQItem[] = [
     id: '13',
     category: 'conta',
     question: 'Quais são os planos disponíveis?',
-    answer: 'Oferecemos 3 planos: Teste (gratuito) com acesso aos guideflows de Colecistite e Apendicite; GuideFlow (R$ 57/mês) com acesso completo a todos os guideflows e calculadoras; e MindFlow (R$ 149/mês) que inclui tudo do GuideFlow mais acesso ao grupo VIP no WhatsApp com especialistas.'
+    answer: 'Oferecemos 3 planos: Teste (gratuito) com acesso aos guideflows de Colecistite e Apendicite; GuideFlow (R$ 49/mês) com acesso completo a todos os guideflows e calculadoras; e MindFlow (R$ 179/mês) que inclui tudo do GuideFlow mais acesso ao grupo VIP no WhatsApp com especialistas.'
   },
   {
     id: '14',
@@ -128,13 +128,13 @@ const faqData: FAQItem[] = [
     id: '17',
     category: 'conta',
     question: 'Qual a diferença entre GuideFlow e MindFlow?',
-    answer: 'O GuideFlow oferece acesso completo a todos os guideflows e calculadoras. Já o MindFlow inclui tudo isso mais benefícios exclusivos: acesso ao grupo VIP no WhatsApp com especialistas, discussões de casos clínicos, networking com subespecialistas, oportunidades de pesquisa e acesso antecipado a novos recursos.'
+    answer: 'O GuideFlow oferece acesso completo a todos os guideflows e calculadoras. Já o MindFlow inclui tudo isso mais benefícios exclusivos: acesso ao grupo VIP no WhatsApp com especialistas, discussões de casos clínicos, network com subespecialistas, oportunidades de pesquisa e acesso antecipado a novos recursos.'
   },
   {
     id: '18',
     category: 'conta',
     question: 'O que é o grupo VIP do MindFlow?',
-    answer: 'É um grupo exclusivo no WhatsApp "SurgFlow" com cirurgiões especialistas e subespecialistas, onde você pode tirar dúvidas sobre casos complexos, participar de discussões clínicas, fazer networking profissional e ter acesso a oportunidades de pesquisa e estágio.'
+    answer: 'É um grupo exclusivo no WhatsApp "SurgFlow" com cirurgiões especialistas e subespecialistas, onde você pode tirar dúvidas sobre casos complexos, participar de discussões clínicas, fazer network profissional e ter acesso a oportunidades de pesquisa e estágio.'
   }
 ]
 

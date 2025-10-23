@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserByToken, updateUserPlan } from '@/lib/auth'
+import { getUserByToken, updateUserPlan } from '@/lib/mockAuth'
 
 export async function POST(request: NextRequest) {
   try {

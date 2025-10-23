@@ -57,13 +57,13 @@ const Header: React.FC = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
             </Link>
             
-            {/* Guidelines Dropdown */}
+            {/* GuideFlows Dropdown */}
             <div className="relative">
               <button
                 onClick={toggleGuidelines}
                 className="flex items-center text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
               >
-                Guidelines
+                GuideFlows
                 <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isGuidelinesOpen ? 'rotate-180' : ''}`} />
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
               </button>
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
               href="/calculadoras" 
               className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
             >
-              Calculadoras
+              Scores
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
             </ProtectedLink>
             
@@ -181,7 +181,7 @@ const Header: React.FC = () => {
               </Link>
               
               <div className="space-y-2">
-                <div className="text-gray-700 font-medium py-2">Guidelines</div>
+                <div className="text-gray-700 font-medium py-2">GuideFlows</div>
                 <div className="pl-4 space-y-3 border-l-2 border-purple-100">
                   <ProtectedLink 
                     href="/guideline/cholecystitis-tokyo-2018" 
@@ -227,7 +227,7 @@ const Header: React.FC = () => {
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
                 onClick={closeMenus}
               >
-                Calculadoras
+                Scores
               </ProtectedLink>
               
               <Link 
