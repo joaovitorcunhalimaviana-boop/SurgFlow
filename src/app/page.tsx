@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout'
 import FeaturesSection from '@/components/features/FeaturesSection'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, CheckCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle, Lock } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Home() {
@@ -123,6 +123,20 @@ export default function Home() {
 
       {/* Features Section */}
       <FeaturesSection />
+      
+      {/* Admin Access - Discrete Link */}
+      <div className="fixed bottom-4 right-4">
+        <Link href="/admin">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="opacity-30 hover:opacity-60 transition-opacity p-2"
+            title="Acesso Administrativo"
+          >
+            <Lock className="w-4 h-4 text-gray-400" />
+          </Button>
+        </Link>
+      </div>
     </Layout>
   )
 }

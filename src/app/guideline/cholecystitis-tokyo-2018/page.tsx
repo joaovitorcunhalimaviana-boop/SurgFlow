@@ -1,9 +1,11 @@
-import React from 'react'
-import ProtectedRoute from '@/components/auth/ProtectedRoute'
+'use client'
+
+import React, { useState } from 'react'
 import Breadcrumb from '@/components/ui/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import GuideFlowColecistite from '@/components/guidelines/GuideFlowColecistite'
 import { 
   Stethoscope, 
   AlertTriangle, 
@@ -12,13 +14,129 @@ import {
   ArrowRight,
   FileText,
   Users,
-  Calendar
+  Calendar,
+  Play
 } from 'lucide-react'
 
+interface GuideFlowState {
+  murphyPositivo: boolean;
+  dorQSD: boolean;
+  febre: boolean;
+  pcrElevada: boolean;
+  leucocitose: boolean;
+  usg: boolean;
+  tc: boolean;
+  rm: boolean;
+  diagnostico: string;
+  etapaAtual: number;
+  disfuncaoCardiovascular: boolean;
+  disfuncaoNeurologica: boolean;
+  disfuncaoRespiratoria: boolean;
+  disfuncaoRenal: boolean;
+  disfuncaoHepatica: boolean;
+  disfuncaoHematologica: boolean;
+  leucocitoseMaior18000: boolean;
+  massaPalpavel: boolean;
+  sintomas72h: boolean;
+  inflamacaoLocalGrave: boolean;
+  cciMaiorIgual6_ASA3: boolean;
+  cciMaiorIgual4_ASA3_GrauIII: boolean;
+  idadeMais75Comorbidades: boolean;
+  comorbidadesDescompensadas: boolean;
+  gravidade: string;
+  riscoCircurgico: string;
+  ictericia: boolean;
+}
+
 export default function CholecystitisTokyoPage() {
+  const [guideFlowState, setGuideFlowState] = useState<GuideFlowState>({
+    murphyPositivo: false,
+    dorQSD: false,
+    sensibilidadeQSD: false,
+    febre: false,
+    temperaturaValue: 0,
+    pcrElevada: false,
+    pcrValue: 0,
+    leucocitose: false,
+    leucocitosValue: 0,
+    usgPositivo: false,
+    usgAchados: [],
+    tcPositivo: false,
+    tcAchados: [],
+    rmPositivo: false,
+    rmAchados: [],
+    cprm: false,
+    disfuncaoCardiovascular: false,
+    hipotensao: false,
+    pressaoSistolica: 0,
+    necessidadeDrogas: false,
+    disfuncaoNeurologica: false,
+    alteracaoConsciencia: false,
+    glasgowValue: 15,
+    disfuncaoRespiratoria: false,
+    pao2fio2: 400,
+    necessidadeVentilacao: false,
+    disfuncaoRenal: false,
+    creatininaValue: 0,
+    oliguria: false,
+    diurese24h: 0,
+    disfuncaoHepatica: false,
+    bilirrubinaTotal: 0,
+    disfuncaoHematologica: false,
+    plaquetas: 0,
+    leucocitoseMaior18000: false,
+    massaPalpavel: false,
+    sintomas72h: false,
+    inflamacaoLocalGrave: false,
+    inflamacaoAchados: [],
+    idade: 0,
+    cci: 0,
+    asaScore: 0,
+    comorbidades: [],
+    
+    // Comorbidades do Charlson Comorbidity Index - 1 ponto
+    iamPrevio: false,
+    iccCongestiva: false,
+    doencaVascularPeriferica: false,
+    doencaCerebrovascular: false,
+    demencia: false,
+    dpocCronico: false,
+    doencaTecidoConectivo: false,
+    ulceraPeptica: false,
+    hepatopatiaLeve: false,
+    diabetesSemComplicacao: false,
+    
+    // Comorbidades do Charlson Comorbidity Index - 2 pontos
+    diabetesComComplicacao: false,
+    hemiplegiaParaplegia: false,
+    doencaRenalGrave: false,
+    neoplasiaSemMetastase: false,
+    leucemia: false,
+    linfoma: false,
+    
+    // Comorbidades do Charlson Comorbidity Index - 3 pontos
+    hepatopatiaGrave: false,
+    
+    // Comorbidades do Charlson Comorbidity Index - 6 pontos
+    neoplasiaMetastatica: false,
+    aids: false,
+    gravidade: '',
+    riscoCircurgico: '',
+    condutaRecomendada: '',
+    antibiotico: '',
+    dosagem: '',
+    duracao: 0,
+    seguimento: [],
+    etapaAtual: 1,
+    diagnostico: '',
+    ictericia: false,
+    bilirrubinaDireta: 0,
+    colangite: false,
+    sepse: false,
+    choqueSetico: false
+  });
   return (
-    <ProtectedRoute requiredPlan="teste">
-      <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}
         <Breadcrumb 
@@ -73,39 +191,57 @@ export default function CholecystitisTokyoPage() {
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Flowchart Area */}
+        {/* GuideFlow Interativo */}
+        <div className="mb-8">
+          <Card className="border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50">
+            <CardHeader>
+              <CardTitle className="flex items-center text-2xl">
+                <div className="bg-purple-600 p-2 rounded-lg mr-3">
+                  <Play className="h-6 w-6 text-white" />
+                </div>
+                GuideFlow Interativo - Colecistite Aguda
+              </CardTitle>
+              <p className="text-gray-600 mt-2">
+                Ferramenta interativa para diagnóstico, classificação e manejo da colecistite aguda baseada nas Tokyo Guidelines 2018.
+                Siga as etapas sequenciais para uma avaliação completa do paciente.
+              </p>
+            </CardHeader>
+          </Card>
+        </div>
+
+        {/* Componente GuideFlow */}
+        <GuideFlowColecistite 
+          state={guideFlowState}
+          setState={setGuideFlowState}
+        />
+
+        {/* Seção de Referência Rápida */}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Resumo dos Critérios */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Step 1: Diagnosis */}
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
+            <Card className="border-purple-200">
               <CardHeader className="bg-purple-50">
-                <CardTitle className="flex items-center text-xl">
-                  <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-                    1
-                  </div>
-                  Diagnóstico de Colecistite
-                </CardTitle>
+                <CardTitle className="text-xl">Resumo dos Critérios Diagnósticos</CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <h4 className="font-semibold text-blue-900 mb-3 flex items-center">
                       <CheckCircle className="h-5 w-5 mr-2" />
-                      Critérios A - Inflamação Local
+                      Critério A - Local
                     </h4>
-                    <ul className="space-y-2 text-blue-800">
+                    <ul className="space-y-1 text-blue-800 text-sm">
                       <li>• Sinal de Murphy positivo</li>
-                      <li>• Dor/sensibilidade no quadrante superior direito</li>
+                      <li>• Dor/sensibilidade em QSD</li>
                     </ul>
                   </div>
                   
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <h4 className="font-semibold text-yellow-900 mb-3 flex items-center">
                       <CheckCircle className="h-5 w-5 mr-2" />
-                      Critérios B - Sintomas Sistêmicos
+                      Critério B - Sistêmico
                     </h4>
-                    <ul className="space-y-2 text-yellow-800">
+                    <ul className="space-y-1 text-yellow-800 text-sm">
                       <li>• Febre</li>
                       <li>• Leucocitose</li>
                       <li>• PCR elevado</li>
@@ -115,133 +251,29 @@ export default function CholecystitisTokyoPage() {
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                     <h4 className="font-semibold text-green-900 mb-3 flex items-center">
                       <CheckCircle className="h-5 w-5 mr-2" />
-                      Critérios C - Exame de Imagem
+                      Critério C - Imagem
                     </h4>
-                    <ul className="space-y-2 text-green-800">
-                      <li>• Ultrassom com sinais de colecistite</li>
-                      <li>• TC com alterações características</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                    <p className="text-purple-800 font-medium">
-                      <strong>Diagnóstico:</strong> A + B + C = Colecistite Aguda Definitiva
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Step 2: Initial Management */}
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="bg-purple-50">
-                <CardTitle className="flex items-center text-xl">
-                  <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-                    2
-                  </div>
-                  Manejo Inicial
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-blue-900 mb-3">Medidas Gerais</h4>
-                    <ul className="space-y-2 text-blue-800 text-sm">
-                      <li>• Jejum</li>
-                      <li>• Hidratação venosa</li>
-                      <li>• Analgesia</li>
-                      <li>• Antieméticos se necessário</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-900 mb-3">Antibioticoterapia</h4>
-                    <ul className="space-y-2 text-green-800 text-sm">
-                      <li>• Iniciar se suspeita de infecção</li>
-                      <li>• Ampicilina + Gentamicina</li>
-                      <li>• Ou Ceftriaxone + Metronidazol</li>
+                    <ul className="space-y-1 text-green-800 text-sm">
+                      <li>• USG com sinais</li>
+                      <li>• TC com alterações</li>
+                      <li>• RM com achados</li>
                     </ul>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Step 3: Severity Classification */}
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="bg-purple-50">
-                <CardTitle className="flex items-center text-xl">
-                  <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-                    3
-                  </div>
-                  Classificação de Gravidade
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="space-y-4">
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-900 mb-2 flex items-center">
-                      <div className="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">
-                        I
-                      </div>
-                      Grau I - Leve
-                    </h4>
-                    <p className="text-green-800 text-sm">
-                      Paciente saudável, sem disfunção orgânica
-                    </p>
-                  </div>
-                  
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-yellow-900 mb-2 flex items-center">
-                      <div className="bg-yellow-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">
-                        II
-                      </div>
-                      Grau II - Moderada
-                    </h4>
-                    <p className="text-yellow-800 text-sm">
-                      Leucocitose &gt;18.000, massa palpável, sintomas &gt;72h
-                    </p>
-                  </div>
-                  
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-red-900 mb-2 flex items-center">
-                      <div className="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">
-                        III
-                      </div>
-                      Grau III - Grave
-                    </h4>
-                    <p className="text-red-800 text-sm">
-                      Disfunção orgânica (cardiovascular, neurológica, respiratória, renal, hepática, hematológica)
-                    </p>
-                  </div>
+                
+                <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <p className="text-purple-800 font-medium text-center">
+                    <strong>Diagnóstico Definitivo:</strong> A + B + C ou A + C | 
+                    <strong> Diagnóstico Suspeito:</strong> A + B
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar com Informações Adicionais */}
           <div className="space-y-6">
-            {/* Quick Actions */}
-            <Card className="border-purple-200">
-              <CardHeader>
-                <CardTitle className="text-lg">Ações Rápidas</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button variant="outline" className="w-full justify-start">
-                  <FileText className="h-4 w-4 mr-2" />
-                  Ver Guideline Completo
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Users className="h-4 w-4 mr-2" />
-                  Casos Clínicos
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <ArrowRight className="h-4 w-4 mr-2" />
-                  Próximo Guideline
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Important Notes */}
+            {/* Pontos Importantes */}
             <Card className="border-yellow-200 bg-yellow-50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center text-yellow-800">
@@ -253,13 +285,14 @@ export default function CholecystitisTokyoPage() {
                 <ul className="space-y-2 text-yellow-800 text-sm">
                   <li>• Sempre considerar diagnósticos diferenciais</li>
                   <li>• Reavaliar paciente regularmente</li>
-                  <li>• Considerar cirurgia precoce em casos apropriados</li>
+                  <li>• Considerar cirurgia precoce quando indicada</li>
                   <li>• Monitorar sinais de complicações</li>
+                  <li>• Antibioticoterapia precoce é fundamental</li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* Related Guidelines */}
+            {/* Guidelines Relacionados */}
             <Card className="border-purple-200">
               <CardHeader>
                 <CardTitle className="text-lg">Guidelines Relacionados</CardTitle>
@@ -284,6 +317,6 @@ export default function CholecystitisTokyoPage() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
+    </div>
   )
 }

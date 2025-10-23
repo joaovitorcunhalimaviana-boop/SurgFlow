@@ -86,15 +86,14 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({
       icon: BookOpen,
       badge: 'MAIS POPULAR',
       features: [
-        'Acesso a todos os guidelines premium',
-        'Fluxogramas interativos avançados',
-        'Calculadoras médicas integradas',
-        'Casos clínicos exclusivos',
-        'Suporte prioritário',
-        'Atualizações em tempo real',
-        'Download de conteúdo para offline',
-        'Certificados de participação'
-      ]
+          'Acesso a todos os guidelines premium',
+          'Fluxogramas interativos avançados',
+          'Calculadoras médicas integradas',
+          'Casos clínicos exclusivos',
+          'Atualizações em tempo real',
+          'Download de conteúdo para offline',
+          'Certificados de participação'
+        ]
     },
     mindflow: {
       name: 'MindFlow',
@@ -105,11 +104,9 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({
       badge: 'PREMIUM',
       features: [
         'Tudo do GuideFlow +',
-        'Grupo VIP WhatsApp "Hobby Cirúrgico"',
-        'Aulas exclusivas com especialistas',
+        'Grupo VIP WhatsApp "SurgFlow"',
         'Network com cirurgiões renomados',
         'Casos clínicos premium',
-        'Mentoria personalizada',
         'Acesso antecipado a novos recursos',
         'Consultoria em pesquisa científica'
       ]

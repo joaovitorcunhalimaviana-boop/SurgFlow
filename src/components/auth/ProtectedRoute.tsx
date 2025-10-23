@@ -124,6 +124,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Check plan access if required
   if (requiredPlan && user) {
+    // Admin users have access to everything
+    if (user.role === 'super_admin' || user.role === 'admin' || user.plan === 'admin') {
+      return <>{children}</>
+    }
+    
     const planHierarchy = { teste: 0, guideflow: 1, mindflow: 2 }
     const userPlanLevel = planHierarchy[user.plan]
     const requiredPlanLevel = planHierarchy[requiredPlan]

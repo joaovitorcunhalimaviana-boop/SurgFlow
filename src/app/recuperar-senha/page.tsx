@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Layout from '@/components/layout/Layout'
 import { ArrowLeft, Mail, CheckCircle, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 
 export default function RecuperarSenhaPage() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [emailSent, setEmailSent] = useState(false)
@@ -211,12 +214,12 @@ export default function RecuperarSenhaPage() {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-500">
             Não recebeu o email? Verifique sua pasta de spam ou{' '}
-            <button 
-              onClick={() => window.location.href = 'mailto:suporte@surgflow.com.br'}
+            <a 
+              href="mailto:suporte@surgflow.com.br"
               className="text-purple-600 hover:text-purple-700 underline"
             >
               entre em contato
-            </button>
+            </a>
           </p>
         </div>
       </div>

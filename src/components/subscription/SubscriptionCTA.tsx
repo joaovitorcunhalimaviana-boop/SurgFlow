@@ -1,21 +1,19 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Check, Users, BookOpen, Zap, MessageCircle, Video, Star } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 const SubscriptionCTA: React.FC = () => {
+  const router = useRouter();
+  
   const benefits = [
     {
       icon: MessageCircle,
       title: 'Grupo VIP WhatsApp',
-      description: 'Acesso exclusivo ao nosso grupo "Hobby Cirúrgico" para networking e discussões de casos'
-    },
-    {
-      icon: Video,
-      title: 'Aulas Exclusivas',
-      description: 'Aulas periódicas com especialistas em cirurgia geral, coloproctologia, endoscopia e urologia'
+      description: 'Acesso exclusivo ao nosso grupo "SurgFlow" para networking e discussões de casos'
     },
     {
       icon: Zap,
@@ -111,11 +109,11 @@ const SubscriptionCTA: React.FC = () => {
               <div className="space-y-4 mb-8">
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-500 mr-3" />
-                  <span className="text-gray-700">Grupo VIP WhatsApp "Hobby Cirúrgico"</span>
+                  <span className="text-gray-700">Grupo VIP WhatsApp "SurgFlow"</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-500 mr-3" />
-                  <span className="text-gray-700">Aulas exclusivas com especialistas</span>
+                  <span className="text-gray-700">Grupo VIP WhatsApp "SurgFlow"</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-500 mr-3" />
@@ -139,6 +137,7 @@ const SubscriptionCTA: React.FC = () => {
                 variant="primary" 
                 size="lg" 
                 className="w-full text-lg py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
+                onClick={() => router.push('/planos')}
               >
                 Assinar Agora
               </Button>

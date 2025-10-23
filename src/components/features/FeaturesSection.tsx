@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   BookOpen, 
   Calculator, 
@@ -13,7 +14,10 @@ import {
   ArrowRight,
   Award,
   Target,
-  Network
+  Network,
+  CheckCircle,
+  Star,
+  TrendingUp
 } from 'lucide-react';
 import FeatureCard from './FeatureCard';
 import { Button } from '@/components/ui/button';
@@ -22,6 +26,7 @@ import RegistrationModal from './RegistrationModal';
 const FeaturesSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGuideflow, setSelectedGuideflow] = useState('');
+  const router = useRouter();
 
   const handleFreeGuideflowAccess = (guideflowTitle: string) => {
     setSelectedGuideflow(guideflowTitle);
@@ -37,7 +42,7 @@ const FeaturesSection: React.FC = () => {
     
     // Simulate redirect to guideflow (you'll need to implement actual routing)
     if (selectedGuideflow === 'Colecistite Aguda') {
-      window.location.href = '/guideline/cholecystitis-tokyo-2018';
+      router.push('/guideline/cholecystitis-tokyo-2018');
     } else if (selectedGuideflow === 'Apendicite Aguda') {
       // Add route for appendicitis when available
       alert('GuideFlow de Apendicite será disponibilizado em breve!');
@@ -157,10 +162,10 @@ const FeaturesSection: React.FC = () => {
                 
                 <Button 
                   size="lg" 
-                  className="bg-white text-purple-700 hover:bg-gray-50 shadow-xl hover:shadow-2xl group"
-                  onClick={() => window.location.href = '/planos'}
+                  className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl group"
+                  onClick={() => router.push('/planos')}
                 >
-                  Começar Hoje Mesmo
+                  Começar Agora
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>

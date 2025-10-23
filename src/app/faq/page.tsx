@@ -73,8 +73,8 @@ const faqData: FAQItem[] = [
   {
     id: '8',
     category: 'conta',
-    question: 'O SurgFlow é gratuito?',
-    answer: 'Sim! O SurgFlow é completamente gratuito para estudantes de medicina, residentes e profissionais da saúde. Nossa missão é democratizar o acesso aos guidelines médicos e contribuir para uma medicina mais segura e baseada em evidências.'
+    question: 'Como funciona a cobrança dos planos pagos?',
+    answer: 'Os planos GuideFlow e MindFlow são cobrados mensalmente. Oferecemos 7 dias de garantia incondicional - se não ficar satisfeito, devolvemos 100% do valor pago. O pagamento é processado de forma segura e você pode cancelar a qualquer momento.'
   },
   {
     id: '9',
@@ -99,6 +99,42 @@ const faqData: FAQItem[] = [
     category: 'geral',
     question: 'Posso usar o SurgFlow para ensinar?',
     answer: 'Claro! Encorajamos o uso do SurgFlow em atividades educacionais. Professores e preceptores podem usar nossos fluxogramas em aulas, discussões de caso e treinamentos. Se precisar de materiais específicos para ensino, entre em contato conosco.'
+  },
+  {
+    id: '13',
+    category: 'conta',
+    question: 'Quais são os planos disponíveis?',
+    answer: 'Oferecemos 3 planos: Teste (gratuito) com acesso aos guideflows de Colecistite e Apendicite; GuideFlow (R$ 57/mês) com acesso completo a todos os guideflows e calculadoras; e MindFlow (R$ 149/mês) que inclui tudo do GuideFlow mais acesso ao grupo VIP no WhatsApp com especialistas.'
+  },
+  {
+    id: '14',
+    category: 'conta',
+    question: 'Como funciona o plano gratuito?',
+    answer: 'O plano Teste é completamente gratuito e oferece acesso permanente aos guideflows de Colecistite e Apendicite, além de calculadoras básicas. É perfeito para conhecer a plataforma e ter acesso aos protocolos mais essenciais da cirurgia de urgência.'
+  },
+  {
+    id: '15',
+    category: 'conta',
+    question: 'Posso mudar de plano depois?',
+    answer: 'Sim! Você pode fazer upgrade ou downgrade do seu plano a qualquer momento através da sua conta. As mudanças são aplicadas imediatamente e o valor é ajustado proporcionalmente no próximo ciclo de cobrança.'
+  },
+  {
+    id: '16',
+    category: 'conta',
+    question: 'Como cancelo minha assinatura?',
+    answer: 'Você pode cancelar sua assinatura a qualquer momento através da sua conta, na seção "Gerenciar Assinatura". Não há multas ou taxas de cancelamento. Seu acesso continuará ativo até o final do período pago.'
+  },
+  {
+    id: '17',
+    category: 'conta',
+    question: 'Qual a diferença entre GuideFlow e MindFlow?',
+    answer: 'O GuideFlow oferece acesso completo a todos os guideflows e calculadoras. Já o MindFlow inclui tudo isso mais benefícios exclusivos: acesso ao grupo VIP no WhatsApp com especialistas, discussões de casos clínicos, networking com subespecialistas, oportunidades de pesquisa e acesso antecipado a novos recursos.'
+  },
+  {
+    id: '18',
+    category: 'conta',
+    question: 'O que é o grupo VIP do MindFlow?',
+    answer: 'É um grupo exclusivo no WhatsApp "SurgFlow" com cirurgiões especialistas e subespecialistas, onde você pode tirar dúvidas sobre casos complexos, participar de discussões clínicas, fazer networking profissional e ter acesso a oportunidades de pesquisa e estágio.'
   }
 ]
 
@@ -325,7 +361,7 @@ export default function FAQPage() {
                   Participe de discussões com outros profissionais
                 </p>
                 <Button variant="outline" className="border-green-300 text-green-700 hover:bg-green-50">
-                  <Link href="/contato">
+                  <Link href="/contato" className="flex items-center">
                     Participar
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>

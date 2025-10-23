@@ -37,13 +37,11 @@ export const PlanUpgradeEmail: React.FC<PlanUpgradeEmailProps> = ({
       'Protocolos cirúrgicos detalhados',
       'Calculadoras médicas avançadas',
       'Downloads em PDF de todos os conteúdos',
-      'Suporte prioritário via WhatsApp',
       'Atualizações em tempo real'
     ],
     mindflow: [
       'Todos os recursos do GuideFlow',
       'Acesso ao Grupo VIP no WhatsApp',
-      'Mentorias exclusivas com especialistas',
       'Casos clínicos complexos e raros',
       'Acesso antecipado a novos conteúdos',
       'Sessões de discussão de casos ao vivo',
@@ -190,18 +188,11 @@ export const PlanUpgradeEmail: React.FC<PlanUpgradeEmailProps> = ({
                 Você receberá um convite para o grupo VIP do WhatsApp em até 24 horas.
               </p>
             </div>
-            
-            <div style={{ marginBottom: '15px' }}>
-              <strong>3. Agende sua Primeira Mentoria</strong>
-              <p style={{ margin: '5px 0 0 0', color: '#64748b', fontSize: '14px' }}>
-                Acesse a área de mentorias na plataforma para agendar sua primeira sessão exclusiva.
-              </p>
-            </div>
           </>
         )}
         
         <div style={{ marginBottom: '15px' }}>
-          <strong>{newPlan === 'mindflow' ? '4' : '2'}. Baixe o App Mobile</strong>
+          <strong>{newPlan === 'mindflow' ? '3' : '2'}. Baixe o App Mobile</strong>
           <p style={{ margin: '5px 0 0 0', color: '#64748b', fontSize: '14px' }}>
             Tenha acesso aos guidelines onde estiver com nosso aplicativo mobile (em breve).
           </p>
@@ -259,36 +250,6 @@ export const PlanUpgradeEmail: React.FC<PlanUpgradeEmailProps> = ({
           Seu novo plano entrará em vigor imediatamente. A próxima cobrança será processada 
           de acordo com o ciclo de faturamento do seu novo plano. Você pode visualizar 
           todos os detalhes na área "Meus Planos" da plataforma.
-        </p>
-      </div>
-
-      {/* Suporte */}
-      <div style={{
-        backgroundColor: '#fef3c7',
-        border: '1px solid #f59e0b',
-        borderRadius: '8px',
-        padding: '15px',
-        marginBottom: '20px'
-      }}>
-        <h3 style={{ 
-          margin: '0 0 10px 0', 
-          fontSize: '16px', 
-          fontWeight: '600',
-          color: '#92400e'
-        }}>
-          🎯 Suporte Prioritário
-        </h3>
-        <p style={{ 
-          margin: '0',
-          fontSize: '14px',
-          color: '#92400e'
-        }}>
-          Como assinante {planInfo[newPlan].name}, você tem acesso ao nosso suporte prioritário. 
-          Entre em contato conosco através do email{' '}
-          <a href="mailto:suporte@surgflow.com.br" style={{ color: '#92400e', fontWeight: '600' }}>
-            suporte@surgflow.com.br
-          </a>{' '}
-          ou pelo WhatsApp disponível na plataforma.
         </p>
       </div>
 

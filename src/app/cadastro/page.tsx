@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User, Phone, Mail, Eye, EyeOff, Check, Star, Users, BookOpen, Calendar, Shield, Lock, AlertCircle, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ import Layout from '@/components/layout/Layout';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/toast';
 
-const SignUpPage: React.FC = () => {
+const SignUpPageContent: React.FC = () => {
   const { register } = useAuth();
   const { showError } = useToast();
   const router = useRouter();
@@ -282,7 +282,8 @@ const SignUpPage: React.FC = () => {
         email: formData.email,
         whatsapp: formData.whatsapp,
         password: formData.password,
-        plan: selectedPlan || 'teste'
+        birthDate: formData.birthDate,
+        plan: (selectedPlan as 'teste' | 'guideflow' | 'mindflow') || 'teste'
       });
       
       if (success) {
@@ -326,8 +327,7 @@ const SignUpPage: React.FC = () => {
   };
 
   const benefits = [
-    { icon: Users, text: 'Acesso ao grupo VIP WhatsApp "Hobby Cirúrgico"' },
-    { icon: BookOpen, text: 'Aulas exclusivas com especialistas' },
+    { icon: Users, text: 'Acesso ao grupo VIP WhatsApp "SurgFlow"' },
     { icon: Star, text: 'Conteúdo premium e evidências científicas' }
   ];
 
@@ -724,6 +724,23 @@ const SignUpPage: React.FC = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+const SignUpPage: React.FC = () => {
+  return (
+    <Suspense fallback={
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando...</p>
+          </div>
+        </div>
+      </Layout>
+    }>
+      <SignUpPageContent />
+    </Suspense>
   );
 };
 

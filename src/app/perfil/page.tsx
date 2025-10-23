@@ -263,6 +263,8 @@ export default function PerfilPage() {
     }
   }
 
+  // TEMPORARIAMENTE DESABILITADO - Permitir acesso sem autenticação
+  /*
   if (!user) {
     return (
       <Layout>
@@ -272,6 +274,7 @@ export default function PerfilPage() {
       </Layout>
     )
   }
+  */
 
   return (
     <Layout>
@@ -285,7 +288,7 @@ export default function PerfilPage() {
             <p className="text-xl text-gray-600 mb-6">
               Gerencie suas informações pessoais e configurações
             </p>
-            {getPlanBadge(user.plan)}
+            {getPlanBadge(user?.plan || 'admin')}
           </div>
 
           {/* Tabs */}
@@ -609,24 +612,24 @@ export default function PerfilPage() {
                     </h3>
                     <div className="flex items-center justify-between">
                       <div>
-                        {getPlanBadge(user.plan)}
+                        {getPlanBadge(user?.plan || 'admin')}
                         <p className="text-gray-600 mt-2">
-                          {user.plan === 'teste' && 'Acesso gratuito aos conteúdos básicos'}
-                          {user.plan === 'guideflow' && 'Acesso completo aos guias e protocolos'}
-                          {user.plan === 'mindflow' && 'Acesso total + Grupo VIP + Mentorias'}
+                          {user?.plan === 'teste' && 'Acesso gratuito aos conteúdos básicos'}
+                          {user?.plan === 'guideflow' && 'Acesso completo aos guias e protocolos'}
+                          {user?.plan === 'mindflow' && 'Acesso total + Grupo VIP'}
                         </p>
                       </div>
                       <div className="text-right">
                         <p className="text-2xl font-bold text-gray-900">
-                          {user.plan === 'teste' && 'Gratuito'}
-                          {user.plan === 'guideflow' && 'R$ 57/mês'}
-                          {user.plan === 'mindflow' && 'R$ 149/mês'}
+                          {user?.plan === 'teste' && 'Gratuito'}
+                          {user?.plan === 'guideflow' && 'R$ 57/mês'}
+                          {user?.plan === 'mindflow' && 'R$ 149/mês'}
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {user.plan === 'teste' && (
+                  {user?.plan === 'teste' && (
                     <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
                       <h4 className="font-semibold text-purple-900 mb-2">
                         Upgrade seu plano
@@ -640,7 +643,7 @@ export default function PerfilPage() {
                     </div>
                   )}
 
-                  {(user.plan === 'guideflow' || user.plan === 'mindflow') && (
+                  {(user?.plan === 'guideflow' || user?.plan === 'mindflow') && (
                     <div className="space-y-4">
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                         <div className="flex items-center">

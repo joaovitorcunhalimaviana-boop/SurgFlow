@@ -29,20 +29,19 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
       name: 'GuideFlow',
       description: 'Acesso completo aos guias e protocolos',
       features: [
-        'Todos os guidelines disponíveis',
-        'Protocolos detalhados',
-        'Calculadoras médicas',
-        'Downloads em PDF',
-        'Suporte prioritário'
+        'Acesso completo a todos os guideflows',
+        'Todas as calculadoras médicas',
+        'Conteúdo baseado em evidências',
+        'Atualizações constantes',
+        'Acesso via mobile e desktop'
       ]
     },
     mindflow: {
       name: 'MindFlow',
-      description: 'Acesso total + Grupo VIP + Mentorias',
+      description: 'Acesso total + Grupo VIP',
       features: [
         'Tudo do GuideFlow',
         'Grupo VIP no WhatsApp',
-        'Mentorias exclusivas',
         'Casos clínicos avançados',
         'Acesso antecipado a novos conteúdos'
       ]

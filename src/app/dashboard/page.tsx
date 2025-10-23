@@ -31,6 +31,8 @@ export default function DashboardPage() {
   const { user, isAuthenticated, isLoading, logout } = useAuth();
   const router = useRouter();
 
+  // TEMPORARIAMENTE DESABILITADO - Permitir acesso sem autenticação
+  /*
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push('/login?redirect=/dashboard');
@@ -53,6 +55,7 @@ export default function DashboardPage() {
   if (!isAuthenticated || !user) {
     return null;
   }
+  */
 
   const getPlanInfo = (plan: string) => {
     switch (plan) {
@@ -87,7 +90,7 @@ export default function DashboardPage() {
     }
   };
 
-  const planInfo = getPlanInfo(user.plan);
+  const planInfo = getPlanInfo(user?.plan || 'admin');
 
   const getAvailableFeatures = (plan: string) => {
     const baseFeatures = [
@@ -104,14 +107,13 @@ export default function DashboardPage() {
 
     const mindflowFeatures = [
       { name: 'Grupo VIP WhatsApp', type: 'community', available: plan === 'mindflow' },
-      { name: 'Aulas Exclusivas', type: 'education', available: plan === 'mindflow' },
       { name: 'Suporte à Pesquisa', type: 'research', available: plan === 'mindflow' }
     ];
 
     return [...baseFeatures, ...guideflowFeatures, ...mindflowFeatures];
   };
 
-  const features = getAvailableFeatures(user.plan);
+  const features = getAvailableFeatures(user?.plan || 'admin');
 
   return (
     <Layout>
@@ -122,7 +124,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  Olá, {user.fullName.split(' ')[0]}! 👋
+                  Olá, {user?.fullName?.split(' ')[0] || 'Usuário'}! 👋
                 </h1>
                 <p className="text-gray-600 mt-1">
                   Bem-vindo ao seu painel do SurgFlow
@@ -160,7 +162,7 @@ export default function DashboardPage() {
                         {planInfo.description}
                       </p>
                     </div>
-                    {user.plan === 'teste' && (
+                    {user?.plan === 'teste' && (
                       <Link href="/planos">
                         <Button className="bg-purple-600 hover:bg-purple-700">
                           Fazer Upgrade
@@ -170,7 +172,7 @@ export default function DashboardPage() {
                     )}
                   </div>
                   
-                  {user.plan === 'teste' && (
+                  {user?.plan === 'teste' && (
                     <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
                       <h4 className="font-semibold text-purple-900 mb-2">
                         🚀 Desbloqueie todo o potencial do SurgFlow
@@ -232,7 +234,7 @@ export default function DashboardPage() {
                       </div>
                     </Link>
 
-                    {user.plan === 'mindflow' && (
+                    {user?.plan === 'mindflow' && (
                       <div className="p-4 border border-yellow-200 rounded-lg bg-yellow-50">
                         <div className="flex items-center gap-3 mb-2">
                           <MessageCircle className="h-5 w-5 text-yellow-600" />
@@ -284,15 +286,15 @@ export default function DashboardPage() {
                 <CardContent className="space-y-3">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Nome</label>
-                    <p className="text-sm">{user.fullName}</p>
+                    <p className="text-sm">{user?.fullName || 'Usuário'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Email</label>
-                    <p className="text-sm">{user.email}</p>
+                    <p className="text-sm">{user?.email || 'email@exemplo.com'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">WhatsApp</label>
-                    <p className="text-sm">{user.whatsapp}</p>
+                    <p className="text-sm">{user?.whatsapp || 'Não informado'}</p>
                   </div>
                   <Button variant="outline" size="sm" className="w-full mt-4">
                     <Settings className="h-4 w-4 mr-2" />
@@ -320,7 +322,7 @@ export default function DashboardPage() {
                     ))}
                   </div>
                   
-                  {user.plan === 'teste' && (
+                  {user?.plan === 'teste' && (
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <Link href="/planos">
                         <Button size="sm" className="w-full bg-purple-600 hover:bg-purple-700">

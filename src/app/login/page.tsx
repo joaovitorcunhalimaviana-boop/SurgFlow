@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff, Lock, Mail, ArrowRight, User, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -11,11 +11,13 @@ import Layout from '@/components/layout/Layout'
 import { useAuth } from '@/contexts/AuthContext'
 import Link from 'next/link'
 
-const LoginPage: React.FC = () => {
+const LoginPageContent: React.FC = () => {
   const [formData, setFormData] = useState({
     email: '',
+    username: '',
     password: '',
-    rememberMe: false
+    rememberMe: false,
+    isAdminLogin: false
   })
   
   const [showPassword, setShowPassword] = useState(false)
@@ -32,6 +34,7 @@ const LoginPage: React.FC = () => {
     // Capturar parâmetros da URL
     const redirect = searchParams.get('redirect')
     const plano = searchParams.get('plano')
+    const admin = searchParams.get('admin')
     
     if (redirect) {
       setRedirectUrl(redirect)
@@ -39,6 +42,10 @@ const LoginPage: React.FC = () => {
     
     if (plano) {
       setSelectedPlan(plano)
+    }
+    
+    if (admin === 'true') {
+      setFormData(prev => ({ ...prev, isAdminLogin: true }))
     }
   }, [searchParams])
 
@@ -57,7 +64,9 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!formData.email || !formData.password) {
+    const loginField = formData.isAdminLogin ? formData.username : formData.email
+    
+    if (!loginField || !formData.password) {
       setError('Por favor, preencha todos os campos')
       return
     }
@@ -66,9 +75,12 @@ const LoginPage: React.FC = () => {
     setError('')
     
     try {
-      const success = await login(formData.email, formData.password)
+      console.log('Tentando fazer login com:', loginField)
+      const success = await login(loginField, formData.password)
+      console.log('Resultado do login:', success)
       
       if (success) {
+        console.log('Login bem-sucedido, redirecionando...')
         // Lógica de redirecionamento baseada nos parâmetros
         if (selectedPlan) {
           router.push(`/checkout?plano=${selectedPlan}`)
@@ -78,9 +90,11 @@ const LoginPage: React.FC = () => {
           router.push('/')
         }
       } else {
-        setError('Email ou senha incorretos')
+        console.log('Login falhou')
+        setError('Credenciais incorretas')
       }
     } catch (error) {
+      console.error('Erro durante o login:', error)
       setError('Erro ao fazer login. Tente novamente.')
     } finally {
       setIsLoading(false)
@@ -109,7 +123,7 @@ const LoginPage: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Bem-vindo de volta!
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-center">
               Entre na sua conta para continuar
             </p>
           </div>
@@ -129,22 +143,26 @@ const LoginPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Email Field */}
+                {/* Email/Username Field */}
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                    Email
+                  <label htmlFor={formData.isAdminLogin ? "username" : "email"} className="text-sm font-medium text-gray-700">
+                    {formData.isAdminLogin ? "Username" : "Email"}
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Mail className="h-5 w-5 text-gray-400" />
+                      {formData.isAdminLogin ? (
+                        <User className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Mail className="h-5 w-5 text-gray-400" />
+                      )}
                     </div>
                     <input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      id={formData.isAdminLogin ? "username" : "email"}
+                      type={formData.isAdminLogin ? "text" : "email"}
+                      value={formData.isAdminLogin ? formData.username : formData.email}
+                      onChange={(e) => handleInputChange(formData.isAdminLogin ? 'username' : 'email', e.target.value)}
                       className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
-                      placeholder="seu@email.com"
+                      placeholder={formData.isAdminLogin ? "Digite seu username" : "seu@email.com"}
                       required
                     />
                   </div>
@@ -200,11 +218,11 @@ const LoginPage: React.FC = () => {
                   </div>
 
                   <Link 
-                    href="/forgot-password" 
-                    className="text-sm text-purple-600 hover:text-purple-700 font-medium"
-                  >
-                    Esqueci minha senha
-                  </Link>
+                  href="/recuperar-senha" 
+                  className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Esqueci minha senha
+                </Link>
                 </div>
 
                 {/* Submit Button */}
@@ -261,6 +279,23 @@ const LoginPage: React.FC = () => {
         </div>
       </div>
     </Layout>
+  )
+}
+
+const LoginPage: React.FC = () => {
+  return (
+    <Suspense fallback={
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando...</p>
+          </div>
+        </div>
+      </Layout>
+    }>
+      <LoginPageContent />
+    </Suspense>
   )
 }
 

@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, CreditCard, Shield, Check, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Plan {
   id: string;
@@ -23,12 +23,12 @@ const plans: Record<string, Plan> = {
     price: 57,
     originalPrice: 97,
     features: [
-      'Acesso completo aos Guidelines',
-      'Casos clínicos interativos',
-      'Atualizações mensais',
-      'Suporte por email',
-      'Certificados de conclusão'
-    ]
+        'Acesso completo a todos os guideflows',
+        'Todas as calculadoras médicas',
+        'Conteúdo baseado em evidências',
+        'Atualizações constantes',
+        'Acesso via mobile e desktop'
+      ]
   },
   mindflow: {
     id: 'mindflow',
@@ -38,7 +38,6 @@ const plans: Record<string, Plan> = {
     features: [
       'Tudo do GuideFlow',
       'Mapas mentais exclusivos',
-      'Sessões de mentoria',
       'Grupo VIP no WhatsApp',
       'Acesso antecipado a novos conteúdos',
       'Suporte prioritário'
@@ -47,7 +46,7 @@ const plans: Record<string, Plan> = {
   }
 };
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPageContent: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, updateUserPlan } = useAuth();
@@ -80,7 +79,7 @@ const CheckoutPage: React.FC = () => {
 
       if (success) {
         // Atualizar plano do usuário
-        await updateUserPlan(selectedPlan.id);
+        await updateUserPlan(selectedPlan.id as 'guideflow' | 'mindflow');
         
         toast({
           title: "Pagamento aprovado!",
@@ -311,6 +310,21 @@ const CheckoutPage: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const CheckoutPage: React.FC = () => {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando...</p>
+        </div>
+      </div>
+    }>
+      <CheckoutPageContent />
+    </Suspense>
   );
 };
 

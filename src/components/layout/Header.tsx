@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, Stethoscope, User, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Menu, X, ChevronDown, Stethoscope, User, LogOut, Crown } from 'lucide-react';
 import { Logo } from '../ui/logo';
 import { Button } from '../ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -120,14 +121,6 @@ const Header: React.FC = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
             </ProtectedLink>
             
-            <ProtectedLink 
-              href="/casos-clinicos" 
-              className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
-            >
-              Casos Clínicos
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-200 group-hover:w-full"></span>
-            </ProtectedLink>
-            
             <Link 
               href="/biblioteca" 
               className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
@@ -237,14 +230,6 @@ const Header: React.FC = () => {
                 Calculadoras
               </ProtectedLink>
               
-              <ProtectedLink 
-                href="/casos-clinicos" 
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
-                onClick={closeMenus}
-              >
-                Casos Clínicos
-              </ProtectedLink>
-              
               <Link 
                 href="/biblioteca" 
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 py-2"
@@ -278,13 +263,7 @@ const Header: React.FC = () => {
               </Link>
               
               <div className="pt-4 space-y-2">
-                <Button 
-                  variant="primary" 
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                  onClick={() => window.location.href = '/cadastro'}
-                >
-                  Entre na sua conta
-                </Button>
+                <AuthButtons />
               </div>
             </nav>
           </div>
@@ -298,6 +277,7 @@ const Header: React.FC = () => {
 const AuthButtons: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth()
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const router = useRouter()
 
   if (isAuthenticated && user) {
     return (
@@ -324,6 +304,7 @@ const AuthButtons: React.FC = () => {
                   user.plan === 'guideflow' ? 'bg-purple-100 text-purple-700' :
                   'bg-gray-100 text-gray-700'
                 }`}>
+                  {user.plan === 'mindflow' && <Crown className="h-3 w-3 mr-1" />}
                   {user.plan === 'mindflow' ? 'MindFlow' : 
                    user.plan === 'guideflow' ? 'GuideFlow' : 
                    'Plano Teste'}
@@ -345,6 +326,7 @@ const AuthButtons: React.FC = () => {
               className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
               onClick={() => setShowUserMenu(false)}
             >
+              <Crown className="h-4 w-4 mr-2" />
               Meus Planos
             </Link>
             
@@ -367,9 +349,10 @@ const AuthButtons: React.FC = () => {
   return (
     <div className="flex items-center space-x-3">
       <Button 
-        variant="ghost" 
+        variant="outline" 
         size="sm"
-        onClick={() => window.location.href = '/login'}
+        className="border-purple-600 text-purple-600 hover:bg-purple-50"
+        onClick={() => router.push('/login')}
       >
         Entrar
       </Button>
@@ -377,7 +360,7 @@ const AuthButtons: React.FC = () => {
         variant="primary" 
         size="sm"
         className="bg-purple-600 hover:bg-purple-700 text-white"
-        onClick={() => window.location.href = '/cadastro'}
+        onClick={() => router.push('/cadastro')}
       >
         Cadastrar
       </Button>

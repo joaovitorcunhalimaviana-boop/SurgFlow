@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Layout from '@/components/layout/Layout'
 import PremiumFeatureWrapper from '@/components/features/PremiumFeatureWrapper'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -21,8 +22,22 @@ import {
   Award
 } from 'lucide-react'
 
+interface CasoClinico {
+  id: string
+  title: string
+  description: string
+  specialty: string
+  difficulty: string
+  duration: string
+  icon: React.ComponentType<any>
+  requiredPlan: 'guideflow' | 'mindflow' | null
+  featured: boolean
+}
+
 export default function CasosClinicosPage() {
-  const casos = [
+  const router = useRouter()
+  
+  const casosClinicosData: CasoClinico[] = [
     {
       id: 'apendicite-atipica',
       title: 'Apendicite Atípica em Idoso',
@@ -114,7 +129,7 @@ export default function CasosClinicosPage() {
   ]
 
   const getDifficultyColor = (difficulty: string) => {
-    const colors = {
+    const colors: Record<string, string> = {
       'Básico': 'bg-green-100 text-green-800',
       'Intermediário': 'bg-yellow-100 text-yellow-800',
       'Avançado': 'bg-orange-100 text-orange-800',
@@ -123,7 +138,7 @@ export default function CasosClinicosPage() {
     return colors[difficulty] || colors['Básico']
   }
 
-  const renderCaso = (caso) => {
+  const renderCaso = (caso: CasoClinico) => {
     const IconComponent = caso.icon
     const content = (
       <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 relative overflow-hidden">
@@ -188,9 +203,9 @@ export default function CasosClinicosPage() {
     return <div key={caso.id} className="h-full">{content}</div>
   }
 
-  const casosGratuitos = casos.filter(caso => !caso.requiredPlan)
-  const casosGuideFlow = casos.filter(caso => caso.requiredPlan === 'guideflow')
-  const casosMindFlow = casos.filter(caso => caso.requiredPlan === 'mindflow')
+  const casosGratuitos = casosClinicosData.filter(caso => !caso.requiredPlan)
+  const casosGuideFlow = casosClinicosData.filter(caso => caso.requiredPlan === 'guideflow')
+  const casosMindFlow = casosClinicosData.filter(caso => caso.requiredPlan === 'mindflow')
 
   return (
     <Layout>
@@ -218,7 +233,7 @@ export default function CasosClinicosPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">{casos.length}+</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">{casosClinicosData.length}+</div>
               <div className="text-sm text-gray-600">Casos Disponíveis</div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
@@ -299,7 +314,7 @@ export default function CasosClinicosPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   className="bg-white text-purple-600 hover:bg-gray-100"
-                  onClick={() => window.location.href = '/planos'}
+                  onClick={() => router.push('/planos')}
                 >
                   Upgrade para Premium
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -307,7 +322,7 @@ export default function CasosClinicosPage() {
                 <Button 
                   variant="outline" 
                   className="border-white text-white hover:bg-white hover:text-purple-600"
-                  onClick={() => window.location.href = '/contato'}
+                  onClick={() => router.push('/contato')}
                 >
                   Falar com Especialista
                 </Button>

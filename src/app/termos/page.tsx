@@ -1,7 +1,7 @@
 'use client'
 
 import Layout from '@/components/layout/Layout'
-import { Shield, FileText, Users, Lock, AlertCircle, CheckCircle } from 'lucide-react'
+import { Shield, FileText, Users, Lock, AlertCircle, CheckCircle, Mail, Phone } from 'lucide-react'
 
 export default function TermosPage() {
   return (
@@ -35,20 +35,127 @@ export default function TermosPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
               
-              {/* Introduction */}
+              {/* 1. Aceitação dos Termos */}
+              <div className="mb-12">
+                <div className="flex items-center mb-6">
+                  <CheckCircle className="w-6 h-6 text-purple-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">1. Aceitação dos Termos</h2>
+                </div>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  Ao acessar e utilizar a plataforma SurgFlow, você concorda automaticamente com estes Termos de Uso. 
+                  Se você não concordar com qualquer parte destes termos, não deve utilizar nossos serviços.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  Estes termos podem ser atualizados periodicamente, e é sua responsabilidade revisá-los regularmente.
+                </p>
+              </div>
+
+              {/* 2. Uso da Plataforma */}
+              <div className="mb-12">
+                <div className="flex items-center mb-6">
+                  <Users className="w-6 h-6 text-purple-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">2. Uso da Plataforma</h2>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                    <p className="text-blue-800 font-medium">Conteúdo Educacional</p>
+                    <p className="text-blue-700 text-sm mt-1">
+                      O SurgFlow oferece conteúdo educacional exclusivamente para profissionais de saúde qualificados.
+                    </p>
+                  </div>
+                  <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
+                    <p className="text-amber-800 font-medium">Não Substitui Julgamento Clínico</p>
+                    <p className="text-amber-700 text-sm mt-1">
+                      As informações fornecidas não substituem o julgamento clínico profissional ou a consulta médica direta.
+                    </p>
+                  </div>
+                  <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                    <p className="text-green-800 font-medium">Baseado em Guidelines Reconhecidos</p>
+                    <p className="text-green-700 text-sm mt-1">
+                      Todo conteúdo é baseado em guidelines médicos reconhecidos internacionalmente e evidências científicas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Propriedade Intelectual */}
+              <div className="mb-12">
+                <div className="flex items-center mb-6">
+                  <Lock className="w-6 h-6 text-purple-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">3. Propriedade Intelectual</h2>
+                </div>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  Todo o conteúdo disponível na plataforma SurgFlow, incluindo mas não limitado a textos, 
+                  fluxogramas, calculadoras, imagens e design, é protegido por direitos autorais e outras 
+                  leis de propriedade intelectual.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  É proibida a reprodução, distribuição ou modificação do conteúdo sem autorização expressa por escrito.
+                </p>
+              </div>
+
+              {/* 4. Limitação de Responsabilidade */}
+              <div className="mb-12">
+                <div className="flex items-center mb-6">
+                  <AlertCircle className="w-6 h-6 text-purple-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">4. Limitação de Responsabilidade</h2>
+                </div>
+                <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+                  <p className="text-red-800 font-semibold mb-3">IMPORTANTE - FERRAMENTA EDUCACIONAL</p>
+                  <p className="text-red-700 leading-relaxed mb-4">
+                    O SurgFlow é uma ferramenta educacional e de apoio à decisão. Todas as decisões clínicas 
+                    são de responsabilidade exclusiva do profissional de saúde.
+                  </p>
+                  <p className="text-red-700 leading-relaxed">
+                    O SurgFlow não se responsabiliza por decisões clínicas tomadas com base nas informações 
+                    fornecidas pela plataforma. O usuário assume total responsabilidade pelo uso das informações.
+                  </p>
+                </div>
+              </div>
+
+              {/* 5. Planos e Assinaturas */}
               <div className="mb-12">
                 <div className="flex items-center mb-6">
                   <Shield className="w-6 h-6 text-purple-600 mr-3" />
-                  <h2 className="text-2xl font-bold text-gray-900">1. Introdução</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">5. Planos e Assinaturas</h2>
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Bem-vindo ao SurgFlow! Estes Termos de Uso regem o uso da nossa plataforma de guidelines cirúrgicos. 
-                  Ao acessar ou usar nossos serviços, você concorda em cumprir estes termos.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  O SurgFlow é uma plataforma educacional que oferece guidelines cirúrgicos em formato de fluxogramas 
-                  interativos, calculadoras médicas e conteúdo educacional para profissionais da saúde.
-                </p>
+                <div className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    <strong>Plano Teste (Gratuito):</strong> Acesso limitado a conteúdos básicos e calculadoras essenciais.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    <strong>Plano GuideFlow:</strong> Acesso completo a todos os guideflows e calculadoras médicas.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    <strong>Plano MindFlow:</strong> Tudo do GuideFlow + grupo VIP + oportunidades de pesquisa.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed text-sm mt-4">
+                    Os preços e condições dos planos podem ser alterados mediante aviso prévio de 30 dias.
+                  </p>
+                </div>
+              </div>
+
+              {/* 6. Contato */}
+              <div className="mb-8">
+                <div className="flex items-center mb-6">
+                  <Mail className="w-6 h-6 text-purple-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">6. Contato</h2>
+                </div>
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                  <p className="text-purple-800 mb-4">
+                    Para dúvidas sobre estes Termos de Uso ou questões relacionadas à plataforma:
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center text-purple-700">
+                      <Mail className="w-4 h-4 mr-2" />
+                      <span>contato@surgflow.com.br</span>
+                    </div>
+                    <div className="flex items-center text-purple-700">
+                      <Phone className="w-4 h-4 mr-2" />
+                      <span>Suporte via WhatsApp (disponível na plataforma)</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Acceptance */}
@@ -88,7 +195,7 @@ export default function TermosPage() {
                   </div>
                   <div className="bg-yellow-50 p-4 rounded-lg">
                     <h3 className="font-semibold text-gray-900 mb-2">Plano MindFlow (R$ 149/mês)</h3>
-                    <p className="text-gray-700 text-sm">Tudo do GuideFlow + grupo VIP, aulas exclusivas e mentoria.</p>
+                    <p className="text-gray-700 text-sm">Tudo do GuideFlow + grupo VIP.</p>
                   </div>
                 </div>
               </div>

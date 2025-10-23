@@ -1,11 +1,14 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Layout from '@/components/layout/Layout'
 import PremiumFeatureWrapper from '@/components/features/PremiumFeatureWrapper'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { 
   Calculator, 
   Heart, 
@@ -15,11 +18,27 @@ import {
   TrendingUp,
   Clock,
   Target,
-  ArrowRight
+  ArrowRight,
+  Search,
+  Filter
 } from 'lucide-react'
 
+interface Calculadora {
+  id: string
+  name: string
+  description: string
+  category: string
+  icon: React.ComponentType<any>
+  requiredPlan: 'guideflow' | 'mindflow' | null
+  color: string
+}
+
 export default function CalculadorasPage() {
-  const calculadoras = [
+  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('Todas')
+  
+  const calculadoras: Calculadora[] = [
     {
       id: 'alvarado',
       name: 'Escore de Alvarado',
@@ -45,15 +64,6 @@ export default function CalculadorasPage() {
       category: 'Medicina Intensiva',
       icon: Activity,
       requiredPlan: 'guideflow',
-      color: 'purple'
-    },
-    {
-      id: 'sofa',
-      name: 'SOFA Score',
-      description: 'Avaliação de disfunção orgânica sequencial',
-      category: 'Medicina Intensiva',
-      icon: Heart,
-      requiredPlan: 'guideflow',
       color: 'red'
     },
     {
@@ -64,6 +74,33 @@ export default function CalculadorasPage() {
       icon: AlertTriangle,
       requiredPlan: 'guideflow',
       color: 'orange'
+    },
+    {
+      id: 'asa-score',
+      name: 'Classificação ASA',
+      description: 'Avaliação do estado físico pré-operatório',
+      category: 'Anestesiologia',
+      icon: Stethoscope,
+      requiredPlan: 'guideflow',
+      color: 'blue'
+    },
+    {
+      id: 'bmi-calculator',
+      name: 'IMC e Superfície Corporal',
+      description: 'Cálculo de IMC, superfície corporal e peso ideal',
+      category: 'Medicina Geral',
+      icon: Calculator,
+      requiredPlan: 'guideflow',
+      color: 'green'
+    },
+    {
+      id: 'sofa',
+      name: 'SOFA Score',
+      description: 'Avaliação de disfunção orgânica sequencial',
+      category: 'Medicina Intensiva',
+      icon: Heart,
+      requiredPlan: 'guideflow',
+      color: 'purple'
     },
     {
       id: 'bisap',
@@ -94,10 +131,22 @@ export default function CalculadorasPage() {
     }
   ]
 
-  const categorias = [...new Set(calculadoras.map(calc => calc.category))]
+  const categorias = ['Todas', ...new Set(calculadoras.map(calc => calc.category))]
+
+  // Filtrar calculadoras baseado na busca e categoria
+  const calculadorasFiltradas = calculadoras.filter(calc => {
+    const matchesSearch = calc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         calc.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCategory = selectedCategory === 'Todas' || calc.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
+
+  const categoriasFiltradas = selectedCategory === 'Todas' 
+    ? [...new Set(calculadorasFiltradas.map(calc => calc.category))]
+    : [selectedCategory]
 
   const getColorClasses = (color: string) => {
-    const colors = {
+    const colors: Record<string, string> = {
       green: 'bg-green-100 text-green-800 border-green-200',
       blue: 'bg-blue-100 text-blue-800 border-blue-200',
       purple: 'bg-purple-100 text-purple-800 border-purple-200',
@@ -110,7 +159,7 @@ export default function CalculadorasPage() {
     return colors[color] || colors.blue
   }
 
-  const renderCalculadora = (calc) => {
+  const renderCalculadora = (calc: Calculadora) => {
     const IconComponent = calc.icon
     const content = (
       <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2">
@@ -133,7 +182,11 @@ export default function CalculadorasPage() {
             <Badge variant="outline" className="text-xs">
               {calc.category}
             </Badge>
-            <Button size="sm" className="text-xs">
+            <Button 
+              size="sm" 
+              className="text-xs"
+              onClick={() => router.push(`/calculadoras/${calc.id}`)}
+            >
               Calcular
               <ArrowRight className="h-3 w-3 ml-1" />
             </Button>
@@ -146,7 +199,7 @@ export default function CalculadorasPage() {
       return (
         <PremiumFeatureWrapper
           key={calc.id}
-          requiredPlan={calc.requiredPlan}
+          requiredPlan={calc.requiredPlan as 'guideflow' | 'mindflow'}
           featureName={`a calculadora ${calc.name}`}
           className="h-full"
         >
@@ -184,15 +237,15 @@ export default function CalculadorasPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">8+</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">{calculadoras.length}+</div>
               <div className="text-sm text-gray-600">Calculadoras</div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">2</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">{calculadoras.filter(c => !c.requiredPlan).length}</div>
               <div className="text-sm text-gray-600">Gratuitas</div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">4</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">{[...new Set(calculadoras.map(c => c.category))].length}</div>
               <div className="text-sm text-gray-600">Especialidades</div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
@@ -201,22 +254,69 @@ export default function CalculadorasPage() {
             </div>
           </div>
 
-          {/* Calculadoras por Categoria */}
-          {categorias.map(categoria => (
-            <div key={categoria} className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <div className="w-1 h-8 bg-purple-600 rounded-full mr-4"></div>
-                {categoria}
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {calculadoras
-                  .filter(calc => calc.category === categoria)
-                  .map(calc => renderCalculadora(calc))
-                }
+          {/* Busca e Filtros */}
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Buscar calculadoras..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="md:w-64">
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger>
+                    <Filter className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Filtrar por categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categorias.map(categoria => (
+                      <SelectItem key={categoria} value={categoria}>
+                        {categoria}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
-          ))}
+            
+            {searchTerm && (
+              <div className="mt-4 text-sm text-gray-600">
+                Mostrando {calculadorasFiltradas.length} resultado(s) para "{searchTerm}"
+              </div>
+            )}
+          </div>
+
+          {/* Calculadoras por Categoria */}
+          {calculadorasFiltradas.length === 0 ? (
+            <div className="text-center py-12">
+              <Calculator className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma calculadora encontrada</h3>
+              <p className="text-gray-500">Tente ajustar os filtros ou termo de busca</p>
+            </div>
+          ) : (
+            categoriasFiltradas.map(categoria => (
+              <div key={categoria} className="mb-12">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                  <div className="w-1 h-8 bg-purple-600 rounded-full mr-4"></div>
+                  {categoria}
+                  <Badge variant="outline" className="ml-3 text-xs">
+                    {calculadorasFiltradas.filter(calc => calc.category === categoria).length}
+                  </Badge>
+                </h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {calculadorasFiltradas
+                    .filter(calc => calc.category === categoria)
+                    .map(calc => renderCalculadora(calc))
+                  }
+                </div>
+              </div>
+            ))
+          )}
 
           {/* CTA Section */}
           <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 text-center text-white mt-16">
@@ -229,7 +329,7 @@ export default function CalculadorasPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 className="bg-white text-purple-600 hover:bg-gray-100"
-                onClick={() => window.location.href = '/planos'}
+                onClick={() => router.push('/planos')}
               >
                 Ver Planos
                 <ArrowRight className="h-4 w-4 ml-2" />
@@ -237,7 +337,7 @@ export default function CalculadorasPage() {
               <Button 
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-purple-600"
-                onClick={() => window.location.href = '/contato'}
+                onClick={() => router.push('/contato')}
               >
                 Solicitar Calculadora
               </Button>

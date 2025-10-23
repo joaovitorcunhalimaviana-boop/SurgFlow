@@ -21,8 +21,7 @@ export default function PlanosPage() {
       features: [
         'Acesso limitado a conteúdos básicos',
         'Visualização de alguns guideflows',
-        'Acesso a calculadoras básicas',
-        'Suporte por email'
+        'Acesso a calculadoras básicas'
       ],
       cta: 'Começar Gratuitamente',
       badge: null
@@ -37,7 +36,6 @@ export default function PlanosPage() {
         'Acesso completo a todos os guideflows',
         'Todas as calculadoras médicas',
         'Conteúdo baseado em evidências',
-        'Suporte prioritário',
         'Atualizações constantes',
         'Acesso via mobile e desktop'
       ],
@@ -52,12 +50,10 @@ export default function PlanosPage() {
       color: 'yellow',
       features: [
         'Tudo do GuideFlow +',
-        'Acesso ao grupo VIP WhatsApp "Hobby Cirúrgico"',
-        'Aulas exclusivas com especialistas',
+        'Acesso ao grupo VIP WhatsApp "SurgFlow"',
         'Discussões de casos clínicos',
         'Networking com subespecialistas',
-        'Oportunidades de estágio e pesquisa',
-        'Mentoria personalizada',
+        'Oportunidades de pesquisa',
         'Acesso antecipado a novos recursos'
       ],
       cta: 'Assinar MindFlow',
@@ -271,7 +267,7 @@ export default function PlanosPage() {
             
             <div className="bg-white p-6 rounded-xl shadow-md">
               <BookOpen className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Aulas exclusivas com casos reais</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">Discussões de casos clínicos</h3>
               <p className="text-gray-600 text-sm">Discussões semanais de casos clínicos</p>
             </div>
             

@@ -153,9 +153,6 @@ export const CancellationEmail: React.FC<CancellationEmailProps> = ({
               <li style={{ marginBottom: '8px', fontSize: '14px' }}>
                 ✅ Participar do grupo VIP no WhatsApp
               </li>
-              <li style={{ marginBottom: '8px', fontSize: '14px' }}>
-                ✅ Agendar mentorias (se ainda houver sessões disponíveis)
-              </li>
             </>
           )}
           <li style={{ marginBottom: '0', fontSize: '14px' }}>

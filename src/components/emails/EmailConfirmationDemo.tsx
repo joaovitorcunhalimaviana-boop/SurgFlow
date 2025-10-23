@@ -43,7 +43,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ type, title, description, c
       <CardContent>
         <div className="flex gap-2 mb-4">
           <Button
-            variant={showPreview ? "default" : "outline"}
+            variant={showPreview ? "primary" : "outline"}
             size="sm"
             onClick={() => setShowPreview(true)}
           >
@@ -51,7 +51,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ type, title, description, c
             Visualizar
           </Button>
           <Button
-            variant={!showPreview ? "default" : "outline"}
+            variant={!showPreview ? "primary" : "outline"}
             size="sm"
             onClick={() => setShowPreview(false)}
           >

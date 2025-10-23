@@ -337,8 +337,8 @@ const AdminDashboard: React.FC = () => {
                       <p className="text-sm text-gray-600">Resumo semanal de conteúdos</p>
                     </div>
                     <div className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 cursor-pointer">
-                      <h4 className="font-medium text-gray-900">Convite para Aula</h4>
-                      <p className="text-sm text-gray-600">Convite para aulas exclusivas</p>
+                      <h4 className="font-medium text-gray-900">Convite para Discussão</h4>
+                      <p className="text-sm text-gray-600">Convite para discussões de casos</p>
                     </div>
                   </div>
                   <Button variant="outline" className="w-full mt-4">
