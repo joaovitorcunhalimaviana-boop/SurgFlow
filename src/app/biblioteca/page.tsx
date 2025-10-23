@@ -224,7 +224,7 @@ export default function BibliotecaPage() {
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  variant={selectedCategory === category ? "secondary" : "outline"}
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
                   className={selectedCategory === category ? "bg-purple-600 hover:bg-purple-700 text-white" : ""}
