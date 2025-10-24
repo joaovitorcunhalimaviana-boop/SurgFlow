@@ -86,6 +86,18 @@ const Header: React.FC = () => {
                     </div>
                   </ProtectedLink>
                   <ProtectedLink 
+                    href="/guideline/appendicitis-wses-2020" 
+                    className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
+                    onClick={closeMenus}
+                    requiredPlan="teste"
+                  >
+                    <Stethoscope className="h-4 w-4 mr-3 text-purple-500" />
+                    <div>
+                      <div className="font-medium">Apendicite</div>
+                      <div className="text-xs text-gray-500">WSES Guidelines 2020</div>
+                    </div>
+                  </ProtectedLink>
+                  <ProtectedLink 
                     href="/guideline/cholangitis-tokyo-2018" 
                     className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
                     onClick={closeMenus}
@@ -193,6 +205,18 @@ const Header: React.FC = () => {
                     <div>
                       <div className="font-medium">Colecistite</div>
                       <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
+                    </div>
+                  </ProtectedLink>
+                  <ProtectedLink 
+                    href="/guideline/appendicitis-wses-2020" 
+                    className="flex items-center text-gray-600 hover:text-purple-600 transition-colors duration-200"
+                    onClick={closeMenus}
+                    requiredPlan="teste"
+                  >
+                    <Stethoscope className="h-4 w-4 mr-2 text-purple-500" />
+                    <div>
+                      <div className="font-medium">Apendicite</div>
+                      <div className="text-xs text-gray-500">WSES Guidelines 2020</div>
                     </div>
                   </ProtectedLink>
                   <ProtectedLink 
