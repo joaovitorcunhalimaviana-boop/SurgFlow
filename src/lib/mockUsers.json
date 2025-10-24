@@ -1,0 +1,16 @@
+[
+  {
+    "id": "mindflow-user-1761250809333",
+    "fullName": "João Vítor da Cunha Lima Viana",
+    "email": "joaovitorcunhalimaviana@gmail.com",
+    "whatsapp": "83998663089",
+    "birthDate": "1997-01-02",
+    "passwordHash": "$2b$12$0.D4PxUuNq55.qfGvzH0hulCcKknrfdp/o6/Xzb1u.o6WmGEjzgP6",
+    "plan": "mindflow",
+    "role": "user",
+    "isActive": true,
+    "emailVerified": true,
+    "createdAt": "2025-10-23T20:20:10.139Z",
+    "updatedAt": "2025-10-23T20:20:10.142Z"
+  }
+]
