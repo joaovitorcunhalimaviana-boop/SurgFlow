@@ -4164,33 +4164,43 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
 
           <div className="space-y-2">
             <div className="bg-blue-100 p-3 rounded border border-blue-300">
-              <p className="font-bold text-blue-900 text-sm">Grau 0: Apêndice Normal</p>
-              <p className="text-xs text-gray-700 mt-1">Apêndice macroscopicamente normal, sem sinais inflamatórios</p>
+              <p className="font-bold text-blue-900 text-sm">GRAU 0: Normal</p>
+              <p className="text-xs text-gray-700 mt-1">Apêndice macroscopicamente normal</p>
             </div>
 
             <div className="bg-blue-100 p-3 rounded border border-blue-300">
-              <p className="font-bold text-blue-900 text-sm">Grau 1: Apendicite Catarral (Inflamação Simples)</p>
-              <p className="text-xs text-gray-700 mt-1">Hiperemia, edema, apêndice intacto sem necrose</p>
+              <p className="font-bold text-blue-900 text-sm">GRAU 1: Hiperemia e edema</p>
+              <p className="text-xs text-gray-700 mt-1">Sinais inflamatórios iniciais, hiperemia e edema do apêndice</p>
             </div>
 
-            <div className="bg-blue-100 p-3 rounded border border-blue-300">
-              <p className="font-bold text-blue-900 text-sm">Grau 2: Apendicite Flegmonosa (Supurativa)</p>
-              <p className="text-xs text-gray-700 mt-1">Exsudato fibrinopurulento na superfície, sem necrose transmural</p>
+            <div className="bg-yellow-100 p-3 rounded border border-yellow-300">
+              <p className="font-bold text-yellow-900 text-sm">GRAU 2: Exsudato fibrinoso</p>
+              <p className="text-xs text-gray-700 mt-1">Presença de exsudato fibrinoso na superfície apendicular</p>
             </div>
 
             <div className="bg-orange-100 p-3 rounded border border-orange-300">
-              <p className="font-bold text-orange-900 text-sm">Grau 3: Apendicite Gangrenosa</p>
-              <p className="text-xs text-gray-700 mt-1">Necrose transmural, áreas de gangrena, sem perfuração</p>
+              <p className="font-bold text-orange-900 text-sm">GRAU 3: Necrose segmentar</p>
+              <p className="text-xs text-gray-700 mt-1">Áreas de necrose segmentar do apêndice</p>
             </div>
 
             <div className="bg-red-100 p-3 rounded border border-red-300">
-              <p className="font-bold text-red-900 text-sm">Grau 4: Apendicite Perfurada</p>
-              <p className="text-xs text-gray-700 mt-1">Perfuração visível do apêndice</p>
+              <p className="font-bold text-red-900 text-sm">GRAU 4A: Abscesso</p>
+              <p className="text-xs text-gray-700 mt-1">Formação de abscesso periapendicular</p>
             </div>
 
             <div className="bg-red-100 p-3 rounded border border-red-300">
-              <p className="font-bold text-red-900 text-sm">Grau 5: Abscesso Periapendicular</p>
-              <p className="text-xs text-gray-700 mt-1">Coleção purulenta organizada ao redor do apêndice</p>
+              <p className="font-bold text-red-900 text-sm">GRAU 4B: Peritonite regional</p>
+              <p className="text-xs text-gray-700 mt-1">Peritonite limitada à região periapendicular</p>
+            </div>
+
+            <div className="bg-red-100 p-3 rounded border border-red-300">
+              <p className="font-bold text-red-900 text-sm">GRAU 4C: Necrose da base do apêndice</p>
+              <p className="text-xs text-gray-700 mt-1">Necrose comprometendo a base apendicular</p>
+            </div>
+
+            <div className="bg-red-200 p-3 rounded border border-red-400">
+              <p className="font-bold text-red-900 text-sm">GRAU 5: Peritonite difusa</p>
+              <p className="text-xs text-gray-700 mt-1">Peritonite generalizada com comprometimento difuso</p>
             </div>
           </div>
 
@@ -4199,8 +4209,10 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
             <AlertTitle className="text-sm text-purple-900">Implicações Clínicas:</AlertTitle>
             <AlertDescription className="text-xs text-purple-800 mt-2">
               <ul className="list-disc list-inside space-y-1">
-                <li><strong>Graus 0-2:</strong> Apendicite não complicada → Antibiótico de dose única</li>
-                <li><strong>Graus 3-5:</strong> Apendicite complicada → Antibióticos prolongados (4-7 dias)</li>
+                <li><strong>Graus 0-2:</strong> Apendicite não complicada → Antibiótico de dose única ou curta duração</li>
+                <li><strong>Graus 3-5:</strong> Apendicite complicada → Antibióticos prolongados (5-7 dias)</li>
+                <li><strong>Grau 4A-4C:</strong> Requer avaliação individualizada para drenagem e antibioticoterapia</li>
+                <li><strong>Grau 5:</strong> Peritonite difusa - antibióticos de amplo espectro e suporte intensivo</li>
               </ul>
             </AlertDescription>
           </Alert>

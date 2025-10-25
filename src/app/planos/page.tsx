@@ -200,10 +200,7 @@ export default function PlanosPage() {
                       {/* Price */}
                       <div className="mb-6">
                         <span className="text-4xl font-bold text-gray-900">
-                          {plan.id === 'guideflow' && !isAnnual ? 
-                            'R$ quarenta e nove vírgula noventa' : 
-                            `R$ ${isAnnual ? plan.price.annual : plan.price.monthly}`
-                          }
+                          R$ {isAnnual ? plan.price.annual : plan.price.monthly.toFixed(2).replace('.', ',')}
                         </span>
                         <span className="text-gray-600">
                           {plan.price.monthly === 0 ? '' : isAnnual ? '/ano' : '/mês'}
