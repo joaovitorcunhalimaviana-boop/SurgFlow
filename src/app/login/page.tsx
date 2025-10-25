@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { Eye, EyeOff, Lock, Mail, ArrowRight, User, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -105,31 +106,77 @@ const LoginPageContent: React.FC = () => {
     <Layout>
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-25 flex items-center justify-center p-4">
         {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/15 rounded-full blur-3xl"></div>
-        
-        <div className="relative w-full max-w-md">
+        <motion.div
+          className="absolute top-0 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [0, -40, 0],
+            y: [0, -20, 0]
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative w-full max-w-md"
+        >
           {/* Logo and Header */}
           <div className="text-center mb-8">
-            <div className="flex justify-center mb-6">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+              className="flex justify-center mb-6"
+            >
               <Logo size="lg" />
-            </div>
-            
-            <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4"
+            >
               <User className="h-4 w-4 mr-2" />
               Área do Usuário
-            </div>
-            
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-2xl font-bold text-gray-900 mb-2"
+            >
               Bem-vindo de volta!
-            </h1>
-            <p className="text-gray-600 text-center">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-gray-600 text-center"
+            >
               Entre na sua conta para continuar
-            </p>
+            </motion.p>
           </div>
 
           {/* Login Card */}
-          <Card className="border-purple-200 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Card className="border-purple-200 shadow-xl">
             <CardHeader className="text-center pb-6">
               <CardTitle className="text-xl text-gray-900">Fazer Login</CardTitle>
             </CardHeader>
@@ -263,9 +310,15 @@ const LoginPageContent: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+          </motion.div>
 
           {/* Benefits */}
-          <div className="mt-6 text-center space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="mt-6 text-center space-y-2"
+          >
             <p className="text-sm text-gray-500">
               ✅ Acesso aos guidelines cirúrgicos
             </p>
@@ -275,8 +328,8 @@ const LoginPageContent: React.FC = () => {
             <p className="text-sm text-gray-500">
               ✅ Conteúdo sempre atualizado
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </Layout>
   )

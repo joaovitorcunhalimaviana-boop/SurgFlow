@@ -10,7 +10,8 @@
       "Read(//c/Users/joaov/Downloads/**)",
       "WebFetch(domain:prescricaobaseadaemevidencias.cirurgiando.com.br)",
       "Bash(npm install:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

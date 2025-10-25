@@ -1,9 +1,12 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { 
-  Mail, 
-  MapPin, 
+import {
+  Mail,
+  MapPin,
   Send,
   MessageCircle,
   User,
@@ -18,22 +21,48 @@ export default function ContatoPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-12 lg:py-16 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
-        
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+            x: [0, 40, 0]
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, -50, 0]
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Entre em 
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              Entre em
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
                 Contato
               </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Tem dúvidas, sugestões ou quer contribuir com o projeto? 
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
+            >
+              Tem dúvidas, sugestões ou quer contribuir com o projeto?
               Estamos aqui para ajudar e ouvir sua opinião.
-            </p>
+            </motion.p>
           </div>
         </div>
       </section>
@@ -43,7 +72,12 @@ export default function ContatoPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <Card className="border-purple-200 shadow-lg">
                 <CardHeader className="bg-purple-50">
                   <CardTitle className="text-2xl flex items-center">
@@ -149,10 +183,16 @@ export default function ContatoPage() {
                   </form>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Contact Information */}
-            <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
+            >
               {/* Contact Details */}
               <Card className="border-purple-200">
                 <CardHeader>
@@ -225,7 +265,7 @@ export default function ContatoPage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

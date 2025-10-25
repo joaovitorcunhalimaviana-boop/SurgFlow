@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu, X, ChevronDown, Stethoscope, User, LogOut, Crown } from 'lucide-react';
@@ -13,6 +14,15 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isGuidelinesOpen, setIsGuidelinesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  // Transform scroll into blur and shadow values
+  const headerBlur = useTransform(scrollY, [0, 50], [0, 10]);
+  const headerShadow = useTransform(
+    scrollY,
+    [0, 50],
+    ['0px 0px 0px rgba(0,0,0,0)', '0px 4px 20px rgba(0,0,0,0.1)']
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,9 +47,19 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`bg-white/95 backdrop-blur-sm border-b sticky top-0 z-50 transition-all duration-200 ${
-      isScrolled ? 'border-purple-200 shadow-sm' : 'border-gray-200'
-    }`}>
+    <motion.header
+      className={`bg-white/95 border-b sticky top-0 z-50 transition-all duration-200 ${
+        isScrolled ? 'border-purple-200' : 'border-gray-200'
+      }`}
+      style={{
+        backdropFilter: isScrolled ? `blur(${headerBlur}px)` : 'blur(0px)',
+        boxShadow: isScrolled ? headerShadow : 'none',
+        WebkitBackdropFilter: isScrolled ? `blur(${headerBlur}px)` : 'blur(0px)',
+      }}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo - Diminuída */}
@@ -293,7 +313,7 @@ const Header: React.FC = () => {
           </div>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 };
 

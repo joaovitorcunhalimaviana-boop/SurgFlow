@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import FeaturesSection from '@/components/features/FeaturesSection'
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,14 @@ import { ArrowRight, CheckCircle, Lock } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Home() {
+  const { scrollYProgress } = useScroll()
+
+  // Parallax transforms
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100])
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.9])
+
   // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -31,15 +39,16 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Hero Section - Enhanced with better visual hierarchy */}
+      {/* Hero Section - Enhanced with Parallax */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-24 lg:py-32 overflow-hidden">
-        {/* Background decorative elements */}
+        {/* Background decorative elements with Parallax */}
         <motion.div
           className="absolute inset-0 bg-grid-pattern opacity-5"
-          {...fadeIn}
+          style={{ y: y2 }}
         />
         <motion.div
           className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"
+          style={{ y: y1 }}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.3, 0.2]
@@ -52,6 +61,7 @@ export default function Home() {
         />
         <motion.div
           className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"
+          style={{ y: y2 }}
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.15, 0.25, 0.15]
@@ -64,7 +74,10 @@ export default function Home() {
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          style={{ opacity, scale }}
+        >
           <motion.div
             className="text-center"
             initial="initial"
@@ -123,7 +136,7 @@ export default function Home() {
               </Link>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Flow Resources Section - New comprehensive section */}

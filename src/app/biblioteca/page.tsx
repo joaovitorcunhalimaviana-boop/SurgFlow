@@ -1,22 +1,24 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import IntelligentSearch from '@/components/search/IntelligentSearch'
 import { SearchDataItem } from '@/data/searchData'
-import { 
-  BookOpen, 
-  Download, 
-  FileText, 
+import {
+  BookOpen,
+  Download,
+  FileText,
   Search,
   Filter,
   Calendar,
   Users,
   Star,
-  ExternalLink
+  ExternalLink,
+  Sparkles
 } from 'lucide-react'
 
 interface Guideline {
@@ -191,27 +193,97 @@ export default function BibliotecaPage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
+      {/* Hero Section - Enhanced */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-20 lg:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
-        
+        {/* Animated Background Elements */}
+        <motion.div
+          className="absolute inset-0 bg-grid-pattern opacity-5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
+          transition={{ duration: 1 }}
+        />
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+            x: [0, 50, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, -30, 0],
+            y: [0, -50, 0]
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="inline-flex items-center gap-2 mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-8 h-8 text-purple-600" />
+              </motion.div>
+              <Badge className="bg-purple-100 text-purple-800 px-4 py-1 text-sm">
+                +{guidelines.length} Guidelines Disponíveis
+              </Badge>
+            </motion.div>
+
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Biblioteca
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
+              <motion.span
+                className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 Virtual
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Acesse e baixe guidelines médicos essenciais para sua prática clínica. 
-            Documentos atualizados e baseados em evidências científicas.
-          </p>
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              Acesse e baixe guidelines médicos essenciais para sua prática clínica.
+              Documentos atualizados e baseados em evidências científicas.
+            </motion.p>
+          </motion.div>
         </div>
-      </div>
       </section>
 
       {/* Search and Filter Section */}
@@ -305,47 +377,74 @@ export default function BibliotecaPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredGuidelines.map((guideline) => (
-                <Card key={guideline.id} className="hover:shadow-lg transition-shadow border-purple-200">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                          <BookOpen className="w-5 h-5 text-purple-600" />
+              {featuredGuidelines.map((guideline, index) => (
+                <motion.div
+                  key={guideline.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <motion.div
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Card className="h-[420px] flex flex-col hover:shadow-2xl transition-shadow duration-300 border-purple-200 overflow-hidden group relative">
+                      {/* Animated gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <CardHeader className="pb-3 relative flex-shrink-0">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-2">
+                            <motion.div
+                              className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors"
+                              whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <BookOpen className="w-5 h-5 text-purple-600" />
+                            </motion.div>
+                            <Badge variant="secondary" className="text-xs">
+                              {guideline.category}
+                            </Badge>
+                          </div>
+                          <motion.div
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                          </motion.div>
                         </div>
-                        <Badge variant="secondary" className="text-xs">
-                          {guideline.category}
-                        </Badge>
-                      </div>
-                      <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                    </div>
-                    <CardTitle className="text-lg leading-tight mt-3">
-                      {guideline.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {guideline.description}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-1" />
-                        {guideline.authors}
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {guideline.year}
-                      </div>
-                    </div>
-                    <Button 
-                      onClick={() => handleDownload(guideline.fileName, guideline.title)}
-                      className="w-full bg-purple-600 hover:bg-purple-700"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      Baixar PDF
-                    </Button>
-                  </CardContent>
-                </Card>
+                        <CardTitle className="text-lg leading-tight mt-3 group-hover:text-purple-600 transition-colors line-clamp-2">
+                          {guideline.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="relative flex flex-col flex-1">
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
+                          {guideline.description}
+                        </p>
+                        <div className="flex items-center justify-between text-sm text-gray-500 mb-4 flex-shrink-0">
+                          <div className="flex items-center">
+                            <Users className="w-4 h-4 mr-1" />
+                            {guideline.authors}
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="w-4 h-4 mr-1" />
+                            {guideline.year}
+                          </div>
+                        </div>
+                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="flex-shrink-0">
+                          <Button
+                            onClick={() => handleDownload(guideline.fileName, guideline.title)}
+                            className="w-full bg-purple-600 hover:bg-purple-700 shadow-md hover:shadow-lg transition-all"
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Baixar PDF
+                          </Button>
+                        </motion.div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -377,50 +476,77 @@ export default function BibliotecaPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredGuidelines.map((guideline) => (
-                <Card key={guideline.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
-                          <FileText className="w-5 h-5 text-gray-600" />
+              {filteredGuidelines.map((guideline, index) => (
+                <motion.div
+                  key={guideline.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                >
+                  <motion.div
+                    whileHover={{ y: -5, scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <Card className="h-[420px] hover:shadow-xl transition-all duration-300 group relative overflow-hidden flex flex-col">
+                      {/* Hover gradient effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-500/0 via-gray-500/5 to-gray-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <CardHeader className="pb-3 relative flex-shrink-0">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-2">
+                            <motion.div
+                              className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-purple-100 transition-colors"
+                              whileHover={{ rotate: 10, scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                            >
+                              <FileText className="w-5 h-5 text-gray-600 group-hover:text-purple-600 transition-colors" />
+                            </motion.div>
+                            <Badge variant="outline" className="text-xs group-hover:border-purple-300 transition-colors">
+                              {guideline.category}
+                            </Badge>
+                          </div>
+                          {guideline.featured && (
+                            <motion.div
+                              animate={{ rotate: [0, 10, -10, 0] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            >
+                              <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                            </motion.div>
+                          )}
                         </div>
-                        <Badge variant="outline" className="text-xs">
-                          {guideline.category}
-                        </Badge>
-                      </div>
-                      {guideline.featured && (
-                        <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                      )}
-                    </div>
-                    <CardTitle className="text-lg leading-tight mt-3">
-                      {guideline.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {guideline.description}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-1" />
-                        {guideline.authors}
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {guideline.year}
-                      </div>
-                    </div>
-                    <Button 
-                      onClick={() => handleDownload(guideline.fileName, guideline.title)}
-                      variant="outline"
-                      className="w-full hover:bg-purple-50 hover:border-purple-300"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      Baixar PDF
-                    </Button>
-                  </CardContent>
-                </Card>
+                        <CardTitle className="text-lg leading-tight mt-3 group-hover:text-purple-600 transition-colors line-clamp-2">
+                          {guideline.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="relative flex-1 flex flex-col">
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
+                          {guideline.description}
+                        </p>
+                        <div className="flex items-center justify-between text-sm text-gray-500 mb-4 flex-shrink-0">
+                          <div className="flex items-center">
+                            <Users className="w-4 h-4 mr-1" />
+                            {guideline.authors}
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="w-4 h-4 mr-1" />
+                            {guideline.year}
+                          </div>
+                        </div>
+                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="flex-shrink-0">
+                          <Button
+                            onClick={() => handleDownload(guideline.fileName, guideline.title)}
+                            variant="outline"
+                            className="w-full hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all shadow-sm hover:shadow-md"
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Baixar PDF
+                          </Button>
+                        </motion.div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           )}

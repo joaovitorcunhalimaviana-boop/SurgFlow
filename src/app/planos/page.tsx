@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import { Button } from '@/components/ui/button'
-import { Check, Star, Crown, Zap, Users, BookOpen, Calculator, Shield, Award, MessageCircle, UserCheck, TrendingUp, ChevronDown, ChevronUp, Info, CreditCard, FileText, Smartphone, Video, GraduationCap, Network } from 'lucide-react'
+import { Check, Star, Crown, Zap, Users, BookOpen, Calculator, Shield, Award, MessageCircle, UserCheck, TrendingUp, ChevronDown, ChevronUp, Info, CreditCard, FileText, Smartphone, Video, GraduationCap, Network, Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function PlanosPage() {
@@ -122,20 +123,89 @@ export default function PlanosPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-25">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-25 relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <motion.div
+          className="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2],
+            x: [0, 100, 0],
+            y: [0, 50, 0]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-200/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.3, 0.15],
+            x: [0, -80, 0],
+            y: [0, -60, 0]
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
+
         {/* Hero Section */}
-        <section className="pt-20 pb-16">
+        <section className="pt-20 pb-16 relative">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Acelere sua
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
-                Evolução Cirúrgica
-              </span>
-            </h1>
-            
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Escolha o plano ideal para sua jornada. Todos incluem acesso aos melhores recursos para sua prática médica.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center gap-2 mb-6"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="w-6 h-6 text-purple-600" />
+                </motion.div>
+                <span className="text-purple-600 font-semibold text-sm uppercase tracking-wide">
+                  Planos SurgFlow
+                </span>
+              </motion.div>
+
+              <motion.h1
+                className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                Acelere sua
+                <motion.span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  Evolução Cirúrgica
+                </motion.span>
+              </motion.h1>
+
+              <motion.p
+                className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                Escolha o plano ideal para sua jornada. Todos incluem acesso aos melhores recursos para sua prática médica.
+              </motion.p>
+            </motion.div>
 
             {/* Billing Toggle */}
             <div className="flex items-center justify-center mb-12">
@@ -172,24 +242,61 @@ export default function PlanosPage() {
         </section>
 
         {/* Plans Section */}
-        <section className="pb-16">
+        <section className="pb-16 relative">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
               {plans.map((plan, index) => (
-                <div
+                <motion.div
                   key={plan.id}
-                  className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl flex flex-col ${
-                    plan.badge === 'RECOMENDADO' ? 'border-yellow-400 scale-105 shadow-2xl ring-2 ring-yellow-200' : 
-                    plan.color === 'purple' ? 'border-purple-300' : 'border-gray-200'
-                  }`}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  className={plan.badge === 'RECOMENDADO' ? 'mt-6' : ''}
                 >
-                  {plan.badge && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className={`px-4 py-2 rounded-full text-sm font-bold ${getBadgeStyle(plan.color)}`}>
-                        {plan.badge}
-                      </span>
-                    </div>
-                  )}
+                  <motion.div
+                    whileHover={{
+                      y: plan.badge === 'RECOMENDADO' ? -12 : -8,
+                      scale: plan.badge === 'RECOMENDADO' ? 1.03 : 1.02
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={`relative bg-white rounded-2xl shadow-lg border-2 flex flex-col h-full overflow-visible group ${
+                      plan.badge === 'RECOMENDADO' ? 'border-yellow-400 md:scale-105 shadow-2xl ring-2 ring-yellow-200' :
+                      plan.color === 'purple' ? 'border-purple-300' : 'border-gray-200'
+                    }`}
+                  >
+                    {/* Animated gradient overlay */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      plan.badge === 'RECOMENDADO'
+                        ? 'bg-gradient-to-br from-yellow-500/5 via-yellow-500/10 to-orange-500/5'
+                        : plan.color === 'purple'
+                        ? 'bg-gradient-to-br from-purple-500/5 via-purple-500/10 to-purple-500/5'
+                        : 'bg-gradient-to-br from-gray-500/5 via-gray-500/10 to-gray-500/5'
+                    }`} />
+
+                    {plan.badge && (
+                      <motion.div
+                        className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20"
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.5 + index * 0.15, type: "spring", stiffness: 300 }}
+                      >
+                        <motion.span
+                          className={`px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2 whitespace-nowrap ${getBadgeStyle(plan.color)}`}
+                          animate={{
+                            boxShadow: [
+                              '0 0 0 0 rgba(251, 191, 36, 0.7)',
+                              '0 0 0 10px rgba(251, 191, 36, 0)',
+                              '0 0 0 0 rgba(251, 191, 36, 0)'
+                            ]
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <Crown className="w-4 h-4" />
+                          {plan.badge}
+                        </motion.span>
+                      </motion.div>
+                    )}
 
                   <div className="p-8 flex flex-col flex-grow">
                     {/* Plan Header */}
@@ -243,7 +350,8 @@ export default function PlanosPage() {
                       </Button>
                     </div>
                   </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </div>

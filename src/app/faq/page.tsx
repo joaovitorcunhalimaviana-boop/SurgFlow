@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -168,21 +169,47 @@ export default function FAQPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
-        
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+            y: [0, 50, 0]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.15, 0.25, 0.15],
+            y: [0, -40, 0]
+          }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+            >
               Perguntas
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
                 Frequentes
               </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed text-center">
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed text-center"
+            >
               Encontre respostas para as dúvidas mais comuns sobre o SurgFlow
-            </p>
+            </motion.p>
           </div>
         </div>
       </section>
@@ -252,11 +279,18 @@ export default function FAQPage() {
                 const CategoryIcon = categoryInfo.icon
 
                 return (
-                  <Card key={item.id} className="border-purple-200 hover:shadow-md transition-shadow duration-200">
-                    <CardHeader 
-                      className="cursor-pointer hover:bg-purple-50 transition-colors duration-200"
-                      onClick={() => toggleItem(item.id)}
-                    >
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Card className="border-purple-200 hover:shadow-md transition-shadow duration-200">
+                      <CardHeader
+                        className="cursor-pointer hover:bg-purple-50 transition-colors duration-200"
+                        onClick={() => toggleItem(item.id)}
+                      >
                       <div className="flex items-center justify-between">
                         <div className="flex items-start space-x-3">
                           <div className={`bg-${categoryInfo.color}-100 p-2 rounded-lg flex-shrink-0`}>
@@ -281,18 +315,28 @@ export default function FAQPage() {
                           )}
                         </div>
                       </div>
-                    </CardHeader>
-                    
-                    {isOpen && (
-                      <CardContent className="pt-0 pb-6">
-                        <div className="ml-14">
-                          <p className="text-gray-700 leading-relaxed">
-                            {item.answer}
-                          </p>
-                        </div>
-                      </CardContent>
-                    )}
-                  </Card>
+                      </CardHeader>
+
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <CardContent className="pt-0 pb-6">
+                              <div className="ml-14">
+                                <p className="text-gray-700 leading-relaxed">
+                                  {item.answer}
+                                </p>
+                              </div>
+                            </CardContent>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </Card>
+                  </motion.div>
                 )
               })}
             </div>

@@ -1,12 +1,15 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { 
-  Stethoscope, 
-  Clock, 
-  Users, 
-  BookOpen, 
-  Target, 
+import {
+  Stethoscope,
+  Clock,
+  Users,
+  BookOpen,
+  Target,
   Heart,
   ArrowRight,
   CheckCircle,
@@ -20,40 +23,84 @@ export default function SobrePage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-50 via-white to-purple-25 py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"></div>
-        
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+            x: [0, 30, 0],
+            y: [0, 50, 0]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, -50, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              A História do 
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              A História do
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-800 block">
                 SurgFlow
               </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Nascido de uma necessidade real durante um plantão noturno, 
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
+            >
+              Nascido de uma necessidade real durante um plantão noturno,
               o SurgFlow representa a união entre experiência clínica e inovação tecnológica.
-            </p>
+            </motion.p>
           </div>
           
           {/* História Detalhada */}
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100 drop-shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-16"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ scale: 1.01 }}
+              className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100 drop-shadow-xl"
+            >
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed" style={{textAlign: 'justify'}}>
-                <p className="mb-6">
+                <motion.p
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="mb-6"
+                >
                   Tudo começou em um plantão de sábado à noite. Um caso de colecistite aguda chegou à emergência, e ao meu redor, estavam estudantes e residentes buscando aprender. Era o momento ideal para ensinar: critérios diagnósticos, classificação de gravidade, estratificação de risco, conduta cirúrgica.
-                </p>
-                
+                </motion.p>
+
                 <p className="mb-6">
                   Abri o Tokyo Guidelines 2018 no computador — a referência internacional para colecistite. Inúmeras páginas. Informações espalhadas, texto denso, impossível de navegar rapidamente. Como ensinar isso em um plantão? Como tomar decisões ágeis quando o conhecimento está enterrado em PDFs gigantes?
                 </p>
-                
+
                 <p className="mb-6 font-semibold text-purple-800">
                   Foi naquele momento que nasceu o SurgFlow.
                 </p>
-                
+
                 <p className="mb-6">
                   A ideia era simples mas poderosa: transformar guidelines complexos em fluxogramas interativos e práticos. Manter o rigor científico, mas entregar respostas em segundos. Permitir que você marque os critérios do paciente e seja guiado até a conduta correta, sem precisar ler as inúmeras páginas dos guidelines.
                 </p>
@@ -70,8 +117,8 @@ export default function SobrePage() {
                   O SurgFlow nasceu de uma necessidade real, vivida na linha de frente, e hoje visa transformar a forma como cirurgiões, residentes e estudantes aprendem, decidem e crescem profissionalmente.
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -79,23 +126,54 @@ export default function SobrePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
               {/* Foto do Dr. João Vitor */}
-              <div className="bg-white rounded-2xl p-4 shadow-xl border border-gray-200 flex items-center justify-center">
-                <img 
-                  src="/congress photo.jpeg" 
-                  alt="Dr. João Vitor" 
+              <motion.div
+                whileHover={{ scale: 1.03, rotate: 1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="bg-white rounded-2xl p-4 shadow-xl border border-gray-200 flex items-center justify-center"
+              >
+                <motion.img
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  src="/congress photo.jpeg"
+                  alt="Dr. João Vitor"
                   className="w-full h-auto max-w-md rounded-xl object-cover"
                 />
-              </div>
-            </div>
-            
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
+              >
                 Sobre o Criador
-              </h2>
-              
-              <div className="prose prose-lg text-gray-600 space-y-6" style={{textAlign: 'justify'}}>
+              </motion.h2>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="prose prose-lg text-gray-600 space-y-6" style={{textAlign: 'justify'}}
+              >
                 <p>
                   Formei-me em Medicina em 2019 e, logo em seguida, realizei três anos de residência em Cirurgia Geral no Hospital Universitário Onofre Lopes (HUOL), da Universidade Federal do Rio Grande do Norte (UFRN). Nesse período, aprimorei minha técnica cirúrgica e o raciocínio clínico para o diagnóstico e o tratamento das principais patologias cirúrgicas, sempre atento à segurança e à recuperação rápida do paciente.
                 </p>
@@ -132,8 +210,8 @@ export default function SobrePage() {
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -141,40 +219,78 @@ export default function SobrePage() {
       {/* CTA Section */}
       <section className="relative bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 py-20 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
-        
+        <motion.div
+          className="absolute top-0 left-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [0, -40, 0],
+            y: [0, 40, 0]
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight"
+            >
               Faça Parte Desta Jornada
-            </h2>
-            
-            <p className="text-xl text-purple-100 mb-8 leading-relaxed">
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-purple-100 mb-8 leading-relaxed"
+            >
               Utilize o SurgFlow e ajude a transformar a forma como tomamos decisões clínicas.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
               <Link href="/planos">
-                <Button 
-                  size="xl" 
-                  className="bg-white text-purple-700 hover:bg-gray-50 shadow-xl hover:shadow-2xl group"
-                >
-                  Ver Planos
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    size="xl"
+                    className="bg-white text-purple-700 hover:bg-gray-50 shadow-xl hover:shadow-2xl group"
+                  >
+                    Ver Planos
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </motion.div>
               </Link>
-              
+
               <Link href="/contato">
-                <Button 
-                  variant="outline" 
-                  size="xl"
-                  className="border-2 border-white text-white hover:bg-white hover:text-purple-700"
-                >
-                  Entre em Contato
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    variant="outline"
+                    size="xl"
+                    className="border-2 border-white text-white hover:bg-white hover:text-purple-700"
+                  >
+                    Entre em Contato
+                  </Button>
+                </motion.div>
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
