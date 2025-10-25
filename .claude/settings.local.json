@@ -6,7 +6,8 @@
       "Bash(npm run dev)",
       "Bash(timeout:*)",
       "Bash(npx tsc:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Read(//c/Users/joaov/Downloads/**)"
     ],
     "deny": [],
     "ask": []

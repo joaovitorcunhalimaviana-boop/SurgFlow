@@ -103,6 +103,15 @@ export interface GuideFlowAppendicitisState {
   crianca: boolean;                      // Criança
   imagemRecomendada: boolean;            // Se imagem é recomendada baseado na lógica
 
+  // 1.6 ALGORITMO DE SOLICITAÇÃO DE EXAMES (Páginas 34-35 WSES 2020)
+  nivelRisco: 'BAIXO' | 'INTERMEDIARIO' | 'ALTO' | '';  // Nível de risco calculado baseado nos scores
+  condutaBaixoRisco: 'alta_telefone' | 'solicitar_imagem' | '';  // Conduta para pacientes de baixo risco
+  resultadoUS: 'negativo' | 'inconclusivo' | 'positivo' | 'positivo_nao_complicada' | 'positivo_complicada' | '';  // Resultado do ultrassom
+  idadeCategoria: 'menor40' | 'maior40' | '';  // Categoria de idade para decisões clínicas
+  apendicolito: boolean | null;  // Presença de apendicolito na imagem
+  idadeAltoRisco: 'menor40' | 'maior40' | '';  // Idade para pacientes de alto risco
+  proximoPasso: 'tratamento_cirurgico' | 'tratamento_complicada' | 'opcoes_tratamento' | 'solicitar_tc' | '';  // Próximo passo no fluxo
+
   // 1.6 EXAMES DE IMAGEM
   // Ultrassonografia
   usgRealizado: boolean;
@@ -298,6 +307,15 @@ export const defaultAppendicitisState: GuideFlowAppendicitisState = {
   gestante: false,
   crianca: false,
   imagemRecomendada: false,
+
+  // 1.6 ALGORITMO DE SOLICITAÇÃO DE EXAMES
+  nivelRisco: '',
+  condutaBaixoRisco: '',
+  resultadoUS: '',
+  idadeCategoria: '',
+  apendicolito: null,
+  idadeAltoRisco: '',
+  proximoPasso: '',
 
   // Exames de imagem
   usgRealizado: false,

@@ -246,6 +246,52 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
     state.crianca
   ])
 
+  // useEffect para calcular nível de risco (ALGORITMO PÁGINAS 34-35 WSES 2020)
+  useEffect(() => {
+    let nivelRisco: 'BAIXO' | 'INTERMEDIARIO' | 'ALTO' | '' = ''
+
+    // Calcular risco baseado nos scores
+    const isBaixoRisco = (
+      (state.scoreAlvarado > 0 && state.scoreAlvarado <= 4) ||
+      (state.scoreAIR > 0 && state.scoreAIR <= 4) ||
+      (state.scoreAAS > 0 && state.scoreAAS <= 10)
+    )
+
+    const isIntermediate = (
+      (state.scoreAlvarado >= 5 && state.scoreAlvarado <= 8) ||
+      (state.scoreAIR >= 5 && state.scoreAIR <= 8) ||
+      (state.scoreAAS >= 11 && state.scoreAAS <= 15)
+    )
+
+    const isAltoRisco = (
+      (state.scoreAlvarado >= 9 && state.scoreAlvarado <= 10) ||
+      (state.scoreAIR >= 9 && state.scoreAIR <= 12) ||
+      (state.scoreAAS >= 16)
+    )
+
+    // Determinar nível de risco (prioridade para ALTO > INTERMEDIARIO > BAIXO)
+    if (isAltoRisco) {
+      nivelRisco = 'ALTO'
+    } else if (isIntermediate) {
+      nivelRisco = 'INTERMEDIARIO'
+    } else if (isBaixoRisco) {
+      nivelRisco = 'BAIXO'
+    }
+
+    // Atualizar estado se mudou
+    if (nivelRisco !== state.nivelRisco) {
+      setState(prevState => ({
+        ...prevState,
+        nivelRisco: nivelRisco
+      }))
+    }
+  }, [
+    state.scoreAlvarado,
+    state.scoreAIR,
+    state.scoreAAS,
+    state.scorePAS
+  ])
+
   // Funções auxiliares
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({
@@ -501,7 +547,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
         >
           <Shield className="h-5 w-5" />
           <span className="text-xs font-medium">Idosos</span>
-          <span className="text-[10px] text-gray-500">(&gt;65 anos)</span>
+          <span className="text-[10px] text-gray-500">({'>'}65 anos)</span>
         </button>
       </div>
 
@@ -758,7 +804,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                         }
                       />
                       <Label htmlFor="alvaradoLeucocitose" className="text-sm cursor-pointer">
-                        Leucocitose &gt;10.000/mm³ (2pts)
+                        Leucocitose {'>'}10.000/mm³ (2pts)
                       </Label>
                     </div>
 
@@ -771,7 +817,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                         }
                       />
                       <Label htmlFor="alvaradoDesvioEsquerda" className="text-sm cursor-pointer">
-                        Desvio à esquerda (&gt;75% neutrófilos) (1pt)
+                        Desvio à esquerda ({'>'}75% neutrófilos) (1pt)
                       </Label>
                     </div>
                   </div>
@@ -1261,7 +1307,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                         className="max-w-[150px] mt-1"
                       />
                       <p className="text-xs text-gray-600 mt-1">
-                        ≥7,2 e &lt;10,9 → 1 ponto | ≥10,9 e &lt;14,0 → 2 pontos | ≥14,0 → 3 pontos
+                        ≥7,2 e {'<'}10,9 → 1 ponto | ≥10,9 e {'<'}14,0 → 2 pontos | ≥14,0 → 3 pontos
                       </p>
                     </div>
 
@@ -1280,7 +1326,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                         className="max-w-[150px] mt-1"
                       />
                       <p className="text-xs text-gray-600 mt-1">
-                        ≥62% e &lt;75% → 2 pontos | ≥75% e &lt;83% → 3 pontos | ≥83% → 4 pontos
+                        ≥62% e {'<'}75% → 2 pontos | ≥75% e {'<'}83% → 3 pontos | ≥83% → 4 pontos
                       </p>
                     </div>
 
@@ -1309,7 +1355,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                             }
                           />
                           <Label htmlFor="aasPCRMenos24h" className="text-xs cursor-pointer">
-                            7. PCR - Se sintomas &lt;24h
+                            7. PCR - Se sintomas {'<'}24h
                           </Label>
                         </div>
                         
@@ -1329,12 +1375,12 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                       
                       {state.aasPCRMenos24h && (
                         <p className="text-xs text-gray-600 mt-1">
-                          &lt;24h: ≥4 e &lt;11 → 2pts | ≥11 e &lt;25 → 3pts | ≥25 e &lt;83 → 5pts | ≥83 → 1pt
+                          {'<'}24h: ≥4 e {'<'}11 → 2pts | ≥11 e {'<'}25 → 3pts | ≥25 e {'<'}83 → 5pts | ≥83 → 1pt
                         </p>
                       )}
                       {state.aasPCRMais24h && (
                         <p className="text-xs text-gray-600 mt-1">
-                          ≥24h: ≥12 e &lt;53 → 2pts | ≥53 e &lt;152 → 2pts | ≥152 → 1pt
+                          ≥24h: ≥12 e {'<'}53 → 2pts | ≥53 e {'<'}152 → 2pts | ≥152 → 1pt
                         </p>
                       )}
                     </div>
@@ -1547,292 +1593,568 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
       )}
 
       {/* NECESSIDADE DE EXAME DE IMAGEM */}
-      <Card>
-        <CardHeader
-          className="cursor-pointer hover:bg-gray-50 transition-colors"
-          onClick={() => toggleSection('necessidadeImagem')}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <Scan className="h-5 w-5 text-purple-600" />
-              </div>
-              <div className="flex-1">
-                <CardTitle className="text-lg">Necessidade de Exame de Imagem</CardTitle>
-                <p className="text-sm text-gray-500 mt-1">
-                  Recomendação WSES baseada nos Scores Diagnósticos
-                </p>
-              </div>
+      {/* ═══════════════════════════════════════════════════════════
+          ALGORITMO DE SOLICITAÇÃO DE EXAMES (WSES 2020 - Pág. 34)
+          ═══════════════════════════════════════════════════════════ */}
+      <Card className="border-2 border-purple-300">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-indigo-50">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 bg-purple-600 rounded-lg">
+              <Target className="h-6 w-6 text-white" />
             </div>
-            <div className="flex items-center gap-2">
-              {state.imagemRecomendada && (
-                <Badge className="bg-orange-600 text-xs">Imagem Recomendada</Badge>
-              )}
-              {expandedSections.necessidadeImagem ? (
-                <ChevronUp className="h-5 w-5 text-gray-400" />
-              ) : (
-                <ChevronDown className="h-5 w-5 text-gray-400" />
-              )}
+            <div>
+              <CardTitle className="text-xl text-purple-900">
+                Algoritmo de Solicitação de Exames
+              </CardTitle>
+              <p className="text-sm text-purple-700 mt-1">
+                WSES Jerusalem Guidelines 2020 - Páginas 34-35
+              </p>
             </div>
           </div>
+          <Alert className="border-purple-300 bg-white mt-3">
+            <Info className="h-4 w-4 text-purple-600" />
+            <AlertDescription className="text-xs text-purple-800">
+              <strong>Após calcular os scores diagnósticos,</strong> siga este algoritmo interativo para determinar
+              a necessidade de exames de imagem e conduta inicial baseada no nível de risco.
+            </AlertDescription>
+          </Alert>
         </CardHeader>
-        
-        {expandedSections.necessidadeImagem && (
-          <CardContent className="space-y-4">
-            {/* Recomendação baseada nos Scores Diagnósticos */}
+
+        <CardContent className="pt-6">
+          {/* Mostrar nível de risco calculado */}
+          {state.nivelRisco && (
+            <div className={`mb-6 p-4 rounded-lg border-2 ${
+              state.nivelRisco === 'BAIXO' ? 'bg-green-50 border-green-400' :
+              state.nivelRisco === 'INTERMEDIARIO' ? 'bg-yellow-50 border-yellow-400' :
+              'bg-red-50 border-red-400'
+            }`}>
+              <div className="flex items-center gap-2 mb-2">
+                {state.nivelRisco === 'BAIXO' && <span className="text-2xl">🟢</span>}
+                {state.nivelRisco === 'INTERMEDIARIO' && <span className="text-2xl">🟡</span>}
+                {state.nivelRisco === 'ALTO' && <span className="text-2xl">🔴</span>}
+                <h3 className="text-lg font-bold">
+                  Nível de Risco: {state.nivelRisco}
+                </h3>
+              </div>
+              <p className="text-sm">
+                Baseado nos scores calculados:
+                {state.scoreAlvarado > 0 && ` Alvarado=${state.scoreAlvarado}`}
+                {state.scoreAIR > 0 && ` | AIR=${state.scoreAIR}`}
+                {state.scoreAAS > 0 && ` | AAS=${state.scoreAAS}`}
+              </p>
+            </div>
+          )}
+
+          {/* ═══ ALGORITMO BAIXO RISCO ═══ */}
+          {state.nivelRisco === 'BAIXO' && (
             <div className="space-y-4">
-              {/* Probabilidade Baixa */}
-              {((state.scoreAlvarado > 0 && state.scoreAlvarado <= 4) ||
-                (state.scoreAIR > 0 && state.scoreAIR <= 4) ||
-                (state.scoreAAS > 0 && state.scoreAAS <= 10) ||
-                (state.scorePAS > 0 && state.scorePAS <= 3)) && 
-               !((state.scoreAlvarado >= 5) || (state.scoreAIR >= 5) || (state.scoreAAS >= 11) || (state.scorePAS >= 4)) && (
-                <Alert className="border-green-200 bg-green-50">
-                  <Info className="h-4 w-4 text-green-600" />
-                  <AlertTitle className="text-green-800">Baixa Probabilidade</AlertTitle>
-                  <AlertDescription className="text-green-700">
-                    <strong>Sugerimos que imagem pode ser omitida</strong> (Weak recommendation, Low quality of evidence)
-                    <div className="mt-2 text-sm">
-                      <p className="font-medium">Scores que indicam baixa probabilidade:</p>
-                      <ul className="mt-1 space-y-1">
-                        {state.scoreAlvarado > 0 && state.scoreAlvarado <= 4 && <li>• Alvarado: {state.scoreAlvarado} ≤4 pontos</li>}
-                        {state.scoreAIR > 0 && state.scoreAIR <= 4 && <li>• AIR: {state.scoreAIR} ≤4 pontos</li>}
-                        {state.scoreAAS > 0 && state.scoreAAS <= 10 && <li>• AAS: {state.scoreAAS} ≤10 pontos</li>}
-                        {state.scorePAS > 0 && state.scorePAS <= 3 && <li>• PAS: {state.scorePAS} ≤3 pontos</li>}
-                      </ul>
-                      <p className="mt-2 font-medium">Conduta:</p>
-                      <ul className="mt-1 space-y-1">
-                        <li>• Paciente pode ter alta</li>
-                        <li>• Considerar diagnósticos alternativos</li>
-                      </ul>
+              <Alert className="border-green-300 bg-green-50">
+                <Info className="h-4 w-4 text-green-600" />
+                <AlertTitle className="text-green-800">🟢 Baixo Risco Clínico</AlertTitle>
+                <AlertDescription className="text-green-700 text-sm">
+                  <strong>Critérios:</strong> Alvarado ≤4 OU AIR 0-4 OU AAS ≤10
+                </AlertDescription>
+              </Alert>
+
+              <div className="bg-white rounded-lg border-2 border-green-300 p-4">
+                <h5 className="font-bold text-lg mb-3">Avaliar Motivação e Sintomas de Alarme:</h5>
+
+                <div className="space-y-3">
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="condutaBaixoRisco"
+                      value="alta_telefone"
+                      checked={state.condutaBaixoRisco === 'alta_telefone'}
+                      onChange={() => setState(prev => ({ ...prev, condutaBaixoRisco: 'alta_telefone' }))}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium">Paciente motivado E sem sintomas de alarme</p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        → <strong>ALTA com acompanhamento telefônico</strong>
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Orientar sinais de alerta e retorno se piora
+                      </p>
                     </div>
-                  </AlertDescription>
-                </Alert>
-              )}
+                  </label>
 
-              {/* Probabilidade Intermediária */}
-              {((state.scoreAlvarado >= 5 && state.scoreAlvarado <= 6) ||
-                (state.scoreAIR >= 5 && state.scoreAIR <= 8) ||
-                (state.scoreAAS >= 11 && state.scoreAAS <= 15) ||
-                (state.scorePAS >= 4 && state.scorePAS <= 6)) && (
-                <Alert className="border-orange-200 bg-orange-50">
-                  <AlertTriangle className="h-4 w-4 text-orange-600" />
-                  <AlertTitle className="text-orange-800">Probabilidade Intermediária</AlertTitle>
-                  <AlertDescription className="text-orange-700">
-                    <strong>Recomendamos exame de imagem para confirmar ou excluir diagnóstico</strong> (Strong recommendation, Moderate quality of evidence)
-                    <div className="mt-2 text-sm">
-                      <p className="font-medium">Scores que indicam probabilidade intermediária:</p>
-                      <ul className="mt-1 space-y-1">
-                        {state.scoreAlvarado >= 5 && state.scoreAlvarado <= 6 && <li>• Alvarado: {state.scoreAlvarado} (5-6 pontos)</li>}
-                        {state.scoreAIR >= 5 && state.scoreAIR <= 8 && <li>• AIR: {state.scoreAIR} (5-8 pontos)</li>}
-                        {state.scoreAAS >= 11 && state.scoreAAS <= 15 && <li>• AAS: {state.scoreAAS} (11-15 pontos)</li>}
-                        {state.scorePAS >= 4 && state.scorePAS <= 6 && <li>• PAS: {state.scorePAS} (4-6 pontos)</li>}
-                      </ul>
-                      <p className="mt-2 font-medium">Conduta:</p>
-                      <ul className="mt-1 space-y-1">
-                        <li>• Imagem é <strong>OBRIGATÓRIA</strong></li>
-                        <li>• US como primeira linha</li>
-                        <li>• TC se US inconclusivo</li>
-                      </ul>
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="condutaBaixoRisco"
+                      value="solicitar_imagem"
+                      checked={state.condutaBaixoRisco === 'solicitar_imagem'}
+                      onChange={() => setState(prev => ({ ...prev, condutaBaixoRisco: 'solicitar_imagem' }))}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium">Paciente NÃO motivado OU tem sintomas de alarme</p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        → <strong>Solicitar US ou TC</strong>
+                      </p>
                     </div>
-                  </AlertDescription>
-                </Alert>
-              )}
+                  </label>
+                </div>
+              </div>
 
-              {/* Probabilidade Alta */}
-              {((state.scoreAlvarado >= 7) ||
-                (state.scoreAIR >= 9) ||
-                (state.scoreAAS >= 16) ||
-                (state.scorePAS >= 7)) && 
-               !((state.scoreAlvarado >= 5 && state.scoreAlvarado <= 6) ||
-                 (state.scoreAIR >= 5 && state.scoreAIR <= 8) ||
-                 (state.scoreAAS >= 11 && state.scoreAAS <= 15) ||
-                 (state.scorePAS >= 4 && state.scorePAS <= 6)) && (
-                <div className="space-y-4">
-                  {/* Alerta especial para pediatria */}
-                  {(state.scorePAS >= 7 || state.crianca) && (
-                    <Alert className="border-purple-200 bg-purple-50">
-                      <Baby className="h-4 w-4 text-purple-600" />
-                      <AlertTitle className="text-purple-800">⚠️ ATENÇÃO - PEDIATRIA</AlertTitle>
-                      <AlertDescription className="text-purple-700">
-                        <strong>Em crianças, imagem (US) é RECOMENDADA mesmo com score alto</strong> devido a:
-                        <ul className="mt-2 space-y-1 text-sm">
-                          <li>• Maior taxa de apresentações atípicas</li>
-                          <li>• Necessidade de evitar apendicectomia negativa</li>
-                          <li>• Possibilidade de diagnósticos alternativos (adenite mesentérica, ileíte)</li>
-                        </ul>
-                        <p className="mt-2 font-medium">Recomendação: Solicitar US em TODAS as crianças com suspeita de apendicite.</p>
-                      </AlertDescription>
-                    </Alert>
-                  )}
-
-                  <Alert className="border-blue-200 bg-blue-50">
-                    <Info className="h-4 w-4 text-blue-600" />
-                    <AlertTitle className="text-blue-800">Alta Probabilidade</AlertTitle>
-                    <AlertDescription className="text-blue-700">
-                      <div className="text-sm">
-                        <p className="font-medium">Scores que indicam alta probabilidade:</p>
-                        <ul className="mt-1 space-y-1">
-                          {state.scoreAlvarado >= 7 && <li>• Alvarado: {state.scoreAlvarado} ≥7 pontos</li>}
-                          {state.scoreAIR >= 9 && <li>• AIR: {state.scoreAIR} ≥9 pontos</li>}
-                          {state.scoreAAS >= 16 && <li>• AAS: {state.scoreAAS} ≥16 pontos</li>}
-                          {state.scorePAS >= 7 && <li>• PAS: {state.scorePAS} ≥7 pontos</li>}
-                        </ul>
-                        <p className="mt-2">
-                          {(state.scorePAS >= 7 || state.crianca) ? (
-                            <strong>Em pediatria: Imagem é RECOMENDADA mesmo com score alto.</strong>
-                          ) : (
-                            <>
-                              A imagem pode ser omitida apenas em poucos casos selecionados de pacientes com apresentação típica, mas é recomendada se:
-                            </>
-                          )}
-                        </p>
-                      </div>
-                    </AlertDescription>
-                  </Alert>
-
-                  {/* Checkboxes para situações especiais - apenas para adultos */}
-                  {!(state.scorePAS >= 7 || state.crianca) && (
-                    <div className="bg-gray-50 p-4 rounded-lg space-y-3">
-                      <h4 className="font-semibold text-gray-800 mb-3">
-                        Marque se PRESENTE (qualquer item marcado = imagem recomendada):
-                      </h4>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="apresentacaoAtipica"
-                            checked={state.apresentacaoAtipica}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, apresentacaoAtipica: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="apresentacaoAtipica" className="text-sm cursor-pointer">
-                            Apresentação atípica
-                          </Label>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="incertezaDiagnostica"
-                            checked={state.incertezaDiagnostica}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, incertezaDiagnostica: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="incertezaDiagnostica" className="text-sm cursor-pointer">
-                            Incerteza diagnóstica
-                          </Label>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="suspeitaComplicacao"
-                            checked={state.suspeitaComplicacao}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, suspeitaComplicacao: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="suspeitaComplicacao" className="text-sm cursor-pointer">
-                            Suspeita de complicação (abscesso, perfuração)
-                          </Label>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="pacienteIdoso"
-                            checked={state.pacienteIdoso}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, pacienteIdoso: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="pacienteIdoso" className="text-sm cursor-pointer">
-                            Paciente idoso (&gt;65 anos)
-                          </Label>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="gestante"
-                            checked={state.gestante}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, gestante: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="gestante" className="text-sm cursor-pointer">
-                            Gestante
-                          </Label>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="crianca"
-                            checked={state.crianca}
-                            onCheckedChange={(checked) =>
-                              setState(prev => ({ ...prev, crianca: checked as boolean }))
-                            }
-                          />
-                          <Label htmlFor="crianca" className="text-sm cursor-pointer">
-                            Criança
-                          </Label>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Interpretação */}
-                  <div className={`rounded-lg p-4 ${
-                    state.imagemRecomendada ? 'bg-orange-100 border border-orange-300' : 'bg-green-100 border border-green-300'
-                  }`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      {state.imagemRecomendada ? (
-                        <AlertTriangle className="h-5 w-5 text-orange-600" />
-                      ) : (
-                        <CheckCircle className="h-5 w-5 text-green-600" />
-                      )}
-                      <span className="font-bold">
-                        {state.imagemRecomendada ? 'Solicitar exame de imagem' : 'Pode prosseguir para cirurgia sem imagem'}
-                      </span>
-                    </div>
-                    <p className="text-sm">
-                      {state.imagemRecomendada 
-                        ? ((state.scorePAS >= 7 || state.crianca) 
-                           ? 'Paciente pediátrico: imagem sempre recomendada.'
-                           : 'Pelo menos uma situação especial foi identificada. Exame de imagem é recomendado.')
-                        : 'Nenhuma situação especial identificada. Cirurgia pode ser realizada sem imagem prévia.'
-                      }
-                    </p>
+              {state.condutaBaixoRisco === 'solicitar_imagem' && (
+                <>
+                  <div className="bg-blue-50 border border-blue-300 rounded-lg p-4">
+                    <h5 className="font-semibold mb-2">Se imagem confirmar apendicite não complicada:</h5>
+                    <p className="text-sm mb-3">Oferecer opções:</p>
+                    <ul className="text-sm space-y-1">
+                      <li>• Apendicectomia laparoscópica</li>
+                      <li>• OU Tratamento não-operatório com antibióticos (se preencher critérios)</li>
+                    </ul>
                   </div>
 
-                  {/* Botão de Navegação */}
-                  <div className="mt-6 flex justify-center">
-                    {state.imagemRecomendada ? (
-                      <Button 
-                        onClick={() => {
-                          console.log('Botão "Prosseguir para Exames de Imagem" clicado!')
-                          console.log('Estado atual imagemRecomendada:', state.imagemRecomendada)
-                          setState(prevState => ({ ...prevState, etapaAtual: 3 }))
-                        }}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                  <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-3">
+                    <p className="text-sm text-yellow-800">
+                      <strong>Reexaminar paciente após 6-8 horas</strong> e manter acompanhamento clínico rigoroso.
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ═══ ALGORITMO RISCO INTERMEDIÁRIO ═══ */}
+          {state.nivelRisco === 'INTERMEDIARIO' && (
+            <div className="space-y-4">
+              <Alert className="border-yellow-300 bg-yellow-50">
+                <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                <AlertTitle className="text-yellow-800">🟡 Risco Intermediário - Ultrassom Obrigatório</AlertTitle>
+                <AlertDescription className="text-yellow-700 text-sm">
+                  <strong>Critérios:</strong> Alvarado 5-8 OU AIR 5-8 OU AAS 11-15
+                  <br />
+                  <strong className="text-yellow-900">Exame de imagem é OBRIGATÓRIO (Strong recommendation)</strong>
+                </AlertDescription>
+              </Alert>
+
+              {/* PASSO 1: ULTRASSOM */}
+              <div className="bg-white border-2 border-yellow-400 rounded-lg p-4">
+                <h5 className="font-bold text-lg mb-3">PASSO 1: Realizar Ultrassom (US)</h5>
+
+                <div className="space-y-2">
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="resultadoUS"
+                      value="negativo"
+                      checked={state.resultadoUS === 'negativo'}
+                      onChange={() => setState(prev => ({ ...prev, resultadoUS: 'negativo' }))}
+                      className="mt-1"
+                    />
+                    <div>
+                      <p className="font-medium">US Negativo</p>
+                      <p className="text-sm text-gray-600">→ ALTA (sem apendicite)</p>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="resultadoUS"
+                      value="inconclusivo"
+                      checked={state.resultadoUS === 'inconclusivo'}
+                      onChange={() => setState(prev => ({ ...prev, resultadoUS: 'inconclusivo' }))}
+                      className="mt-1"
+                    />
+                    <div>
+                      <p className="font-medium">US Inconclusivo</p>
+                      <p className="text-sm text-gray-600">→ Solicitar TC ou Observação Clínica</p>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="resultadoUS"
+                      value="positivo_nao_complicada"
+                      checked={state.resultadoUS === 'positivo_nao_complicada'}
+                      onChange={() => setState(prev => ({ ...prev, resultadoUS: 'positivo_nao_complicada' }))}
+                      className="mt-1"
+                    />
+                    <div>
+                      <p className="font-medium">US Positivo - Apendicite NÃO Complicada</p>
+                      <p className="text-sm text-gray-600">→ Prosseguir para próximo passo</p>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start space-x-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="resultadoUS"
+                      value="positivo_complicada"
+                      checked={state.resultadoUS === 'positivo_complicada'}
+                      onChange={() => setState(prev => ({ ...prev, resultadoUS: 'positivo_complicada' }))}
+                      className="mt-1"
+                    />
+                    <div>
+                      <p className="font-medium">US Positivo - Sugestão de Apendicite COMPLICADA</p>
+                      <p className="text-sm text-gray-600">→ Solicitar TC</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* SE US POSITIVO COM COMPLICAÇÃO → TC */}
+              {state.resultadoUS === 'positivo_complicada' && (
+                <div className="bg-orange-100 border-2 border-orange-500 rounded-lg p-4">
+                  <h5 className="font-bold text-orange-900 mb-2">TC Necessária</h5>
+                  <p className="text-sm text-orange-800 mb-3">
+                    US sugere apendicite complicada (abscesso, perfuração). Solicitar TC para melhor avaliação e planejamento.
+                  </p>
+                  <Button
+                    className="w-full bg-orange-600 hover:bg-orange-700"
+                    onClick={() => setState(prev => ({ ...prev, etapaAtual: 3 }))}
+                  >
+                    Prosseguir para Exames de Imagem (TC)
+                  </Button>
+                </div>
+              )}
+
+              {/* PASSO 2: AVALIAR IDADE (se US positivo não complicada) */}
+              {state.resultadoUS === 'positivo_nao_complicada' && (
+                <>
+                  <div className="bg-white border-2 border-yellow-400 rounded-lg p-4">
+                    <h5 className="font-bold text-lg mb-3">PASSO 2: Avaliar Idade do Paciente</h5>
+
+                    <div className="space-y-2">
+                      <label className="flex items-start space-x-3 p-3 border-2 border-orange-400 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input
+                          type="radio"
+                          name="idadeCategoria"
+                          value="maior40"
+                          checked={state.idadeCategoria === 'maior40'}
+                          onChange={() => setState(prev => ({ ...prev, idadeCategoria: 'maior40' }))}
+                          className="mt-1"
+                        />
+                        <div className="flex-1">
+                          <p className="font-medium text-orange-900">≥40 anos</p>
+                          <p className="text-sm text-orange-700 mt-1">
+                            → <strong>TC OBRIGATÓRIA</strong> (excluir neoplasia)
+                          </p>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start space-x-3 p-3 border-2 border-blue-400 rounded-lg cursor-pointer hover:bg-blue-50">
+                        <input
+                          type="radio"
+                          name="idadeCategoria"
+                          value="menor40"
+                          checked={state.idadeCategoria === 'menor40'}
+                          onChange={() => setState(prev => ({ ...prev, idadeCategoria: 'menor40' }))}
+                          className="mt-1"
+                        />
+                        <div className="flex-1">
+                          <p className="font-medium text-blue-900">{'<'}40 anos</p>
+                          <p className="text-sm text-blue-700 mt-1">
+                            → Avaliar presença de apendicolito
+                          </p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* TC OBRIGATÓRIA EM ≥40 ANOS */}
+                  {state.idadeCategoria === 'maior40' && (
+                    <div className="bg-orange-100 border-4 border-orange-600 rounded-xl p-6">
+                      <h5 className="text-xl font-bold text-orange-900 mb-3 flex items-center">
+                        <AlertTriangle className="h-6 w-6 mr-2" />
+                        ⚠️ TC OBRIGATÓRIA - Paciente ≥40 Anos
+                      </h5>
+
+                      <div className="bg-white rounded-lg p-4 mb-4">
+                        <p className="font-bold text-red-900 text-lg mb-2">Risco de Neoplasia: 10-30%</p>
+                        <p className="text-sm text-gray-700 mb-2">
+                          Em pacientes ≥40 anos, apendicite pode ser manifestação inicial de câncer de ceco ou outras neoplasias colorretais.
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          <strong>TC é obrigatória</strong> para excluir malignidade antes de prosseguir para tratamento.
+                        </p>
+                      </div>
+
+                      <Button
+                        className="w-full bg-orange-600 hover:bg-orange-700"
+                        onClick={() => setState(prev => ({ ...prev, etapaAtual: 3 }))}
                       >
-                        <Scan className="h-5 w-5 mr-2" />
-                        Prosseguir para Exames de Imagem
+                        TC Realizada → Prosseguir para Exames de Imagem
                       </Button>
-                    ) : (
-                      <Button 
-                        onClick={() => setState(prevState => ({ ...prevState, etapaAtual: 4 }))}
-                        className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                    </div>
+                  )}
+
+                  {/* PASSO 3: APENDICOLITO (se <40 anos) */}
+                  {state.idadeCategoria === 'menor40' && (
+                    <>
+                      <div className="bg-white border-2 border-yellow-400 rounded-lg p-4">
+                        <h5 className="font-bold text-lg mb-3">PASSO 3: Avaliar Presença de Apendicolito</h5>
+
+                        <p className="text-sm text-gray-600 mb-3">
+                          Apendicolito (cálculo no apêndice) visualizado na imagem é contraindicação para tratamento conservador.
+                        </p>
+
+                        <div className="space-y-2">
+                          <label className="flex items-start space-x-3 p-3 border-2 border-red-300 rounded-lg cursor-pointer hover:bg-red-50">
+                            <input
+                              type="radio"
+                              name="apendicolito"
+                              value="sim"
+                              checked={state.apendicolito === true}
+                              onChange={() => setState(prev => ({ ...prev, apendicolito: true }))}
+                              className="mt-1"
+                            />
+                            <div className="flex-1">
+                              <p className="font-medium text-red-900">SIM, há apendicolito na imagem</p>
+                              <p className="text-sm text-red-700 mt-1">
+                                → <strong>CIRURGIA</strong> (contraindicação para tratamento conservador)
+                              </p>
+                              <p className="text-xs text-red-600 mt-1">
+                                Taxa de falha do tratamento conservador com apendicolito: até 50%
+                              </p>
+                            </div>
+                          </label>
+
+                          <label className="flex items-start space-x-3 p-3 border-2 border-blue-300 rounded-lg cursor-pointer hover:bg-blue-50">
+                            <input
+                              type="radio"
+                              name="apendicolito"
+                              value="nao"
+                              checked={state.apendicolito === false}
+                              onChange={() => setState(prev => ({ ...prev, apendicolito: false }))}
+                              className="mt-1"
+                            />
+                            <div className="flex-1">
+                              <p className="font-medium text-blue-900">NÃO há apendicolito</p>
+                              <p className="text-sm text-blue-700 mt-1">
+                                → Paciente pode ser candidato a tratamento conservador
+                              </p>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* SE TEM APENDICOLITO */}
+                      {state.apendicolito === true && (
+                        <div className="bg-red-100 border-4 border-red-600 rounded-xl p-6">
+                          <h5 className="text-xl font-bold text-red-900 mb-3">Conduta: CIRURGIA</h5>
+                          <p className="text-red-800 mb-3">
+                            Presença de apendicolito contraindica tratamento conservador devido à taxa de falha de até 50%.
+                          </p>
+                          <Button
+                            className="w-full bg-red-600 hover:bg-red-700"
+                            onClick={() => setState(prev => ({ ...prev, etapaAtual: 4 }))}
+                          >
+                            Prosseguir para Classificação e Tratamento
+                          </Button>
+                        </div>
+                      )}
+
+                      {/* SE NÃO TEM APENDICOLITO → AVALIAR CRITÉRIOS */}
+                      {state.apendicolito === false && (
+                        <div className="bg-blue-50 border-2 border-blue-400 rounded-lg p-4">
+                          <h5 className="font-bold text-lg mb-3">PASSO 4: Oferecer Opções de Tratamento</h5>
+                          <p className="text-sm text-gray-700 mb-4">
+                            Paciente {'<'}40 anos, sem apendicolito, com apendicite não complicada pode escolher entre:
+                          </p>
+                          <ul className="text-sm text-blue-800 space-y-1 mb-4">
+                            <li>✓ Apendicectomia laparoscópica (Padrão-ouro)</li>
+                            <li>✓ Tratamento conservador com antibióticos (se preencher critérios)</li>
+                          </ul>
+                          <Button
+                            className="w-full bg-blue-600 hover:bg-blue-700"
+                            onClick={() => setState(prev => ({ ...prev, etapaAtual: 4 }))}
+                          >
+                            Prosseguir para Classificação e Tratamento
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ═══ ALGORITMO ALTO RISCO ═══ */}
+          {state.nivelRisco === 'ALTO' && (
+            <div className="space-y-4">
+              <Alert className="border-red-300 bg-red-50">
+                <AlertTriangle className="h-4 w-4 text-red-600" />
+                <AlertTitle className="text-red-800">🔴 Alto Risco - Apendicite Muito Provável</AlertTitle>
+                <AlertDescription className="text-red-700 text-sm">
+                  <strong>Critérios:</strong> Alvarado 9-10 OU AIR 9-12 OU AAS ≥16
+                  <br />
+                  <strong>Score muito alto indica alta probabilidade de apendicite aguda.</strong>
+                </AlertDescription>
+              </Alert>
+
+              {/* PASSO 1: AVALIAR IDADE PRIMEIRO */}
+              <div className="bg-white border-2 border-red-400 rounded-lg p-4">
+                <h5 className="font-bold text-lg mb-3">PASSO 1: Avaliar Idade</h5>
+
+                <div className="space-y-2">
+                  <label className="flex items-start space-x-3 p-3 border-2 border-orange-400 rounded-lg cursor-pointer hover:bg-orange-50">
+                    <input
+                      type="radio"
+                      name="idadeAltoRisco"
+                      value="maior40"
+                      checked={state.idadeAltoRisco === 'maior40'}
+                      onChange={() => setState(prev => ({ ...prev, idadeAltoRisco: 'maior40' }))}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium text-orange-900">≥40 anos</p>
+                      <p className="text-sm text-orange-700 mt-1">
+                        → <strong>TC OBRIGATÓRIA</strong>
+                      </p>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start space-x-3 p-3 border-2 border-red-400 rounded-lg cursor-pointer hover:bg-red-50">
+                    <input
+                      type="radio"
+                      name="idadeAltoRisco"
+                      value="menor40"
+                      checked={state.idadeAltoRisco === 'menor40'}
+                      onChange={() => setState(prev => ({ ...prev, idadeAltoRisco: 'menor40' }))}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium text-red-900">{'<'}40 anos</p>
+                      <p className="text-sm text-red-700 mt-1">
+                        → Avaliar critérios para TC ou cirurgia direta
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* SE ≥40 ANOS → TC OBRIGATÓRIA */}
+              {state.idadeAltoRisco === 'maior40' && (
+                <div className="bg-orange-100 border-4 border-orange-600 rounded-xl p-6">
+                  <h5 className="text-xl font-bold text-orange-900 mb-3">TC OBRIGATÓRIA</h5>
+                  <p className="text-orange-800 mb-3">
+                    Paciente ≥40 anos com alto risco de apendicite requer TC para excluir neoplasia.
+                  </p>
+                  <Button
+                    className="w-full bg-orange-600 hover:bg-orange-700"
+                    onClick={() => setState(prev => ({ ...prev, etapaAtual: 3 }))}
+                  >
+                    TC Realizada → Prosseguir para Exames de Imagem
+                  </Button>
+                </div>
+              )}
+
+              {/* SE <40 ANOS → AVALIAR CRITÉRIOS */}
+              {state.idadeAltoRisco === 'menor40' && (
+                <div className="bg-white border-2 border-red-400 rounded-lg p-4">
+                  <h5 className="font-bold text-lg mb-3">PASSO 2: Avaliar Necessidade de Imagem</h5>
+
+                  <p className="text-sm text-gray-700 mb-3">Marque se algum critério abaixo se aplica:</p>
+
+                  <div className="space-y-2 mb-4">
+                    <label className="flex items-center space-x-2">
+                      <Checkbox
+                        id="apresentacaoAtipica"
+                        checked={state.apresentacaoAtipica}
+                        onCheckedChange={(checked) =>
+                          setState(prev => ({ ...prev, apresentacaoAtipica: checked as boolean }))
+                        }
+                      />
+                      <Label htmlFor="apresentacaoAtipica" className="text-sm cursor-pointer">
+                        Apresentação atípica
+                      </Label>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <Checkbox
+                        id="incertezaDiagnostica"
+                        checked={state.incertezaDiagnostica}
+                        onCheckedChange={(checked) =>
+                          setState(prev => ({ ...prev, incertezaDiagnostica: checked as boolean }))
+                        }
+                      />
+                      <Label htmlFor="incertezaDiagnostica" className="text-sm cursor-pointer">
+                        Incerteza diagnóstica
+                      </Label>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <Checkbox
+                        id="suspeitaComplicacao"
+                        checked={state.suspeitaComplicacao}
+                        onCheckedChange={(checked) =>
+                          setState(prev => ({ ...prev, suspeitaComplicacao: checked as boolean }))
+                        }
+                      />
+                      <Label htmlFor="suspeitaComplicacao" className="text-sm cursor-pointer">
+                        Suspeita de complicação (abscesso, perfuração)
+                      </Label>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <Checkbox
+                        id="outrosSintomasAlarme"
+                        className="cursor-pointer"
+                      />
+                      <Label htmlFor="outrosSintomasAlarme" className="text-sm cursor-pointer">
+                        Outros sintomas de alarme
+                      </Label>
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="bg-blue-50 border-2 border-blue-400 rounded-lg p-4">
+                      <p className="font-semibold text-blue-900 mb-2">Se NENHUM critério marcado:</p>
+                      <p className="text-sm text-blue-800 mb-3">
+                        Pode prosseguir para <strong>CIRURGIA DIRETA</strong> (sem imagem)
+                      </p>
+                      <Button
+                        variant="outline"
+                        className="w-full border-blue-600"
+                        onClick={() => setState(prev => ({ ...prev, etapaAtual: 4 }))}
                       >
-                        <ArrowRight className="h-5 w-5 mr-2" />
-                        Prosseguir para Tratamento
+                        Cirurgia Direta
                       </Button>
-                    )}
+                    </div>
+
+                    <div className="bg-orange-50 border-2 border-orange-400 rounded-lg p-4">
+                      <p className="font-semibold text-orange-900 mb-2">Se QUALQUER critério marcado:</p>
+                      <p className="text-sm text-orange-800 mb-3">
+                        Solicitar <strong>TC</strong> antes da cirurgia
+                      </p>
+                      <Button
+                        variant="outline"
+                        className="w-full border-orange-600"
+                        onClick={() => setState(prev => ({ ...prev, etapaAtual: 3 }))}
+                      >
+                        Solicitar TC
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="bg-yellow-50 border border-yellow-400 rounded-lg p-3 mt-4">
+                    <p className="text-xs text-yellow-800">
+                      <strong>Nota:</strong> A escolha entre TC ou cirurgia direta depende da certeza diagnóstica,
+                      disponibilidade de TC e preferência do cirurgião.
+                    </p>
                   </div>
                 </div>
               )}
             </div>
-          </CardContent>
-        )}
+          )}
+
+          {/* MENSAGEM SE NENHUM SCORE CALCULADO */}
+          {!state.nivelRisco && (
+            <Alert className="border-gray-300 bg-gray-50">
+              <Info className="h-4 w-4 text-gray-600" />
+              <AlertDescription className="text-gray-700">
+                <strong>Complete os scores diagnósticos acima</strong> para visualizar o algoritmo de solicitação de exames
+                personalizado baseado no nível de risco do paciente.
+              </AlertDescription>
+            </Alert>
+          )}
+        </CardContent>
       </Card>
 
 
@@ -1937,7 +2259,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                       }}
                     />
                     <Label htmlFor="usgDiametroAumentado" className="text-sm cursor-pointer">
-                      Diâmetro &gt;6mm
+                      Diâmetro {'>'}6mm
                     </Label>
                   </div>
 
@@ -2142,7 +2464,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                       }}
                     />
                     <Label htmlFor="tcDilatacao" className="text-sm cursor-pointer">
-                      Dilatação &gt;6mm
+                      Dilatação {'>'}6mm
                     </Label>
                   </div>
 
@@ -2357,7 +2679,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                       }}
                     />
                     <Label htmlFor="rmDilatacao" className="text-sm cursor-pointer">
-                      Dilatação &gt;7mm
+                      Dilatação {'>'}7mm
                     </Label>
                   </div>
 
@@ -2594,8 +2916,8 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                       <ul className="list-disc list-inside mt-1 space-y-1">
                         <li>Sepse ou choque séptico</li>
                         <li>Peritonite difusa</li>
-                        <li>Hipotensão (PA sistólica &lt;90mmHg)</li>
-                        <li>Taquicardia persistente (&gt;120bpm)</li>
+                        <li>Hipotensão (PA sistólica {'<'}90mmHg)</li>
+                        <li>Taquicardia persistente ({'>'}120bpm)</li>
                         <li>Confusão mental / alteração do nível de consciência</li>
                       </ul>
                       <p className="mt-2 font-bold text-red-700">
@@ -2846,16 +3168,43 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                 </Alert>
 
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                  <h5 className="text-sm font-semibold text-blue-800 mb-3">ESQUEMA ANTIBIÓTICO</h5>
-                  <div className="space-y-2 text-xs text-gray-700">
-                    <p><strong>Primeira escolha (IV → VO):</strong></p>
-                    <p className="ml-4">• Ceftriaxona 1-2g IV 24/24h + Metronidazol 500mg IV 8/8h</p>
-                    <p className="ml-4">• Após melhora clínica (48-72h): Ciprofloxacino 500mg VO 12/12h + Metronidazol 500mg VO 8/8h</p>
-                    <p className="ml-4">• Duração total: 7-10 dias</p>
+                  <h5 className="text-sm font-semibold text-blue-800 mb-3">ESQUEMAS ANTIBIÓTICOS (escolha UM):</h5>
+                  <div className="space-y-3 text-xs text-gray-700">
+                    <div className="p-3 bg-white rounded border border-blue-200">
+                      <p className="font-bold text-blue-900 mb-2">OPÇÃO 1:</p>
+                      <p className="ml-2">• Ertapenem 1g IV 24/24h por 3 dias</p>
+                    </div>
 
-                    <p className="mt-3"><strong>Alternativa:</strong></p>
-                    <p className="ml-4">• Ertapenem 1g IV 24/24h por 3-5 dias</p>
-                    <p className="ml-4">• Seguido por Amoxicilina-Clavulanato 875mg VO 12/12h até completar 7-10 dias</p>
+                    <div className="p-3 bg-white rounded border border-blue-200">
+                      <p className="font-bold text-blue-900 mb-2">OPÇÃO 2:</p>
+                      <p className="ml-2">• Ceftriaxona 2g IV 24/24h + Metronidazol 500mg IV 8/8h por 3 dias</p>
+                    </div>
+
+                    <div className="p-3 bg-white rounded border border-blue-200">
+                      <p className="font-bold text-blue-900 mb-2">OPÇÃO 3:</p>
+                      <p className="ml-2">• Piperacilina-Tazobactam 4,5g IV 8/8h por 3 dias</p>
+                    </div>
+
+                    <div className="mt-3 p-3 bg-green-50 rounded border border-green-300">
+                      <p className="font-bold text-green-900 mb-2">Seguido de via oral:</p>
+                      <p className="ml-2">• Amoxicilina-Clavulanato 875/125mg VO 12/12h</p>
+                      <p className="ml-2">• OU Ciprofloxacino 500mg VO 12/12h + Metronidazol 500mg VO 8/8h</p>
+                      <p className="ml-2 mt-2 font-semibold">Duração total: 7-10 dias</p>
+                    </div>
+
+                    <Alert className="border-blue-300 bg-blue-100 mt-3">
+                      <Info className="h-4 w-4 text-blue-600" />
+                      <AlertDescription className="text-xs text-blue-800">
+                        <strong>💡 A escolha deve considerar:</strong>
+                        <ul className="list-disc list-inside mt-1 ml-2 space-y-1">
+                          <li>Gravidade do quadro clínico</li>
+                          <li>Perfil de resistência local</li>
+                          <li>Disponibilidade hospitalar</li>
+                          <li>Função renal do paciente</li>
+                          <li>Alergias</li>
+                        </ul>
+                      </AlertDescription>
+                    </Alert>
                   </div>
                 </div>
 
@@ -3025,7 +3374,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                             <Alert className="border-blue-300 bg-blue-50 border-2">
                               <Info className="h-5 w-5 text-blue-700" />
                               <AlertTitle className="text-sm text-blue-900">
-                                📋 ABSCESSO PEQUENO (&lt;3-4cm) → ANTIBIOTICOTERAPIA
+                                📋 ABSCESSO PEQUENO ({'<'}3-4cm) → ANTIBIOTICOTERAPIA
                               </AlertTitle>
                               <AlertDescription className="text-xs text-blue-800 mt-2">
                                 <strong>WSES Recomendação (Página 17-18):</strong> Weak recommendation, Low quality evidence.
@@ -3068,7 +3417,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                                 <ul className="list-disc list-inside mt-1 space-y-1">
                                   <li><strong>Drenagem percutânea</strong> guiada por TC ou Ultrassom</li>
                                   <li>+ Antibióticos IV de amplo espectro</li>
-                                  <li>Manter dreno até débito &lt;10-20 mL/dia</li>
+                                  <li>Manter dreno até débito {'<'}10-20 mL/dia</li>
                                   <li>Duração antibióticos: 7-14 dias total (IV → VO conforme melhora)</li>
                                 </ul>
 
@@ -3083,7 +3432,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
 
                                   <p className="font-bold text-purple-900 mt-3 mb-2">✅ CRITÉRIOS para RETIRAR o DRENO:</p>
                                   <ul className="list-disc list-inside space-y-1">
-                                    <li>Débito &lt;10-20 mL/24h por 24-48h consecutivas</li>
+                                    <li>Débito {'<'}10-20 mL/24h por 24-48h consecutivas</li>
                                     <li>Drenagem clara/serosa (não purulenta)</li>
                                     <li>Melhora clínica (afebril, sem dor)</li>
                                     <li>Leucócitos e PCR normalizando</li>
@@ -3271,32 +3620,72 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
 
           <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200 space-y-3">
             <div className="text-xs text-gray-800">
-              <p className="font-semibold mb-2">Regimes antibióticos de amplo espectro apropriados para apendicite complicada incluem:</p>
-              <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Piperacilina-Tazobactam 4,5g IV 6/6h ou 8/8h</li>
-                <li>Carbapenêmicos (meropenem 1g IV 8/8h, imipenem 500mg IV 6/6h, ertapenem 1g IV 24/24h)</li>
-                <li>Cefalosporinas + Metronidazol (ex: Ceftriaxona 2g IV 24/24h + Metronidazol 500mg IV 8/8h)</li>
-                <li>Fluoroquinolonas + Metronidazol (em áreas com baixa resistência: Ciprofloxacino 400mg IV 12/12h + Metronidazol 500mg IV 8/8h)</li>
-              </ul>
+              <p className="font-semibold mb-3">Esquemas de Amplo Espectro (escolha UM):</p>
 
-              <p className="font-semibold mt-3 mb-2">Duração do tratamento (WSES Página 20 - Weak/Moderate):</p>
-              <ul className="list-disc list-inside space-y-1 ml-2">
-                <li><strong>Pós-cirúrgico:</strong> 4-7 dias OU até resolução de sinais clínicos
-                  <ul className="list-circle list-inside ml-4 mt-1 text-gray-600">
-                    <li>Afebril por 24-48h</li>
-                    <li>Leucócitos normalizando</li>
-                    <li>Ausência de dor abdominal significativa</li>
-                    <li>Tolerando dieta oral</li>
+              <div className="space-y-2">
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 1: Piperacilina-Tazobactam 4,5g IV 6/6h ou 8/8h</p>
+                </div>
+
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 2: Meropenem 1g IV 8/8h</p>
+                </div>
+
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 3: Imipenem-Cilastatina 500mg IV 6/6h</p>
+                </div>
+
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 4: Ertapenem 1g IV 24/24h</p>
+                </div>
+
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 5: Ceftriaxona 2g IV 24/24h + Metronidazol 500mg IV 8/8h</p>
+                </div>
+
+                <div className="p-2 bg-white rounded border border-indigo-200">
+                  <p className="font-bold text-indigo-900">OPÇÃO 6: Ciprofloxacino 400mg IV 12/12h + Metronidazol 500mg IV 8/8h</p>
+                  <p className="text-gray-600 mt-1 ml-2 text-xs">(se baixa resistência local)</p>
+                </div>
+              </div>
+
+              <Alert className="border-indigo-300 bg-indigo-100 mt-3">
+                <Info className="h-4 w-4 text-indigo-600" />
+                <AlertDescription className="text-xs text-indigo-800">
+                  <strong>💡 A escolha deve considerar:</strong>
+                  <ul className="list-disc list-inside mt-1 ml-2 space-y-1">
+                    <li>Gravidade do quadro clínico</li>
+                    <li>Perfil de resistência local</li>
+                    <li>Disponibilidade hospitalar</li>
+                    <li>Função renal do paciente</li>
+                    <li>Alergias</li>
+                    <li>Experiência institucional</li>
                   </ul>
-                </li>
-                <li><strong>Tratamento conservador:</strong> 7-14 dias (IV → VO conforme melhora clínica)</li>
-              </ul>
+                </AlertDescription>
+              </Alert>
 
-              <p className="font-semibold mt-3 mb-2">Transição para via oral:</p>
-              <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Amoxicilina-Clavulanato 875/125mg VO 12/12h</li>
-                <li>OU Ciprofloxacino 500mg VO 12/12h + Metronidazol 500mg VO 8/8h</li>
-              </ul>
+              <div className="mt-4 p-3 bg-green-50 rounded border border-green-300">
+                <p className="font-semibold mb-2">Duração do tratamento (WSES Página 20 - Weak/Moderate):</p>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li><strong>Pós-cirúrgico:</strong> 4-7 dias OU até resolução de sinais clínicos
+                    <ul className="list-circle list-inside ml-4 mt-1 text-gray-600">
+                      <li>Afebril por 24-48h</li>
+                      <li>Leucócitos normalizando</li>
+                      <li>Ausência de dor abdominal significativa</li>
+                      <li>Tolerando dieta oral</li>
+                    </ul>
+                  </li>
+                  <li><strong>Tratamento conservador:</strong> 7-14 dias (IV → VO conforme melhora clínica)</li>
+                </ul>
+              </div>
+
+              <div className="mt-3 p-3 bg-blue-50 rounded border border-blue-300">
+                <p className="font-semibold mb-2">Transição para via oral:</p>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li>Amoxicilina-Clavulanato 875/125mg VO 12/12h</li>
+                  <li>OU Ciprofloxacino 500mg VO 12/12h + Metronidazol 500mg VO 8/8h</li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -3350,13 +3739,13 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                 <p className="font-bold mb-2">2ª consulta: 4-6 semanas</p>
                 <ul className="list-disc list-inside ml-2 space-y-1">
                   <li>Avaliar resolução completa</li>
-                  <li>Se &gt;40 anos: solicitar colonoscopia</li>
+                  <li>Se {'>'}40 anos: solicitar colonoscopia</li>
                   <li>Orientar sobre sinais de recorrência</li>
                 </ul>
               </div>
 
               <div className="p-3 bg-green-100 rounded border border-green-300">
-                <p className="font-bold mb-2">Colonoscopia: 6-8 semanas após alta (se &gt;40 anos)</p>
+                <p className="font-bold mb-2">Colonoscopia: 6-8 semanas após alta (se {'>'}40 anos)</p>
                 <ul className="list-disc list-inside ml-2 space-y-1">
                   <li>Excluir neoplasia colônica (risco 10-30%)</li>
                   <li>WSES: Strong recommendation / Moderate evidence</li>
@@ -3370,7 +3759,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
             <AlertTitle className="text-sm text-yellow-900">Sinais de alerta para retorno URGENTE:</AlertTitle>
             <AlertDescription className="text-xs text-yellow-800 mt-2">
               <ul className="list-disc list-inside space-y-1">
-                <li>Febre &gt;38°C persistente ou recorrente</li>
+                <li>Febre {'>'}38°C persistente ou recorrente</li>
                 <li>Dor abdominal intensa ou crescente</li>
                 <li>Distensão abdominal</li>
                 <li>Náuseas e vômitos persistentes</li>
@@ -3413,7 +3802,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
               <ul className="list-disc list-inside space-y-1 text-xs text-gray-800">
                 <li><strong>NÃO</strong> fazer apendicectomia de rotina ("interval appendectomy")</li>
                 <li>Follow-up clínico ambulatorial</li>
-                <li>Colonoscopia em pacientes &gt;40 anos</li>
+                <li>Colonoscopia em pacientes {'>'}40 anos</li>
                 <li>Expectante ("watchful waiting")</li>
               </ul>
             </div>
@@ -3433,7 +3822,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
                 </li>
                 <li><strong>Colonoscopia alterada:</strong> Lesão neoplásica identificada</li>
                 <li><strong>Preferência do paciente</strong> (após discussão dos riscos e benefícios)</li>
-                <li><strong>Idade &gt;40 anos + achados suspeitos</strong> (risco de neoplasia 10-30%)</li>
+                <li><strong>Idade {'>'}40 anos + achados suspeitos</strong> (risco de neoplasia 10-30%)</li>
               </ul>
               <p className="mt-2 font-bold text-orange-900 text-xs">
                 → Timing ideal: 6-12 semanas após resolução completa do quadro agudo
@@ -3459,7 +3848,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           <div className="flex items-center gap-3">
             <AlertTriangle className="h-5 w-5 text-pink-600" />
             <div>
-              <CardTitle className="text-md text-pink-800">4. Investigação de Neoplasia em Pacientes &gt;40 Anos</CardTitle>
+              <CardTitle className="text-md text-pink-800">4. Investigação de Neoplasia em Pacientes {'>'}40 Anos</CardTitle>
               <Badge className="bg-pink-600 text-xs mt-1">WSES: Strong/Moderate</Badge>
             </div>
           </div>
@@ -3480,7 +3869,7 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           <div className="bg-pink-50 rounded-lg p-4 border border-pink-200">
             <h5 className="text-sm font-semibold text-pink-800 mb-3">Justificativa:</h5>
             <ul className="list-disc list-inside space-y-2 text-xs text-gray-800">
-              <li>Risco de neoplasia colorretal em &gt;40 anos: <strong>10-30%</strong></li>
+              <li>Risco de neoplasia colorretal em {'>'}40 anos: <strong>10-30%</strong></li>
               <li>Apendicite complicada pode ser manifestação inicial de câncer de ceco</li>
               <li>Abscesso periapendicular aumenta suspeita de tumor subjacente</li>
             </ul>
