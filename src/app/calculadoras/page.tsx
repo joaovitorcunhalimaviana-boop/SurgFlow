@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Layout from '@/components/layout/Layout'
 import PremiumFeatureWrapper from '@/components/features/PremiumFeatureWrapper'
@@ -9,10 +10,10 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { 
-  Calculator, 
-  Heart, 
-  Activity, 
+import {
+  Calculator,
+  Heart,
+  Activity,
   Stethoscope,
   AlertTriangle,
   TrendingUp,
@@ -49,8 +50,26 @@ export default function CalculadorasPage() {
       color: 'green'
     },
     {
+      id: 'aas',
+      name: 'AAS - Adult Appendicitis Score',
+      description: 'Score de apendicite para adultos com dados laboratoriais',
+      category: 'Cirurgia Geral',
+      icon: Calculator,
+      requiredPlan: null, // Gratuita
+      color: 'green'
+    },
+    {
+      id: 'air',
+      name: 'AIR - Appendicitis Inflammatory Response',
+      description: 'Score de resposta inflamatória na apendicite',
+      category: 'Cirurgia Geral',
+      icon: Calculator,
+      requiredPlan: null, // Gratuita
+      color: 'green'
+    },
+    {
       id: 'tokyo-criteria',
-      name: 'Critérios de Tóquio',
+      name: 'Critérios de Tokyo',
       description: 'Diagnóstico e gravidade da colecistite aguda',
       category: 'Cirurgia Geral',
       icon: Stethoscope,
@@ -182,14 +201,15 @@ export default function CalculadorasPage() {
             <Badge variant="outline" className="text-xs">
               {calc.category}
             </Badge>
-            <Button 
-              size="sm" 
-              className="text-xs"
-              onClick={() => router.push(`/calculadoras/${calc.id}`)}
-            >
-              Calcular
-              <ArrowRight className="h-3 w-3 ml-1" />
-            </Button>
+            <Link href={`/calculadoras/${calc.id}`}>
+              <Button
+                size="sm"
+                className="text-xs"
+              >
+                Calcular
+                <ArrowRight className="h-3 w-3 ml-1" />
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
@@ -323,7 +343,7 @@ export default function CalculadorasPage() {
             <h3 className="text-2xl font-bold mb-4">
               Precisa de mais calculadoras?
             </h3>
-            <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
+            <p className="text-white mb-6 max-w-2xl mx-auto">
               Upgrade para o GuideFlow ou MindFlow e tenha acesso a todas as calculadoras médicas e scores clínicos
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

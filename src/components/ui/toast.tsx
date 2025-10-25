@@ -1,6 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 
 type ToastType = 'success' | 'error' | 'info' | 'warning'
@@ -91,13 +92,13 @@ interface ToastContainerProps {
 }
 
 const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onRemove }) => {
-  if (toasts.length === 0) return null
-
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm w-full">
-      {toasts.map(toast => (
-        <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
-      ))}
+    <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm w-full pointer-events-none">
+      <AnimatePresence mode="popLayout">
+        {toasts.map(toast => (
+          <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
@@ -135,28 +136,68 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onRemove }) => {
   }
 
   return (
-    <div className={`${getStyles()} border rounded-lg p-4 animate-in slide-in-from-right duration-300`}>
+    <motion.div
+      layout
+      initial={{ opacity: 0, x: 350, scale: 0.3 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{
+        opacity: 0,
+        x: 350,
+        scale: 0.5,
+        transition: { duration: 0.2 }
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 40
+      }}
+      className={`${getStyles()} border rounded-lg p-4 pointer-events-auto`}
+      whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(0,0,0,0.15)" }}
+    >
       <div className="flex items-start">
-        <div className="flex-shrink-0">
+        <motion.div
+          className="flex-shrink-0"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 25,
+            delay: 0.1
+          }}
+        >
           {getIcon()}
-        </div>
+        </motion.div>
         <div className="ml-3 flex-1">
-          <p className="text-sm font-medium text-gray-900">
+          <motion.p
+            className="text-sm font-medium text-gray-900"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+          >
             {toast.title}
-          </p>
+          </motion.p>
           {toast.message && (
-            <p className="mt-1 text-sm text-gray-600">
+            <motion.p
+              className="mt-1 text-sm text-gray-600"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               {toast.message}
-            </p>
+            </motion.p>
           )}
         </div>
-        <button
+        <motion.button
           onClick={() => onRemove(toast.id)}
           className="ml-4 flex-shrink-0 rounded-md p-1.5 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          whileHover={{ scale: 1.1, rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 400 }}
         >
           <X className="h-4 w-4 text-gray-400" />
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   )
 }

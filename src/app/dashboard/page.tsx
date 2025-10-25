@@ -96,7 +96,7 @@ export default function DashboardPage() {
     const baseFeatures = [
       { name: 'Colecistite Tokyo 2018', type: 'guideline', available: true },
       { name: 'Escore de Alvarado', type: 'calculator', available: true },
-      { name: 'Critérios de Tóquio', type: 'calculator', available: true }
+      { name: 'Critérios de Tokyo', type: 'calculator', available: true }
     ];
 
     const guideflowFeatures = [

@@ -7,7 +7,9 @@
       "Bash(timeout:*)",
       "Bash(npx tsc:*)",
       "Bash(python:*)",
-      "Read(//c/Users/joaov/Downloads/**)"
+      "Read(//c/Users/joaov/Downloads/**)",
+      "WebFetch(domain:prescricaobaseadaemevidencias.cirurgiando.com.br)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

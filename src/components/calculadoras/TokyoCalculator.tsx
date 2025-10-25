@@ -120,7 +120,7 @@ export default function TokyoCalculator() {
       <div className="mb-8">
         <div className="flex items-center mb-4">
           <Stethoscope className="h-8 w-8 text-blue-600 mr-3" />
-          <h1 className="text-3xl font-bold text-gray-900">Critérios de Tóquio 2018</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Critérios de Tokyo 2018</h1>
         </div>
         <p className="text-gray-600">
           Diretrizes para diagnóstico e manejo da colecistite aguda

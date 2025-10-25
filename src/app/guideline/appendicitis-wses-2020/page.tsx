@@ -1,15 +1,16 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import Link from 'next/link'
 import Breadcrumb from '@/components/ui/breadcrumb'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import GuideFlowApendicite from '@/components/guidelines/GuideFlowApendicite'
-import { 
-  Stethoscope, 
-  AlertTriangle, 
-  CheckCircle, 
+import {
+  Stethoscope,
+  AlertTriangle,
+  CheckCircle,
   Clock,
   ArrowRight,
   FileText,
@@ -23,24 +24,51 @@ import { GuideFlowAppendicitisState, defaultAppendicitisState } from '@/types/gu
 
 export default function AppendicitisWSESPage() {
   const [guideFlowState, setGuideFlowState] = useState<GuideFlowAppendicitisState>(defaultAppendicitisState);
+  const [showGuideFlow, setShowGuideFlow] = useState(false);
+
+  // Refs para navegação interna
+  const guideFlowRef = useRef<HTMLDivElement>(null);
+  const scoresRef = useRef<HTMLDivElement>(null);
+
+  // Função para mostrar e scrollar para GuideFlow
+  const openGuideFlow = () => {
+    setShowGuideFlow(true);
+    // Aguardar renderização antes de fazer scroll
+    setTimeout(() => {
+      guideFlowRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }, 100);
+  };
+
+  // Função de scroll suave para seções já visíveis
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}
-        <Breadcrumb 
+        <Breadcrumb
           items={[
             { label: 'Guidelines', href: '/guidelines' },
             { label: 'Apendicite Aguda', current: true }
           ]}
-          className="mb-8"
+          className="mb-8 animate-fade-in"
         />
 
         {/* Header Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-red-100 p-8 mb-8">
+        <div className="bg-white rounded-xl shadow-sm border border-red-100 p-8 mb-8 animate-fade-in-up animation-delay-100">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center">
-              <div className="bg-red-100 p-3 rounded-xl mr-4">
+              <div className="bg-red-100 p-3 rounded-xl mr-4 icon-pulse">
                 <Stethoscope className="h-8 w-8 text-red-600" />
               </div>
               <div>
@@ -80,12 +108,15 @@ export default function AppendicitisWSESPage() {
           </div>
         </div>
 
-        {/* GuideFlow Interativo */}
-        <div className="mb-8">
-          <Card className="border-red-200 bg-gradient-to-r from-red-50 to-orange-50">
+        {/* GuideFlow Interativo - Card clicável */}
+        <div className="mb-8 animate-fade-in-up animation-delay-200">
+          <Card
+            className="border-red-200 bg-gradient-to-r from-red-50 to-orange-50 cursor-pointer transition-all hover:shadow-lg"
+            onClick={openGuideFlow}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-2xl">
-                <div className="bg-red-600 p-2 rounded-lg mr-3">
+                <div className="bg-red-600 p-2 rounded-lg mr-3 icon-scale-hover">
                   <Play className="h-6 w-6 text-white" />
                 </div>
                 GuideFlow Interativo - Apendicite Aguda
@@ -98,23 +129,27 @@ export default function AppendicitisWSESPage() {
           </Card>
         </div>
 
-        {/* Componente GuideFlow */}
-        <GuideFlowApendicite 
-          state={guideFlowState}
-          setState={setGuideFlowState}
-        />
+        {/* Componente GuideFlow - Mostrado condicionalmente */}
+        {showGuideFlow && (
+          <div ref={guideFlowRef} className="scroll-mt-8 mb-8 animate-fade-in-up">
+            <GuideFlowApendicite
+              state={guideFlowState}
+              setState={setGuideFlowState}
+            />
+          </div>
+        )}
 
         {/* Seção de Referência Rápida */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div ref={scoresRef} className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 scroll-mt-8">
           {/* Resumo dos Scores */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="border-red-200">
+            <Card className="border-red-200 animate-slide-in-left">
               <CardHeader className="bg-red-50">
                 <CardTitle className="text-xl">Scores Diagnósticos</CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
                     <h4 className="font-semibold text-blue-900 mb-3 flex items-center">
                       <Calculator className="h-5 w-5 mr-2" />
                       Score de Alvarado
@@ -125,8 +160,8 @@ export default function AppendicitisWSESPage() {
                       <li>• 7-10 pontos: Alta probabilidade</li>
                     </ul>
                   </div>
-                  
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-left">
                     <h4 className="font-semibold text-green-900 mb-3 flex items-center">
                       <Calculator className="h-5 w-5 mr-2" />
                       Score AIR
@@ -138,7 +173,7 @@ export default function AppendicitisWSESPage() {
                     </ul>
                   </div>
 
-                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-left">
                     <h4 className="font-semibold text-purple-900 mb-3 flex items-center">
                       <Calculator className="h-5 w-5 mr-2" />
                       Score AAS
@@ -163,10 +198,10 @@ export default function AppendicitisWSESPage() {
           {/* Sidebar com Informações Adicionais */}
           <div className="space-y-6">
             {/* Pontos Importantes */}
-            <Card className="border-yellow-200 bg-yellow-50">
+            <Card className="border-yellow-200 bg-yellow-50 animate-slide-in-right animation-delay-100">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center text-yellow-800">
-                  <AlertTriangle className="h-5 w-5 mr-2" />
+                  <AlertTriangle className="h-5 w-5 mr-2 icon-bounce" />
                   Pontos Importantes
                 </CardTitle>
               </CardHeader>
@@ -182,25 +217,29 @@ export default function AppendicitisWSESPage() {
             </Card>
 
             {/* Guidelines Relacionados */}
-            <Card className="border-red-200">
+            <Card className="border-red-200 animate-slide-in-right animation-delay-200">
               <CardHeader>
                 <CardTitle className="text-lg">Guidelines Relacionados</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button variant="ghost" className="w-full justify-start text-left">
-                  <Stethoscope className="h-4 w-4 mr-2" />
-                  <div>
-                    <div className="font-medium">Colecistite</div>
-                    <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
-                  </div>
-                </Button>
-                <Button variant="ghost" className="w-full justify-start text-left">
-                  <Stethoscope className="h-4 w-4 mr-2" />
-                  <div>
-                    <div className="font-medium">Diverticulite</div>
-                    <div className="text-xs text-gray-500">WSES 2016</div>
-                  </div>
-                </Button>
+                <Link href="/calculadoras" className="block">
+                  <Button variant="ghost" className="w-full justify-start text-left hover-lift">
+                    <Stethoscope className="h-4 w-4 mr-2 icon-scale-hover" />
+                    <div>
+                      <div className="font-medium">Colecistite</div>
+                      <div className="text-xs text-gray-500">Tokyo Guidelines 2018</div>
+                    </div>
+                  </Button>
+                </Link>
+                <Link href="/calculadoras" className="block">
+                  <Button variant="ghost" className="w-full justify-start text-left hover-lift">
+                    <Stethoscope className="h-4 w-4 mr-2 icon-scale-hover" />
+                    <div>
+                      <div className="font-medium">Diverticulite</div>
+                      <div className="text-xs text-gray-500">WSES 2016</div>
+                    </div>
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>

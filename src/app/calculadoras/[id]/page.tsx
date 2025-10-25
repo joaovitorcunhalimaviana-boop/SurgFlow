@@ -4,6 +4,8 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 import Layout from '@/components/layout/Layout'
 import AlvaradoCalculator from '@/components/calculadoras/AlvaradoCalculator'
+import AASCalculator from '@/components/calculadoras/AASCalculator'
+import AIRCalculator from '@/components/calculadoras/AIRCalculator'
 import TokyoCalculator from '@/components/calculadoras/TokyoCalculator'
 import ApacheIICalculator from '@/components/calculadoras/ApacheIICalculator'
 import RansonCalculator from '@/components/calculadoras/RansonCalculator'
@@ -17,6 +19,8 @@ import { useRouter } from 'next/navigation'
 
 const calculatorComponents: { [key: string]: React.ComponentType } = {
   'alvarado': AlvaradoCalculator,
+  'aas': AASCalculator,
+  'air': AIRCalculator,
   'tokyo-criteria': TokyoCalculator,
   'apache-ii': ApacheIICalculator,
   'ranson': RansonCalculator,
@@ -26,7 +30,9 @@ const calculatorComponents: { [key: string]: React.ComponentType } = {
 
 const calculatorInfo: { [key: string]: { name: string; requiredPlan: 'guideflow' | 'mindflow' | null } } = {
   'alvarado': { name: 'Escore de Alvarado', requiredPlan: null },
-  'tokyo-criteria': { name: 'Critérios de Tóquio', requiredPlan: null },
+  'aas': { name: 'AAS - Adult Appendicitis Score', requiredPlan: null },
+  'air': { name: 'AIR - Appendicitis Inflammatory Response', requiredPlan: null },
+  'tokyo-criteria': { name: 'Critérios de Tokyo', requiredPlan: null },
   'apache-ii': { name: 'APACHE II', requiredPlan: 'guideflow' },
   'ranson': { name: 'Critérios de Ranson', requiredPlan: 'guideflow' },
   'asa-score': { name: 'Classificação ASA', requiredPlan: 'guideflow' },
