@@ -5,6 +5,8 @@ import Layout from '@/components/layout/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import IntelligentSearch from '@/components/search/IntelligentSearch'
+import { SearchDataItem } from '@/data/searchData'
 import { 
   BookOpen, 
   Download, 
@@ -31,6 +33,15 @@ interface Guideline {
 export default function BibliotecaPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Todas')
+  const [intelligentSearchActive, setIntelligentSearchActive] = useState(false)
+
+  // Função para lidar com seleção de resultado da busca inteligente
+  const handleIntelligentSearchResult = (result: SearchDataItem) => {
+    setSearchTerm(result.guideline)
+    setIntelligentSearchActive(false)
+    // Aqui você pode adicionar lógica para navegar para o guideline específico
+    console.log('Guideline selecionado:', result)
+  }
 
   const guidelines: Guideline[] = [
     {
@@ -207,16 +218,47 @@ export default function BibliotecaPage() {
       <section className="py-4 bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Buscar guidelines..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
+            {/* Busca Inteligente */}
+            <div className="flex-1 max-w-2xl">
+              <div className="flex gap-2 mb-2">
+                <Button
+                  variant={intelligentSearchActive ? "secondary" : "outline"}
+                  size="sm"
+                  onClick={() => setIntelligentSearchActive(!intelligentSearchActive)}
+                  className={intelligentSearchActive ? "bg-purple-600 hover:bg-purple-700 text-white" : ""}
+                >
+                  <Search className="h-4 w-4 mr-2" />
+                  Busca Inteligente
+                </Button>
+                <Button
+                  variant={!intelligentSearchActive ? "secondary" : "outline"}
+                  size="sm"
+                  onClick={() => setIntelligentSearchActive(false)}
+                  className={!intelligentSearchActive ? "bg-gray-600 hover:bg-gray-700 text-white" : ""}
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  Busca Simples
+                </Button>
+              </div>
+              
+              {intelligentSearchActive ? (
+                <IntelligentSearch
+                  onResultSelect={handleIntelligentSearchResult}
+                  placeholder="Buscar por sintomas (ex: dor abdominal), keywords (ex: murphy) ou guidelines..."
+                  className="w-full"
+                />
+              ) : (
+                <div className="relative">
+                  <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Buscar guidelines..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Category Filter */}
@@ -234,6 +276,16 @@ export default function BibliotecaPage() {
               ))}
             </div>
           </div>
+          
+          {/* Dica de uso da busca inteligente */}
+          {intelligentSearchActive && (
+            <div className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+              <p className="text-sm text-purple-800">
+                <strong>💡 Dica:</strong> Use a busca inteligente para encontrar guidelines por sintomas 
+                (ex: "dor abdominal", "febre") ou keywords médicas (ex: "murphy", "blumberg", "tokyo").
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

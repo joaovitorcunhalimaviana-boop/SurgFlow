@@ -3599,6 +3599,8 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
       </Card>
 
       {/* CARD 1: ANTIBIOTICOTERAPIA PARA APENDICITE COMPLICADA */}
+      {/* Só mostra se for apendicite COMPLICADA */}
+      {state.classificacao === 'complicada' && (
       <Card className="border-indigo-200">
         <CardHeader className="bg-indigo-50">
           <div className="flex items-center gap-3">
@@ -3703,8 +3705,10 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           </div>
         </CardContent>
       </Card>
+      )}
 
       {/* CARD 2: ACOMPANHAMENTO AMBULATORIAL */}
+      {/* Mostra para todos, mas será ajustado conforme o tipo de tratamento */}
       <Card className="border-green-200">
         <CardHeader className="bg-green-50">
           <div className="flex items-center gap-3">
@@ -3771,6 +3775,8 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
       </Card>
 
       {/* CARD 3: INTERVAL APPENDECTOMY */}
+      {/* Só mostra se for apendicite COMPLICADA com abscesso ou fleimão */}
+      {state.classificacao === 'complicada' && (state.abscessoPeriapendicular || state.fleimaoPeriapendicular) && (
       <Card className="border-yellow-200">
         <CardHeader className="bg-yellow-50">
           <div className="flex items-center gap-3">
@@ -3841,8 +3847,11 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           </div>
         </CardContent>
       </Card>
+      )}
 
       {/* CARD 4: INVESTIGAÇÃO DE NEOPLASIA >40 ANOS */}
+      {/* Só mostra se for apendicite COMPLICADA com abscesso ou fleimão */}
+      {state.classificacao === 'complicada' && (state.abscessoPeriapendicular || state.fleimaoPeriapendicular) && (
       <Card className="border-pink-200">
         <CardHeader className="bg-pink-50">
           <div className="flex items-center gap-3">
@@ -3883,14 +3892,40 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           </div>
         </CardContent>
       </Card>
+      )}
     </div>
   )
 
   // ========================================
   // COMPONENTE: ETAPA 8 - PARTICULARIDADES CIRÚRGICAS
   // ========================================
-  const renderEtapa8 = () => (
+  const renderEtapa8 = () => {
+    // Verifica se houve indicação cirúrgica (não é tratamento conservador puro)
+    const isCirurgico = !state.tratamentoConservador || state.cirurgiaIndicada || state.tratamentoCirurgico
+
+    return (
     <div className="space-y-6">
+      {!isCirurgico && (
+        <Card className="border-blue-200">
+          <CardHeader className="bg-blue-50">
+            <div className="flex items-center gap-3">
+              <Info className="h-5 w-5 text-blue-600" />
+              <CardTitle className="text-lg text-blue-800">Particularidades Cirúrgicas</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <Alert className="border-blue-200 bg-blue-50">
+              <Info className="h-4 w-4 text-blue-600" />
+              <AlertDescription className="text-sm text-blue-800">
+                Esta seção contém detalhes técnicos cirúrgicos que não se aplicam ao tratamento conservador selecionado.
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        </Card>
+      )}
+
+      {isCirurgico && (
+      <>
       <Card className="border-teal-200">
         <CardHeader className="bg-teal-50">
           <div className="flex items-center gap-3">
@@ -4050,6 +4085,8 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
       </Card>
 
       {/* CARD 5: ANTIBIOTICOTERAPIA PERIOPERATÓRIA */}
+      {/* Mostra principalmente para apendicite NÃO COMPLICADA */}
+      {state.classificacao === 'naoComplicada' && (
       <Card className="border-green-200">
         <CardHeader className="bg-green-50">
           <div className="flex items-center gap-3">
@@ -4102,8 +4139,10 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           </Alert>
         </CardContent>
       </Card>
+      )}
 
       {/* CARD 6: CLASSIFICAÇÃO DE GOMES */}
+      {/* Referência útil para todos os casos cirúrgicos */}
       <Card className="border-blue-200">
         <CardHeader className="bg-blue-50">
           <div className="flex items-center gap-3">
@@ -4167,8 +4206,11 @@ const GuideFlowApendicite: React.FC<GuideFlowApendiciteProps> = ({ state, setSta
           </Alert>
         </CardContent>
       </Card>
+      </>
+      )}
     </div>
-  )
+    )
+  }
 
   return (
     <div className="space-y-6">

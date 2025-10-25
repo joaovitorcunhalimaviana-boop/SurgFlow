@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Layout from '@/components/layout/Layout'
 import { Button } from '@/components/ui/button'
-import { Check, Star, Crown, Zap, Users, BookOpen, Calculator, Shield, Award, MessageCircle, UserCheck, TrendingUp, ChevronDown, ChevronUp, Info } from 'lucide-react'
+import { Check, Star, Crown, Zap, Users, BookOpen, Calculator, Shield, Award, MessageCircle, UserCheck, TrendingUp, ChevronDown, ChevronUp, Info, CreditCard, FileText, Smartphone, Video, GraduationCap, Network } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function PlanosPage() {
@@ -13,15 +13,15 @@ export default function PlanosPage() {
 
   const plans = [
     {
-      id: 'teste',
-      name: 'Teste',
-      description: 'Perfeito para conhecer a plataforma',
+      id: 'startflow',
+      name: 'StartFlow',
+      description: 'Ideal para começar sua jornada no SurgFlow',
       price: { monthly: 0, annual: 0 },
       color: 'gray',
       features: [
-        'Acesso limitado a conteúdos básicos',
-        'Visualização de alguns guideflows',
-        'Acesso a calculadoras básicas'
+        '1 GuideFlow completo',
+        '3 calculadoras médicas',
+        'Acesso ilimitado ao conteúdo disponível'
       ],
       cta: 'Começar Gratuitamente',
       badge: null
@@ -29,34 +29,37 @@ export default function PlanosPage() {
     {
       id: 'guideflow',
       name: 'GuideFlow',
-      description: 'Acesso aos guideflows, calculadoras e scores',
-      price: { monthly: 49, annual: 490 },
+      description: 'Acesso completo a todos os recursos essenciais',
+      price: { monthly: 49.90, annual: 499 },
       color: 'purple',
       features: [
-        'Acesso completo a todos os guideflows',
+        'Todos os GuideFlows disponíveis',
         'Todas as calculadoras médicas',
-        'Atualizações constantes',
-        'Acesso via mobile e desktop'
+        'Casos clínicos interativos',
+        'Newsletter semanal especializada',
+        'Suporte prioritário'
       ],
       cta: 'Assinar GuideFlow',
-      badge: 'Mais Barato'
+      badge: null
     },
     {
       id: 'mindflow',
       name: 'MindFlow',
-      description: 'Experiência completa - combo completo',
-      price: { monthly: 179, annual: 1790 },
+      description: 'A experiência premium completa para sua evolução',
+      price: { monthly: 297, annual: 2970 },
       color: 'yellow',
       features: [
         'Tudo do GuideFlow +',
-        'Acesso ao grupo VIP WhatsApp "SurgFlow"',
-        'Discussões de casos clínicos',
-        'Network com subespecialistas',
-        'Oportunidades de pesquisa',
+        'Acesso ao grupo VIP WhatsApp exclusivo',
+        'Aulas ao vivo com especialistas',
+        'Orientação científica personalizada',
+        'Network premium com subespecialistas',
+        'Discussões de casos clínicos avançados',
+        'Oportunidades de pesquisa e publicação',
         'Acesso antecipado a novos recursos'
       ],
       cta: 'Assinar MindFlow',
-      badge: 'Mais Completo'
+      badge: 'RECOMENDADO'
     }
   ]
 
@@ -76,6 +79,22 @@ export default function PlanosPage() {
     {
       question: 'Como funciona o grupo VIP do MindFlow?',
       answer: 'É um grupo exclusivo no WhatsApp com cirurgiões especialistas, onde você pode tirar dúvidas, discutir casos e fazer network profissional.'
+    },
+    {
+      question: 'Qual a diferença entre StartFlow, GuideFlow e MindFlow?',
+      answer: 'StartFlow é gratuito com acesso limitado. GuideFlow oferece acesso completo aos recursos essenciais. MindFlow inclui tudo do GuideFlow mais recursos premium como grupo VIP, aulas ao vivo e orientação científica.'
+    },
+    {
+      question: 'O MindFlow realmente vale o investimento?',
+      answer: 'Sim! O MindFlow oferece acesso direto a especialistas, networking premium, orientação científica e oportunidades de pesquisa que podem acelerar significativamente sua carreira médica.'
+    },
+    {
+      question: 'Posso fazer upgrade do meu plano a qualquer momento?',
+      answer: 'Sim! Você pode fazer upgrade do seu plano a qualquer momento. O valor será ajustado proporcionalmente ao período restante da sua assinatura atual.'
+    },
+    {
+      question: 'Como funciona o acesso offline?',
+      answer: 'No GuideFlow e MindFlow, você pode baixar PDFs dos conteúdos para estudar offline, garantindo acesso mesmo sem internet.'
     }
   ]
 
@@ -84,19 +103,19 @@ export default function PlanosPage() {
       case 'purple':
         return 'bg-purple-600 text-white'
       case 'yellow':
-        return 'bg-yellow-500 text-white'
+        return 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-white shadow-lg'
       default:
         return 'bg-gray-600 text-white'
     }
   }
 
   const getButtonStyle = (plan: any) => {
-    if (plan.id === 'teste') {
+    if (plan.id === 'startflow') {
       return 'bg-gray-600 hover:bg-gray-700 text-white'
     } else if (plan.color === 'purple') {
       return 'bg-purple-600 hover:bg-purple-700 text-white'
     } else if (plan.color === 'yellow') {
-      return 'bg-yellow-500 hover:bg-yellow-600 text-white'
+      return 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white shadow-lg'
     }
     return 'bg-gray-600 hover:bg-gray-700 text-white'
   }
@@ -144,7 +163,7 @@ export default function PlanosPage() {
                     Economize 17%
                   </span>
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                    Pagando anualmente, você economiza R$ {((49 * 12) - 490).toFixed(0)} por ano no GuideFlow e R$ {((179 * 12) - 1790).toFixed(0)} por ano no MindFlow
+                    Pagando anualmente, você economiza R$ {((49.90 * 12) - 499).toFixed(0)} por ano no GuideFlow e R$ {((297 * 12) - 2970).toFixed(0)} por ano no MindFlow
                   </div>
                 </div>
               )}
@@ -160,8 +179,8 @@ export default function PlanosPage() {
                 <div
                   key={plan.id}
                   className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl flex flex-col ${
-                    plan.badge === 'Mais Completo' ? 'border-yellow-300 scale-105' : 
-                    plan.badge === 'Mais Barato' ? 'border-purple-300 scale-105' : 'border-gray-200'
+                    plan.badge === 'RECOMENDADO' ? 'border-yellow-400 scale-105 shadow-2xl ring-2 ring-yellow-200' : 
+                    plan.color === 'purple' ? 'border-purple-300' : 'border-gray-200'
                   }`}
                 >
                   {plan.badge && (
@@ -181,7 +200,10 @@ export default function PlanosPage() {
                       {/* Price */}
                       <div className="mb-6">
                         <span className="text-4xl font-bold text-gray-900">
-                          R$ {isAnnual ? plan.price.annual : plan.price.monthly}
+                          {plan.id === 'guideflow' && !isAnnual ? 
+                            'R$ quarenta e nove vírgula noventa' : 
+                            `R$ ${isAnnual ? plan.price.annual : plan.price.monthly}`
+                          }
                         </span>
                         <span className="text-gray-600">
                           {plan.price.monthly === 0 ? '' : isAnnual ? '/ano' : '/mês'}
@@ -212,7 +234,7 @@ export default function PlanosPage() {
                         className={`w-full py-3 font-semibold ${getButtonStyle(plan)}`}
                         size="lg"
                         onClick={() => {
-                          if (plan.id === 'teste') {
+                          if (plan.id === 'startflow') {
                             router.push('/cadastro')
                           } else {
                             // Redirect to login with plan parameter for checkout
@@ -244,25 +266,25 @@ export default function PlanosPage() {
             <div className="bg-white p-6 rounded-xl shadow-md">
               <MessageCircle className="w-8 h-8 text-yellow-600 mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Acesso a subespecialistas na palma da mão</h3>
-              <p className="text-gray-600 text-sm">Tire dúvidas diretamente com cirurgiões especialistas</p>
+              <p className="text-gray-600 text-sm">Tire dúvidas diretamente com cirurgiões especialistas no grupo VIP WhatsApp</p>
             </div>
             
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <Users className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Network que impulsiona sua carreira</h3>
-              <p className="text-gray-600 text-sm">Conecte-se com profissionais de referência</p>
+              <Video className="w-8 h-8 text-yellow-600 mb-3" />
+              <h3 className="font-semibold text-gray-900 mb-2">Aulas ao vivo exclusivas</h3>
+              <p className="text-gray-600 text-sm">Participe de aulas ao vivo com especialistas renomados</p>
             </div>
             
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <BookOpen className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Discussões de casos clínicos</h3>
-              <p className="text-gray-600 text-sm">Discuta casos clínicos e tenha discussões aprofundadas com especialistas e subespecialistas</p>
+              <GraduationCap className="w-8 h-8 text-yellow-600 mb-3" />
+              <h3 className="font-semibold text-gray-900 mb-2">Orientação científica personalizada</h3>
+              <p className="text-gray-600 text-sm">Receba orientação para pesquisas e publicações científicas</p>
             </div>
             
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <TrendingUp className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Oportunidades de pesquisa</h3>
-              <p className="text-gray-600 text-sm">Acesso a projetos e orientação científica</p>
+              <Network className="w-8 h-8 text-yellow-600 mb-3" />
+              <h3 className="font-semibold text-gray-900 mb-2">Network premium que acelera sua carreira</h3>
+              <p className="text-gray-600 text-sm">Conecte-se com profissionais de referência e oportunidades exclusivas</p>
             </div>
           </div>
         </div>
